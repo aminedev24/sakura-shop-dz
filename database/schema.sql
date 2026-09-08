@@ -39,6 +39,7 @@ CREATE TABLE orders (
   customer_name     VARCHAR(120) NOT NULL,
   customer_phone    VARCHAR(30)  NOT NULL,
   wilaya_name       VARCHAR(60)  NOT NULL,
+  daira_name        VARCHAR(60)  NOT NULL DEFAULT '',
   delivery_type     ENUM('bureau','domicile') NOT NULL DEFAULT 'bureau',
   delivery_address  VARCHAR(255) DEFAULT NULL,
   delivery_fee      INT NOT NULL DEFAULT 0,

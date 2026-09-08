@@ -1,0 +1,26 @@
+{
+  "name": "sakura-shop",
+  "version": "1.0.0",
+  "description": "Storefront + login system + admin panel, running on PHP + MySQL (XAMPP).",
+  "main": "index.js",
+  "scripts": {
+    "build:css": "tailwindcss -i ./styles/tailwind.css -o ./assets/tailwind.css --minify",
+    "watch:css": "tailwindcss -i ./styles/tailwind.css -o ./assets/tailwind.css --watch",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/aminedev24/sakura-shop-dz.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/aminedev24/sakura-shop-dz/issues"
+  },
+  "homepage": "https://github.com/aminedev24/sakura-shop-dz#readme",
+  "devDependencies": {
+    "@tailwindcss/cli": "^4.3.3",
+    "tailwindcss": "^4.3.3"
+  }
+}

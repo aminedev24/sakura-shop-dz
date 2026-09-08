@@ -22,20 +22,20 @@ require __DIR__ . '/includes/header.php';
 <?php if (!$customers): ?>
   <div class="panel"><p class="sub">Aucun client inscrit pour le moment.</p></div>
 <?php else: ?>
-  <table>
+  <div class="overflow-x-auto"><table>
     <thead><tr><th>Nom</th><th>Email</th><th>Téléphone</th><th>Commandes</th><th>Total dépensé</th><th>Inscrit le</th></tr></thead>
     <tbody>
     <?php foreach ($customers as $c): ?>
       <tr>
-        <td><?= h($c['name']) ?></td>
-        <td><?= h($c['email']) ?></td>
-        <td><?= h($c['phone'] ?? '—') ?></td>
-        <td><?= (int)$c['order_count'] ?></td>
-        <td><?= fmt_da_admin($c['total_spent']) ?></td>
-        <td><?= h($c['created_at']) ?></td>
+        <td data-label="Nom"><?= h($c['name']) ?></td>
+        <td data-label="Email"><?= h($c['email']) ?></td>
+        <td data-label="Téléphone"><?= h($c['phone'] ?? '—') ?></td>
+        <td data-label="Commandes"><?= (int)$c['order_count'] ?></td>
+        <td data-label="Total dépensé"><?= fmt_da_admin($c['total_spent']) ?></td>
+        <td data-label="Inscrit le"><?= h($c['created_at']) ?></td>
       </tr>
     <?php endforeach; ?>
     </tbody>
-  </table>
+  </table></div>
 <?php endif; ?>
 <?php require __DIR__ . '/includes/footer.php'; ?>

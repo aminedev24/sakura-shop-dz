@@ -11,6 +11,16 @@ Storefront + login system + admin panel, running on PHP + MySQL (XAMPP).
 3. If your MySQL uses a different user/password than XAMPP's default (`root`, no password), edit `config/db.php`.
 4. Visit the site at **`http://localhost/sakura-shop-dz/`** — not by double-clicking `index.html`. The storefront needs PHP running behind it to load products, log in, and place orders.
 
+## Styling (Tailwind)
+
+Most of `index.html` is still hand-written CSS in its `<style>` block, but new responsive fixes use Tailwind utility classes, compiled to `assets/tailwind.css` and linked from `<head>`. That file is a build artifact checked into the repo (there's no server-side build step, so it has to already exist for the page to look right) — if you add or change any Tailwind class in `index.html` or `admin/**/*.php`, rebuild it:
+
+```
+npm install       # first time only
+npm run build:css # one-off build
+npm run watch:css # rebuilds on save while you work
+```
+
 ## Admin panel
 
 `http://localhost/sakura-shop-dz/admin/login.php`

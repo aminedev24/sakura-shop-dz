@@ -18,6 +18,7 @@ if ($method === 'GET') {
             'id' => (int)$o['id'],
             'status' => $o['status'],
             'wilaya_name' => $o['wilaya_name'],
+            'daira_name' => $o['daira_name'],
             'delivery_type' => $o['delivery_type'],
             'delivery_address' => $o['delivery_address'],
             'delivery_fee' => (int)$o['delivery_fee'],
@@ -37,6 +38,7 @@ if ($method === 'POST') {
     $name = trim((string)($in['customer_name'] ?? ''));
     $phone = trim((string)($in['customer_phone'] ?? ''));
     $wilayaName = trim((string)($in['wilaya_name'] ?? ''));
+    $dairaName = trim((string)($in['daira_name'] ?? ''));
     $deliveryType = ($in['delivery_type'] ?? 'bureau') === 'domicile' ? 'domicile' : 'bureau';
     $address = trim((string)($in['delivery_address'] ?? ''));
     $items = is_array($in['items'] ?? null) ? $in['items'] : [];
@@ -48,6 +50,9 @@ if ($method === 'POST') {
 
     $wilaya = find_wilaya($wilayaName);
     if (!$wilaya) respond(['error' => 'Wilaya invalide'], 400);
+
+    $daira = find_daira($wilaya[0], $dairaName);
+    if (!$daira) respond(['error' => 'Daïra invalide pour la wilaya choisie'], 400);
 
     // Recompute everything server-side from the DB — never trust client-sent prices.
     $subtotal = 0;
@@ -88,14 +93,15 @@ if ($method === 'POST') {
         $pdo->beginTransaction();
 
         $stmt = $pdo->prepare(
-            'INSERT INTO orders (user_id, customer_name, customer_phone, wilaya_name, delivery_type, delivery_address, delivery_fee, subtotal, total, status)
-             VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, "pending")'
+            'INSERT INTO orders (user_id, customer_name, customer_phone, wilaya_name, daira_name, delivery_type, delivery_address, delivery_fee, subtotal, total, status)
+             VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, "pending")'
         );
         $stmt->execute([
             $user['id'] ?? null,
             $name,
             $phone,
             $wilaya[0],
+            $daira,
             $deliveryType,
             $address !== '' ? $address : null,
             $fee,

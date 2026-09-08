@@ -1,0 +1,23 @@
+@import "tailwindcss";
+
+/* Scan the PHP/HTML sources for class names — they live outside this styles/ folder. */
+@source "../index.html";
+@source "../admin/**/*.php";
+
+@theme {
+  --color-page: #FFFFFF;
+  --color-paper: #FFFFFF;
+  --color-ink: #111111;
+  --color-ink-2: #555555;
+  --color-rose: #dd1d1d;
+  --color-rose-dk: #b01414;
+  --color-rose-lt: #FDF1F1;
+  --color-sale: #D63A48;
+  --color-gold: #C9A227;
+  --color-sage: #5C8A6B;
+  --color-grey: #555555;
+  --color-grey-2: #9A9A9A;
+  --color-line: #EBEBEB;
+  --font-serif: Jost, "Segoe UI", Roboto, -apple-system, Helvetica, Arial, sans-serif;
+  --font-sans: Jost, "Segoe UI", Roboto, -apple-system, BlinkMacSystemFont, Helvetica, Arial, sans-serif;
+}

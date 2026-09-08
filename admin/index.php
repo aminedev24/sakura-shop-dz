@@ -26,7 +26,7 @@ require __DIR__ . '/includes/header.php';
   <div class="card"><b><?= $totalOrders ?></b><span>Commandes totales</span></div>
   <div class="card"><b><?= $todayOrders ?></b><span>Commandes aujourd'hui</span></div>
   <div class="card"><b><?= $pendingOrders ?></b><span>En attente</span></div>
-  <div class="card"><b><?= fmt_da_admin($revenue) ?></b><span>Chiffre d'affaires (hors annulées/en attente)</span></div>
+  <div class="card"><b><?= fmt_da_admin($revenue) ?></b><span>Chiffre d'affaires</span></div>
   <div class="card"><b><?= $customerCount ?></b><span>Clients inscrits</span></div>
   <div class="card"><b><?= $productCount ?></b><span>Produits actifs</span></div>
 </div>
@@ -36,14 +36,14 @@ require __DIR__ . '/includes/header.php';
   <?php if (!$topProducts): ?>
     <p class="sub">Aucune vente enregistrée pour le moment.</p>
   <?php else: ?>
-    <table>
+    <div class="overflow-x-auto"><table>
       <thead><tr><th>Produit</th><th>Quantité vendue</th></tr></thead>
       <tbody>
       <?php foreach ($topProducts as $t): ?>
-        <tr><td><?= h($t['product_name']) ?></td><td><?= (int)$t['qty_sold'] ?></td></tr>
+        <tr><td data-label="Produit"><?= h($t['product_name']) ?></td><td data-label="Quantité vendue"><?= (int)$t['qty_sold'] ?></td></tr>
       <?php endforeach; ?>
       </tbody>
-    </table>
+    </table></div>
   <?php endif; ?>
 </div>
 
@@ -52,21 +52,21 @@ require __DIR__ . '/includes/header.php';
   <?php if (!$recentOrders): ?>
     <p class="sub">Aucune commande pour le moment.</p>
   <?php else: ?>
-    <table>
+    <div class="overflow-x-auto"><table>
       <thead><tr><th>#</th><th>Client</th><th>Wilaya</th><th>Total</th><th>Statut</th><th>Date</th></tr></thead>
       <tbody>
       <?php foreach ($recentOrders as $o): ?>
         <tr>
-          <td>#<?= (int)$o['id'] ?></td>
-          <td><?= h($o['customer_name']) ?></td>
-          <td><?= h($o['wilaya_name']) ?></td>
-          <td><?= fmt_da_admin($o['total']) ?></td>
-          <td><span class="badge <?= h($o['status']) ?>"><?= h($o['status']) ?></span></td>
-          <td><?= h($o['created_at']) ?></td>
+          <td data-label="#">#<?= (int)$o['id'] ?></td>
+          <td data-label="Client"><?= h($o['customer_name']) ?></td>
+          <td data-label="Wilaya"><?= h($o['wilaya_name']) ?></td>
+          <td data-label="Total"><?= fmt_da_admin($o['total']) ?></td>
+          <td data-label="Statut"><span class="badge <?= h($o['status']) ?>"><?= h($o['status']) ?></span></td>
+          <td data-label="Date"><?= h($o['created_at']) ?></td>
         </tr>
       <?php endforeach; ?>
       </tbody>
-    </table>
+    </table></div>
   <?php endif; ?>
 </div>
 <?php require __DIR__ . '/includes/footer.php'; ?>

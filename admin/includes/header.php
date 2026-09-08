@@ -12,7 +12,8 @@ $nav = [
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title><?= h($pageTitle ?? 'Admin') ?> · Sakura Shop Admin</title>
-<link rel="stylesheet" href="assets/admin.css">
+<link rel="stylesheet" href="assets/admin.css?v=<?= filemtime(__DIR__ . '/../assets/admin.css') ?>">
+<link rel="stylesheet" href="../assets/tailwind.css?v=<?= filemtime(__DIR__ . '/../../assets/tailwind.css') ?>">
 </head>
 <body>
 <div class="wrap">

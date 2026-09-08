@@ -182,18 +182,18 @@ require __DIR__ . '/includes/header.php';
 
 <div class="panel">
   <h2>Catalogue</h2>
-  <table>
+  <div class="overflow-x-auto"><table>
     <thead><tr><th></th><th>Nom</th><th>Catégorie</th><th>Prix</th><th>Tailles</th><th>Statut</th><th></th></tr></thead>
     <tbody>
     <?php foreach ($products as $p): ?>
       <tr>
-        <td><?php if ($p['image_path']): ?><img class="thumb" src="../<?= h($p['image_path']) ?>" alt=""><?php endif; ?></td>
-        <td><?= h($p['name']) ?></td>
-        <td><?= h($CATEGORY_OPTIONS[$p['category']] ?? $p['category']) ?></td>
-        <td><?= fmt_da_admin($p['price']) ?></td>
-        <td><?= h($p['sizes']) ?></td>
-        <td><?= $p['active'] ? '<span class="badge delivered">actif</span>' : '<span class="badge cancelled">masqué</span>' ?></td>
-        <td style="white-space:nowrap">
+        <td class="cell-photo" data-label=""><?php if ($p['image_path']): ?><img class="thumb" src="../<?= h($p['image_path']) ?>" alt=""><?php endif; ?></td>
+        <td data-label="Nom"><?= h($p['name']) ?></td>
+        <td data-label="Catégorie"><?= h($CATEGORY_OPTIONS[$p['category']] ?? $p['category']) ?></td>
+        <td data-label="Prix"><?= fmt_da_admin($p['price']) ?></td>
+        <td data-label="Tailles"><?= h($p['sizes']) ?></td>
+        <td data-label="Statut"><?= $p['active'] ? '<span class="badge delivered">actif</span>' : '<span class="badge cancelled">masqué</span>' ?></td>
+        <td class="cell-actions" data-label="" style="white-space:nowrap">
           <a class="btn ghost sm" href="?edit=<?= (int)$p['id'] ?>">Modifier</a>
           <form method="post" style="display:inline" onsubmit="return confirm('Supprimer ce produit ?')">
             <input type="hidden" name="action" value="delete">
@@ -204,6 +204,6 @@ require __DIR__ . '/includes/header.php';
       </tr>
     <?php endforeach; ?>
     </tbody>
-  </table>
+  </table></div>
 </div>
 <?php require __DIR__ . '/includes/footer.php'; ?>

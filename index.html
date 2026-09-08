@@ -7,6 +7,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/tailwind.css">
 <style>
 :root{
   --page:#FFFFFF;
@@ -88,11 +89,12 @@ header{background:var(--paper);position:sticky;top:0;z-index:45;border-bottom:1p
 .bagwrap{position:relative}
 .bagpanel{position:absolute;top:calc(100% + 12px);right:0;width:340px;background:var(--paper);
   border:1px solid var(--line);border-radius:10px;box-shadow:0 16px 40px rgba(0,0,0,.16);
-  padding:16px;opacity:0;pointer-events:none;transform:translateY(-6px);transition:.18s;z-index:50}
+  padding:16px;opacity:0;pointer-events:none;transform:translateY(-6px);transition:.18s;z-index:50;
+  max-height:calc(100vh - 100px);overflow-y:auto;-webkit-overflow-scrolling:touch}
 .bagpanel.on{opacity:1;pointer-events:auto;transform:none}
 .bagpanel h4{margin:0 0 10px;font-size:11px;text-transform:uppercase;letter-spacing:.07em;color:var(--grey);font-weight:700}
 .bp-empty{font-size:13px;color:var(--grey);margin:0;padding:4px 0}
-.bp-list{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:0;max-height:340px;overflow:auto}
+.bp-list{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:0}
 .bp-row{display:flex;justify-content:space-between;gap:10px;font-size:13px;padding:10px 0;border-bottom:1px solid var(--line);align-items:center}
 .bp-row:last-child{border-bottom:0;padding-bottom:0}
 .bp-name{font-weight:600;line-height:1.3;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
@@ -117,7 +119,8 @@ header{background:var(--paper);position:sticky;top:0;z-index:45;border-bottom:1p
 .hero{padding:20px 0 6px}
 .hgrid{display:grid;grid-template-columns:1fr 1fr;gap:16px;align-items:stretch}
 .hcopy{background:#F8F6F5;border-radius:12px;padding:28px 32px;display:flex;flex-direction:column;justify-content:center;border:1px solid var(--line)}
-.eyebrow{font-size:10.5px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--rose-dk);margin-bottom:10px}
+.eyebrow{display:inline-block;font-size:10.5px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--rose-dk);background:var(--rose-lt);padding:6px 14px;border-radius:999px;margin-bottom:16px}
+.hdesc{font-size:14.5px;color:var(--ink-2);margin:0 0 12px;max-width:46ch}
 .hcopy h1{font-family:var(--serif);font-weight:400;font-size:clamp(26px,2.9vw,36px);line-height:1.1;margin:0 0 10px}
 .hcopy .ar{direction:rtl;font-size:16.5px;color:var(--ink-2);margin:0 0 18px}
 .hbtns{display:flex;gap:10px;flex-wrap:wrap}
@@ -381,8 +384,8 @@ footer li a:hover{color:var(--rose)}
 <body>
 
 <aside class="strip" aria-label="Informations livraison"><div class="wrap strip-in">
-  <span><b>Livraison 58 wilayas</b> · Paiement à la livraison</span>
-  <span>Livraison offerte dès 12 000 DA</span>
+  <span class="truncate"><b>Livraison 58 wilayas</b> · Paiement à la livraison</span>
+  <span class="hidden sm:inline whitespace-nowrap">Livraison offerte dès 12 000 DA</span>
 </div></aside>
 
 <header>
@@ -429,17 +432,18 @@ footer li a:hover{color:var(--rose)}
 <section class="wrap hero" aria-label="Mise en avant">
   <div class="hgrid">
     <div class="hcopy hero-load">
-      <div class="eyebrow">Nouvel arrivage · Novembre</div>
+      <div class="eyebrow">Nouvel arrivage cette semaine</div>
       <h1>Des pyjamas qu'on<br>garde toute la journée</h1>
-      <p class="ar">تشكيلة جديدة من البيجامات</p>
+      <p class="hdesc">Coton respirant et satin doux, coupés pour être portés bien après le réveil. Du S au XXL, livrés partout en Algérie.</p>
+      <p class="ar">تشكيلة جديدة من البيجامات — توصيل إلى 58 ولاية</p>
       <div class="hbtns">
         <a class="btn" href="#boutique">Voir les modèles <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h13m-5-6 6 6-6 6"/></svg></a>
-        <a class="btn o" href="#livraison">Frais de livraison</a>
+        <a class="btn o" href="#livraison">Calculer ma livraison</a>
       </div>
       <div class="hstats">
-        <div><b>15</b><span>Modèles en stock</span></div>
-        <div><b>S → XXL</b><span>Toutes les tailles</span></div>
-        <div><b>48h</b><span>Échange taille</span></div>
+        <div><b>15</b><span>modèles en stock</span></div>
+        <div><b>S → XXL</b><span>toutes les tailles</span></div>
+        <div><b>48 h</b><span>pour échanger</span></div>
       </div>
     </div>
     <div class="hphoto hero-load">
@@ -676,6 +680,68 @@ var WIL=[
 ["58 — El Meniaa",1000,1300,120]
 ];
 
+/* daïras (districts) par wilaya — clé = même libellé que WIL[i][0] */
+var DAIRA={
+'01 — Adrar':['Adrar','Aoulef','Fenoughil','Reggane','Tsabit','Zaouiat Kounta'],
+'02 — Chlef':['Abou El Hassane','Ain Merane','Beni Haoua','Boukadir','Chlef','El Karimia','El Marsa','Oued Fodda','Ouled Ben Abdelkader','Ouled Fares','Taougrit','Tenes','Zeboudja'],
+'03 — Laghouat':['Aflou','Ain Madhi','Brida','El Ghicha','Gueltat Sidi Saad','Hassi R\'Mel','Ksar El Hirane','Laghouat','Oued Morra','Sidi Makhlouf'],
+'04 — Oum El Bouaghi':['Ain Babouche','Ain Beida','Ain Fekroun','Ain Kercha','Ain M\'Lila','Dhalaa','F\'Kirina','Ksar Sbahi','Meskiana','Oum El Bouaghi','Sigus','Souk Naamane'],
+'05 — Batna':['Ain Djasser','Ain Touta','Arris','Barika','Batna','Bouzina','Chemora','Djezzar','El Madher','Ichemoul','Menaa','Merouana','N\'Gaous','Ouled Si Slimane','Ras El Aioun','Seggana','Seriana','Tazoult','Theniet El Abed','Timgad','Tkout'],
+'06 — Béjaïa':['Adekar','Akbou','Amizour','Aokas','Barbacha','Bejaia','Beni Maouche','Chemini','Darguina','El Kseur','Ifri Ouzellaguene','Ighil Ali','Kherrata','Seddouk','Sidi Aich','Souk El Tenine','Tazmalt','Tichy','Timezrit'],
+'07 — Biskra':['Biskra','Djemorah','El Kantara','El Outaya','Foughala','Mechouneche','Ourlal','Sidi Okba','Tolga','Zeribet El Oued'],
+'08 — Béchar':['Abadla','Bechar','Beni Ounif','Kenadsa','Lahmar','Tabelbala','Taghit'],
+'09 — Blida':['Blida','Boufarik','Bougara','Bouinan','El Affroun','Larbaa','Meftah','Mouzaia','Oued El Alleug','Ouled Yaich'],
+'10 — Bouira':['Ain Bessem','Bechloul','Bir Ghbalou','Bordj Okhriss','Bouira','El Hachimia','Haizer','Kadiria','Lakhdaria','M\'Chedallah','Souk El Khemis','Sour El Ghozlane'],
+'11 — Tamanrasset':['Silet','Tamanrasset','Tazrouk'],
+'12 — Tébessa':['Bir El Ater','Bir Mokadem','Cheria','El Aouinet','El Kouif','El Malabiod','El Ogla','Morsott','Negrine','Ouenza','Oum Ali','Tebessa'],
+'13 — Tlemcen':['Ain Tellout','Bab El Assa','Beni Boussaid','Beni Snous','Bensekrane','Chetouane','Fellaoucene','Ghazaouet','Hennaya','Honnaine','Maghnia','Mansourah','Marsa Ben Mehdi','Nedroma','Ouled Mimoun','Remchi','Sabra','Sebdou','Sidi Djillali','Tlemcen'],
+'14 — Tiaret':['Ain Deheb','Ain Kermes','Dahmouni','Frenda','Hamadia','Ksar Chellala','Mahdia','Mechraa Sfa','Medroussa','Meghila','Oued Lili','Rahouia','Sougueur','Tiaret'],
+'15 — Tizi Ouzou':['Ain El Hammam','Azazga','Azeffoun','Beni Douala','Benni Yenni','Boghni','Bouzeguene','Draa Ben Khedda','Draa El Mizan','Iferhounene','Larbaa Nath Iraten','Maatkas','Makouda','Mekla','Ouacif','Ouadhias','Ouaguenoun','Tigzirt','Tizi Ouzou','Tizi Rached','Tizi-Ghenif'],
+'16 — Alger':['Bab El Oued','Baraki','Bir Mourad Rais','Birtouta','Bouzareah','Cheraga','Dar El Beida','Draria','El Harrach','Hussein Dey','Rouiba','Sidi M\'Hamed','Zeralda'],
+'17 — Djelfa':['Ain El Ibel','Ain Oussera','Birine','Charef','Dar Chioukh','Djelfa','El Idrissia','Faidh El Botma','Had Sahary','Hassi Bahbah','Messaad','Sidi Laadjel'],
+'18 — Jijel':['Chekfa','Djimla','El Ancer','El Aouana','El Milia','Jijel','Settara','Sidi Marouf','Taher','Texenna','Ziamah Mansouriah'],
+'19 — Sétif':['Ain Arnat','Ain Azel','Ain El Kebira','Ain Oulmene','Amoucha','Babor','Beni Aziz','Beni Ourtilane','Bir El Arch','Bouandas','Bougaa','Djemila','El Eulma','Guenzet','Guidjel','Hammam Guergour','Hammam Sokhna','Maoklane','Salah Bey','Setif'],
+'20 — Saïda':['Ain El Hadjar','El Hassasna','Ouled Brahim','Saida','Sidi Boubekeur','Youb'],
+'21 — Skikda':['Ain Kechra','Azzaba','Ben Azzouz','Collo','El Hadaiek','El Harrouch','Ouled Attia','Oum Toub','Ramdane Djamel','Sidi Mezghiche','Skikda','Tamalous','Zitouna'],
+'22 — Sidi Bel Abbès':['Ain El Berd','Ben Badis','Marhoum','Merine','Mostefa Ben Brahim','Moulay Slissen','Ras El Ma','Sfisef','Sidi Ali Ben Youb','Sidi Ali Boussidi','Sidi Bel Abbes','Sidi Lahcene','Telagh','Tenira','Tessala'],
+'23 — Annaba':['Ain El Berda','Annaba','Berrahal','Chetaibi','El Bouni','El Hadjar'],
+'24 — Guelma':['Ain Hessainia','Ain Makhlouf','Bouchegouf','Guelaat Bousbaa','Guelma','Hammam Debagh','Hammam N\'Bails','Heliopolis','Khezaras','Oued Zenati'],
+'25 — Constantine':['Ain Abid','Constantine','El Khroub','Hamma Bouziane','Ibn Ziad','Zighoud Youcef'],
+'26 — Médéa':['Ain Boucif','Aziz','Beni Slimane','Berrouaghia','Chahbounia','Chellalat El Adhaoura','El Azizia','El Omaria','Guelb El Kebir','Ksar El Boukhari','Medea','Ouamri','Ouled Antar','Ouzera','Seghouane','Si Mahdjoub','Sidi Naamane','Souaghi','Tablat'],
+'27 — Mostaganem':['Achaacha','Ain Nouicy','Ain Tedeles','Bouguirat','Hassi Mameche','Kheir Eddine','Mesra','Mostaganem','Sidi Ali','Sidi Lakhdar'],
+'28 — M\'Sila':['Ain El Hadjel','Ain El Melh','Ben Srour','Bousaada','Chellal','Djebel Messaad','Hammam Dalaa','Khoubana','M\'Sila','Magra','Medjedel','Ouled Derradj','Ouled Sidi Brahim','Sidi Aissa','Sidi Ameur'],
+'29 — Mascara':['Ain Fares','Ain Fekan','Aouf','Bouhanifia','El Bordj','Ghriss','Hachem','Mascara','Mohammadia','Oggaz','Oued El Abtal','Oued Taria','Sig','Tighennif','Tizi','Zahana'],
+'30 — Ouargla':['El Borma','Hassi Messaoud','N\'Goussa','Ouargla','Sidi Khouiled'],
+'31 — Oran':['Ain Turk','Arzew','Bethioua','Bir El Djir','Boutlelis','Es Senia','Gdyel','Oran','Oued Tlelat'],
+'32 — El Bayadh':['Boualem','Bougtoub','Boussemghoun','Brezina','Chellala','El Bayadh','Labiodh Sidi Cheikh','Rogassa'],
+'33 — Illizi':['Illizi','In Amenas'],
+'34 — Bordj Bou Arréridj':['Ain Taghrout','Bir Kasdali','Bordj Bou Arreridj','Bordj Ghedir','Bordj Zemmoura','Djaafra','El Hamadia','Mansourah','Medjana','Ras El Oued'],
+'35 — Boumerdès':['Baghlia','Bordj Menaiel','Boudouaou','Boumerdes','Dellys','Isser','Khemis El Khechna','Naciria','Thenia'],
+'36 — El Tarf':['Ben M\'Hidi','Besbes','Bouhadjar','Bouteldja','Drean','El Kala','El Tarf'],
+'37 — Tindouf':['Tindouf'],
+'38 — Tissemsilt':['Ammari','Bordj Bounaama','Bordj Emir Abdelkader','Khemisti','Lardjem','Lazharia','Theniet El Had','Tissemsilt'],
+'39 — El Oued':['Bayadha','Debila','El Oued','Guemar','Hassi Khalifa','Magrane','Mih Ouensa','Reguiba','Robbah','Taleb Larbi'],
+'40 — Khenchela':['Ain Touila','Babar','Bouhmama','Chechar','El Hamma','Kais','Khenchela','Ouled Rechache'],
+'41 — Souk Ahras':['Bir Bouhouche','Haddada','M\'Daourouche','Mechroha','Merahna','Ouled Driss','Oum El Adhaim','Sedrata','Souk Ahras','Taoura'],
+'42 — Tipaza':['Ahmar El Ain','Bou Ismail','Cherchell','Damous','Fouka','Gouraya','Hadjout','Kolea','Sidi Amar','Tipaza'],
+'43 — Mila':['Ain Beida Harriche','Bouhatem','Chelghoum Laid','Ferdjioua','Grarem Gouga','Mila','Oued Endja','Rouached','Sidi Merouane','Tadjenanet','Tassadane Haddada','Teleghma','Terrai Bainen'],
+'44 — Aïn Defla':['Ain Defla','Ain Lechiakh','Bathia','Bordj El Emir Khaled','Boumedfaa','Djelida','Djendel','El Abadia','El Amra','El Attaf','Hammam Righa','Khemis','Miliana','Rouina'],
+'45 — Naâma':['Ain Sefra','Asla','Mecheria','Mekmen Ben Amar','Moghrar','Naama','Sfissifa'],
+'46 — Aïn Témouchent':['Ain Kihel','Ain Larbaa','Ain Temouchent','Beni Saf','El Amria','El Maleh','Hammam Bou Hadjar','Oulhassa Gheraba'],
+'47 — Ghardaïa':['Berriane','Bounoura','Dhayet Ben Dhahoua','El Guerrara','Ghardaia','Mansourah','Metlili','Zelfana'],
+'48 — Relizane':['Ain Tarek','Ammi Moussa','Djidiouia','El H\'Madna','El Matmar','Mazouna','Mendes','Oued Rhiou','Ramka','Relizane','Sidi M\'Hamed Ben Ali','Yellel','Zemmoura'],
+'49 — Timimoun':['Aougrout','Charouine','Timimoun','Tinerkouk'],
+'50 — Bordj Badji Mokhtar':['Bordj Badji Mokhtar'],
+'51 — Ouled Djellal':['Ouled Djellal','Sidi Khaled'],
+'52 — Béni Abbès':['Beni Abbes','El Ouata','Igli','Kerzaz','Ouled Khodeir'],
+'53 — In Salah':['In Ghar','In Salah'],
+'54 — In Guezzam':['In Guezzam','Tin Zouatine'],
+'55 — Touggourt':['El-Hadjira','Megarine','Taibet','Temacine','Touggourt'],
+'56 — Djanet':['Djanet'],
+'57 — El M\'Ghair':['Djamaa','El Meghaier'],
+'58 — El Meniaa':['El Menia','Mansourah'],
+};
+
 function fmt(n){return n.toLocaleString('fr-FR').replace(/\u202f|\u00a0/g,' ')+' DA'}
 function stars(r){var s='';for(var k=1;k<=5;k++)s+=(k<=Math.round(r)?'★':'☆');return s}
 
@@ -891,6 +957,7 @@ function renderBag(){
 /* pied du panier : wilaya, livraison, coordonnées, confirmation */
 document.getElementById('bagCheckout').innerHTML=
    '<div class="fl full"><label for="cWil">Wilaya</label><select id="cWil"></select></div>'
+  +'<div class="fl full" style="margin-top:8px"><label for="cDaira">Daïra</label><select id="cDaira"></select></div>'
   +'<div class="fl full" style="margin-top:8px"><label>Livraison</label><div class="seg"><button type="button" id="cB" aria-pressed="true">Bureau</button><button type="button" id="cD" aria-pressed="false">Domicile</button></div></div>'
   +'<div class="fl full" id="cAddrWrap" style="display:none;margin-top:8px"><label for="cAddr">Adresse de livraison</label><input id="cAddr" type="text" placeholder="Rue, quartier, ville…"></div>'
   +'<div class="recap" style="margin-top:12px">'
@@ -902,9 +969,16 @@ document.getElementById('bagCheckout').innerHTML=
   +'<div class="fl full" style="margin-top:8px"><label for="cTel">Téléphone</label><input id="cTel" type="tel" placeholder="0X XX XX XX XX"></div>'
   +'<button class="ok" id="cartOk" style="margin-top:12px">Confirmer la commande</button>'
   +'<p class="cod">Paiement à la livraison · vous payez au livreur</p>';
-var cWil=document.getElementById('cWil'),cB=document.getElementById('cB'),cD=document.getElementById('cD'),cDom=false,
+var cWil=document.getElementById('cWil'),cDaira=document.getElementById('cDaira'),cB=document.getElementById('cB'),cD=document.getElementById('cD'),cDom=false,
     cAddrWrap=document.getElementById('cAddrWrap'),cAddr=document.getElementById('cAddr');
 WIL.forEach(function(w){cWil.add(new Option(w[0],w[1]+'|'+w[2]))});
+function populateDaira(){
+  var name=cWil.options[cWil.selectedIndex]?cWil.options[cWil.selectedIndex].text:'',prev=cDaira.value;
+  cDaira.innerHTML='';
+  (DAIRA[name]||[]).forEach(function(d){cDaira.add(new Option(d,d))});
+  if(prev)cDaira.value=prev;
+}
+populateDaira();
 function updateCartTotals(){
   var sum=bagSum(),v=cWil.value?cWil.value.split('|'):[0,0],fee=+(cDom?v[1]:v[0])||0,free=sum>=12000,liv=free?0:fee;
   document.getElementById('cSub').textContent=fmt(sum);
@@ -912,7 +986,7 @@ function updateCartTotals(){
   document.getElementById('cTot').textContent=fmt(sum+liv);
   cAddrWrap.style.display=cDom?'':'none';
 }
-cWil.addEventListener('change',updateCartTotals);
+cWil.addEventListener('change',function(){populateDaira();updateCartTotals()});
 cB.addEventListener('click',function(){cDom=false;cB.setAttribute('aria-pressed','true');cD.setAttribute('aria-pressed','false');updateCartTotals()});
 cD.addEventListener('click',function(){cDom=true;cD.setAttribute('aria-pressed','true');cB.setAttribute('aria-pressed','false');updateCartTotals()});
 document.getElementById('cartOk').addEventListener('click',function(){
@@ -921,8 +995,9 @@ document.getElementById('cartOk').addEventListener('click',function(){
   if(!nom.value.trim()){nom.focus();nom.style.borderColor='#D63A48';return}
   if(tel.value.replace(/\D/g,'').length<9){tel.focus();tel.style.borderColor='#D63A48';return}
   if(!cWil.value){showToast('Wilaya requise','Choisissez votre wilaya avant de confirmer');return}
+  if(!cDaira.value){showToast('Daïra requise','Choisissez votre daïra avant de confirmer');return}
   if(cDom&&!cAddr.value.trim()){cAddr.focus();cAddr.style.borderColor='#D63A48';return}
-  var wilName=cWil.options[cWil.selectedIndex].text;
+  var wilName=cWil.options[cWil.selectedIndex].text,dairaName=cDaira.value;
   var items=bag.map(function(o){return {id:o.id,size:o.size,qty:o.qty}});
   btn.disabled=true;btn.textContent='Envoi en cours…';
   fetch('api/orders.php',{
@@ -932,6 +1007,7 @@ document.getElementById('cartOk').addEventListener('click',function(){
       customer_name:nom.value.trim(),
       customer_phone:tel.value.trim(),
       wilaya_name:wilName,
+      daira_name:dairaName,
       delivery_type:cDom?'domicile':'bureau',
       delivery_address:cDom?cAddr.value.trim():'',
       items:items
@@ -944,7 +1020,7 @@ document.getElementById('cartOk').addEventListener('click',function(){
     var lines=bag.map(function(o){var p=byId(o.id);return (p?p.n:'?')+' — Taille '+o.size+' × '+o.qty});
     var msg=['Nouvelle commande — Sakura Shop','Référence : #'+order.id,''].concat(lines,[
       '','Sous-total : '+fmt(order.subtotal),
-      'Livraison ('+(cDom?'Domicile':'Bureau')+' — '+wilName+') : '+(order.delivery_fee?fmt(order.delivery_fee):'Offerte'),
+      'Livraison ('+(cDom?'Domicile':'Bureau')+' — '+wilName+', '+dairaName+') : '+(order.delivery_fee?fmt(order.delivery_fee):'Offerte'),
       'Total : '+fmt(order.total),''
     ],cDom?['Adresse : '+cAddr.value.trim()]:[],[
       'Client : '+nom.value.trim(),'Téléphone : '+tel.value.trim()
@@ -1102,7 +1178,8 @@ function renderAcctPanel(){
         var img=it.image_path?'<img src="'+it.image_path+'" alt="" style="width:28px;height:28px;border-radius:4px;object-fit:cover;flex:none">':'';
         return '<div style="display:flex;align-items:center;gap:6px;margin-bottom:3px">'+img+'<span>'+it.qty+'× '+it.product_name+' ('+it.size+')</span></div>';
       }).join('');
-      var deliv=o.delivery_type==='domicile'?'Domicile — '+o.wilaya_name+(o.delivery_address?' · '+o.delivery_address:''):'Bureau — '+o.wilaya_name;
+      var loc=o.wilaya_name+(o.daira_name?', '+o.daira_name:'');
+      var deliv=o.delivery_type==='domicile'?'Domicile — '+loc+(o.delivery_address?' · '+o.delivery_address:''):'Bureau — '+loc;
       return '<div class="ord"><div class="ord-h"><span>#'+o.id+'</span><span class="badge-st '+o.status+'">'+o.status+'</span></div>'
        +'<div class="ord-items">'+items+'</div>'
        +'<div class="ord-f">'+deliv+'</div>'
