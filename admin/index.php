@@ -14,6 +14,13 @@ $topProducts = $pdo->query(
 )->fetchAll();
 
 $recentOrders = $pdo->query('SELECT * FROM orders ORDER BY created_at DESC LIMIT 8')->fetchAll();
+$STATUS_LABELS = [
+    'pending' => 'En attente',
+    'confirmed' => 'Confirmée',
+    'shipped' => 'Expédiée',
+    'delivered' => 'Livrée',
+    'cancelled' => 'Annulée',
+];
 
 $pageTitle = 'Tableau de bord';
 $activePage = 'dashboard';
@@ -61,7 +68,7 @@ require __DIR__ . '/includes/header.php';
           <td data-label="Client"><?= h($o['customer_name']) ?></td>
           <td data-label="Wilaya"><?= h($o['wilaya_name']) ?></td>
           <td data-label="Total"><?= fmt_da_admin($o['total']) ?></td>
-          <td data-label="Statut"><span class="badge <?= h($o['status']) ?>"><?= h($o['status']) ?></span></td>
+          <td data-label="Statut"><span class="badge <?= h($o['status']) ?>"><?= h($STATUS_LABELS[$o['status']] ?? $o['status']) ?></span></td>
           <td data-label="Date"><?= h($o['created_at']) ?></td>
         </tr>
       <?php endforeach; ?>

@@ -22,20 +22,23 @@ require __DIR__ . '/includes/header.php';
 <?php if (!$customers): ?>
   <div class="panel"><p class="sub">Aucun client inscrit pour le moment.</p></div>
 <?php else: ?>
-  <div class="overflow-x-auto"><table>
-    <thead><tr><th>Nom</th><th>Email</th><th>Téléphone</th><th>Commandes</th><th>Total dépensé</th><th>Inscrit le</th></tr></thead>
-    <tbody>
+  <div class="rec-list">
     <?php foreach ($customers as $c): ?>
-      <tr>
-        <td data-label="Nom"><?= h($c['name']) ?></td>
-        <td data-label="Email"><?= h($c['email']) ?></td>
-        <td data-label="Téléphone"><?= h($c['phone'] ?? '—') ?></td>
-        <td data-label="Commandes"><?= (int)$c['order_count'] ?></td>
-        <td data-label="Total dépensé"><?= fmt_da_admin($c['total_spent']) ?></td>
-        <td data-label="Inscrit le"><?= h($c['created_at']) ?></td>
-      </tr>
+      <div class="rec">
+        <div class="rec-top">
+          <div class="rec-title">
+            <span class="ava"><?= h(strtoupper(substr($c['name'], 0, 1))) ?></span>
+            <?= h($c['name']) ?>
+          </div>
+        </div>
+        <div class="rec-ref"><?= h($c['email']) ?></div>
+        <div class="rec-meta"><?= h($c['phone'] ?? '—') ?></div>
+        <div class="rec-bottom">
+          <div class="rec-sub"><?= (int)$c['order_count'] ?> commande(s) · inscrit le <?= date('d/m/Y', strtotime($c['created_at'])) ?></div>
+          <div class="rec-price"><?= fmt_da_admin($c['total_spent']) ?></div>
+        </div>
+      </div>
     <?php endforeach; ?>
-    </tbody>
-  </table></div>
+  </div>
 <?php endif; ?>
 <?php require __DIR__ . '/includes/footer.php'; ?>

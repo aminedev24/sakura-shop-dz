@@ -1,107 +1,26 @@
 <?php
 require __DIR__ . '/includes/guard.php';
 
-$SIZE_OPTIONS = ['S', 'M', 'L', 'XL', 'XXL'];
 $CATEGORY_OPTIONS = ['coton' => 'Coton', 'satin' => 'Satin', 'boutonne' => 'Boutonnés'];
 $TAG_OPTIONS = ['' => 'Aucun', 'new' => 'Nouveau', 'off' => 'Promo', 'low' => 'Stock limité'];
-$UPLOAD_DIR = __DIR__ . '/../uploads/products/';
 
 $message = '';
 $messageType = 'ok';
 
-function upload_image(string $field): ?string
-{
-    global $UPLOAD_DIR, $message, $messageType;
-    if (empty($_FILES[$field]['name']) || $_FILES[$field]['error'] === UPLOAD_ERR_NO_FILE) {
-        return null;
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && ($_POST['action'] ?? '') === 'delete') {
+    $id = (int)($_POST['id'] ?? 0);
+    $stmt = $pdo->prepare('SELECT image_path FROM products WHERE id = ?');
+    $stmt->execute([$id]);
+    $row = $stmt->fetch();
+    $pdo->prepare('DELETE FROM products WHERE id = ?')->execute([$id]);
+    if ($row && $row['image_path'] && is_file(__DIR__ . '/../' . $row['image_path'])) {
+        @unlink(__DIR__ . '/../' . $row['image_path']);
     }
-    if ($_FILES[$field]['error'] !== UPLOAD_ERR_OK) {
-        $message = "Échec du téléversement de l'image";
-        $messageType = 'err';
-        return null;
-    }
-    $allowed = ['jpg' => 'image/jpeg', 'jpeg' => 'image/jpeg', 'png' => 'image/png', 'webp' => 'image/webp'];
-    $ext = strtolower(pathinfo($_FILES[$field]['name'], PATHINFO_EXTENSION));
-    if (!isset($allowed[$ext])) {
-        $message = 'Format d\'image non supporté (jpg, png, webp uniquement)';
-        $messageType = 'err';
-        return null;
-    }
-    $fname = 'p' . bin2hex(random_bytes(6)) . '.' . $ext;
-    if (!is_dir($UPLOAD_DIR)) mkdir($UPLOAD_DIR, 0775, true);
-    move_uploaded_file($_FILES[$field]['tmp_name'], $UPLOAD_DIR . $fname);
-    return 'uploads/products/' . $fname;
-}
-
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $action = $_POST['action'] ?? '';
-
-    if ($action === 'delete') {
-        $id = (int)($_POST['id'] ?? 0);
-        $stmt = $pdo->prepare('SELECT image_path FROM products WHERE id = ?');
-        $stmt->execute([$id]);
-        $row = $stmt->fetch();
-        $pdo->prepare('DELETE FROM products WHERE id = ?')->execute([$id]);
-        if ($row && $row['image_path'] && is_file(__DIR__ . '/../' . $row['image_path'])) {
-            @unlink(__DIR__ . '/../' . $row['image_path']);
-        }
-        $message = 'Produit supprimé';
-    } elseif ($action === 'create' || $action === 'update') {
-        $id = (int)($_POST['id'] ?? 0);
-        $name = trim((string)($_POST['name'] ?? ''));
-        $material = trim((string)($_POST['material'] ?? ''));
-        $description = trim((string)($_POST['description'] ?? ''));
-        $category = in_array($_POST['category'] ?? '', array_keys($CATEGORY_OPTIONS), true) ? $_POST['category'] : 'coton';
-        $price = max(0, (int)($_POST['price'] ?? 0));
-        $original = max(0, (int)($_POST['original_price'] ?? 0));
-        $rating = max(0, min(5, (float)($_POST['rating'] ?? 5)));
-        $reviewCount = max(0, (int)($_POST['review_count'] ?? 0));
-        $tag = in_array($_POST['tag'] ?? '', array_keys($TAG_OPTIONS), true) ? $_POST['tag'] : '';
-        $active = isset($_POST['active']) ? 1 : 0;
-        $sizes = implode(',', array_intersect($_POST['sizes'] ?? [], $SIZE_OPTIONS));
-        $outSizes = implode(',', array_intersect($_POST['out_sizes'] ?? [], $SIZE_OPTIONS));
-
-        if ($name === '' || $price <= 0 || $original <= 0 || $sizes === '') {
-            $message = 'Nom, prix, prix barré et au moins une taille sont requis';
-            $messageType = 'err';
-        } else {
-            $imagePath = upload_image('image');
-
-            if ($action === 'create') {
-                if (!$imagePath) {
-                    $message = 'Une image est requise pour créer un produit';
-                    $messageType = 'err';
-                } else {
-                    $stmt = $pdo->prepare(
-                        'INSERT INTO products (name, material, description, category, price, original_price, rating, review_count, sizes, out_of_stock_sizes, tag, image_path, active)
-                         VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)'
-                    );
-                    $stmt->execute([$name, $material, $description, $category, $price, $original, $rating, $reviewCount, $sizes, $outSizes, $tag, $imagePath, $active]);
-                    $message = 'Produit créé';
-                }
-            } else {
-                if ($imagePath) {
-                    $stmt = $pdo->prepare(
-                        'UPDATE products SET name=?, material=?, description=?, category=?, price=?, original_price=?, rating=?, review_count=?, sizes=?, out_of_stock_sizes=?, tag=?, image_path=?, active=? WHERE id=?'
-                    );
-                    $stmt->execute([$name, $material, $description, $category, $price, $original, $rating, $reviewCount, $sizes, $outSizes, $tag, $imagePath, $active, $id]);
-                } else {
-                    $stmt = $pdo->prepare(
-                        'UPDATE products SET name=?, material=?, description=?, category=?, price=?, original_price=?, rating=?, review_count=?, sizes=?, out_of_stock_sizes=?, tag=?, active=? WHERE id=?'
-                    );
-                    $stmt->execute([$name, $material, $description, $category, $price, $original, $rating, $reviewCount, $sizes, $outSizes, $tag, $active, $id]);
-                }
-                $message = 'Produit mis à jour';
-            }
-        }
-    }
-}
-
-$editing = null;
-if (isset($_GET['edit'])) {
-    $stmt = $pdo->prepare('SELECT * FROM products WHERE id = ?');
-    $stmt->execute([(int)$_GET['edit']]);
-    $editing = $stmt->fetch() ?: null;
+    $message = 'Produit supprimé';
+} elseif (($_GET['msg'] ?? '') === 'created') {
+    $message = 'Produit créé';
+} elseif (($_GET['msg'] ?? '') === 'updated') {
+    $message = 'Produit mis à jour';
 }
 
 $products = $pdo->query('SELECT * FROM products ORDER BY id DESC')->fetchAll();
@@ -115,95 +34,53 @@ require __DIR__ . '/includes/header.php';
 
 <?php if ($message): ?><div class="msg <?= $messageType ?>"><?= h($message) ?></div><?php endif; ?>
 
-<div class="panel">
-  <h2><?= $editing ? 'Modifier "' . h($editing['name']) . '"' : 'Ajouter un produit' ?></h2>
-  <form method="post" enctype="multipart/form-data">
-    <input type="hidden" name="action" value="<?= $editing ? 'update' : 'create' ?>">
-    <?php if ($editing): ?><input type="hidden" name="id" value="<?= (int)$editing['id'] ?>"><?php endif; ?>
-    <div class="frm">
-      <div class="full"><label>Nom</label><input name="name" required value="<?= h($editing['name'] ?? '') ?>"></div>
-      <div class="full"><label>Matière / description courte</label><input name="material" value="<?= h($editing['material'] ?? '') ?>"></div>
-      <div class="full"><label>Description (affichée dans la fiche produit)</label><textarea name="description" rows="2"><?= h($editing['description'] ?? '') ?></textarea></div>
-      <div>
-        <label>Catégorie</label>
-        <select name="category">
-          <?php foreach ($CATEGORY_OPTIONS as $val => $label): ?>
-            <option value="<?= h($val) ?>" <?= ($editing['category'] ?? 'coton') === $val ? 'selected' : '' ?>><?= h($label) ?></option>
-          <?php endforeach; ?>
-        </select>
-      </div>
-      <div>
-        <label>Étiquette</label>
-        <select name="tag">
-          <?php foreach ($TAG_OPTIONS as $val => $label): ?>
-            <option value="<?= h($val) ?>" <?= ($editing['tag'] ?? '') === $val ? 'selected' : '' ?>><?= h($label) ?></option>
-          <?php endforeach; ?>
-        </select>
-      </div>
-      <div><label>Prix (DA)</label><input type="number" name="price" min="0" required value="<?= h((string)($editing['price'] ?? '')) ?>"></div>
-      <div><label>Prix barré (DA)</label><input type="number" name="original_price" min="0" required value="<?= h((string)($editing['original_price'] ?? '')) ?>"></div>
-      <div><label>Note (0-5)</label><input type="number" step="0.1" min="0" max="5" name="rating" value="<?= h((string)($editing['rating'] ?? '5')) ?>"></div>
-      <div><label>Nombre d'avis</label><input type="number" min="0" name="review_count" value="<?= h((string)($editing['review_count'] ?? '0')) ?>"></div>
-      <div class="full">
-        <label>Tailles disponibles</label>
-        <div class="checks">
-          <?php $sel = $editing ? explode(',', $editing['sizes']) : []; ?>
-          <?php foreach ($SIZE_OPTIONS as $s): ?>
-            <label><input type="checkbox" name="sizes[]" value="<?= $s ?>" <?= in_array($s, $sel, true) ? 'checked' : '' ?>><?= $s ?></label>
-          <?php endforeach; ?>
-        </div>
-      </div>
-      <div class="full">
-        <label>Tailles en rupture de stock</label>
-        <div class="checks">
-          <?php $out = $editing ? explode(',', $editing['out_of_stock_sizes']) : []; ?>
-          <?php foreach ($SIZE_OPTIONS as $s): ?>
-            <label><input type="checkbox" name="out_sizes[]" value="<?= $s ?>" <?= in_array($s, $out, true) ? 'checked' : '' ?>><?= $s ?></label>
-          <?php endforeach; ?>
-        </div>
-      </div>
-      <div class="full">
-        <label>Image <?= $editing ? '(laisser vide pour garder l\'image actuelle)' : '' ?></label>
-        <input type="file" name="image" accept=".jpg,.jpeg,.png,.webp" <?= $editing ? '' : 'required' ?>>
-        <?php if ($editing && $editing['image_path']): ?>
-          <img class="thumb" style="margin-top:8px" src="../<?= h($editing['image_path']) ?>" alt="">
-        <?php endif; ?>
-      </div>
-      <div class="full">
-        <label><input type="checkbox" name="active" value="1" <?= (!$editing || $editing['active']) ? 'checked' : '' ?>> Produit actif (visible sur la boutique)</label>
-      </div>
-    </div>
-    <div style="margin-top:16px;display:flex;gap:10px">
-      <button class="btn rose" type="submit"><?= $editing ? 'Enregistrer' : 'Créer le produit' ?></button>
-      <?php if ($editing): ?><a class="btn ghost" href="products.php">Annuler</a><?php endif; ?>
-    </div>
-  </form>
-</div>
+<p style="margin:0 0 16px">
+  <a class="btn rose" href="product-form.php">+ Nouveau produit</a>
+</p>
 
 <div class="panel">
   <h2>Catalogue</h2>
-  <div class="overflow-x-auto"><table>
-    <thead><tr><th></th><th>Nom</th><th>Catégorie</th><th>Prix</th><th>Tailles</th><th>Statut</th><th></th></tr></thead>
-    <tbody>
+  <input type="search" id="prodSearch" class="search-input" placeholder="Rechercher un produit…">
+  <div class="rec-list" id="prodList">
     <?php foreach ($products as $p): ?>
-      <tr>
-        <td class="cell-photo" data-label=""><?php if ($p['image_path']): ?><img class="thumb" src="../<?= h($p['image_path']) ?>" alt=""><?php endif; ?></td>
-        <td data-label="Nom"><?= h($p['name']) ?></td>
-        <td data-label="Catégorie"><?= h($CATEGORY_OPTIONS[$p['category']] ?? $p['category']) ?></td>
-        <td data-label="Prix"><?= fmt_da_admin($p['price']) ?></td>
-        <td data-label="Tailles"><?= h($p['sizes']) ?></td>
-        <td data-label="Statut"><?= $p['active'] ? '<span class="badge delivered">actif</span>' : '<span class="badge cancelled">masqué</span>' ?></td>
-        <td class="cell-actions" data-label="" style="white-space:nowrap">
-          <a class="btn ghost sm" href="?edit=<?= (int)$p['id'] ?>">Modifier</a>
-          <form method="post" style="display:inline" onsubmit="return confirm('Supprimer ce produit ?')">
-            <input type="hidden" name="action" value="delete">
-            <input type="hidden" name="id" value="<?= (int)$p['id'] ?>">
-            <button class="btn danger sm" type="submit">Supprimer</button>
-          </form>
-        </td>
-      </tr>
+      <div class="rec">
+        <div class="rec-top">
+          <div class="rec-title">
+            <?= h($p['name']) ?>
+            <?php if ($p['tag']): ?><span class="badge tag-<?= h($p['tag']) ?>"><?= h($TAG_OPTIONS[$p['tag']] ?? $p['tag']) ?></span><?php endif; ?>
+            <?php if (!$p['active']): ?><span class="badge cancelled">masqué</span><?php endif; ?>
+          </div>
+          <div class="rec-corner">
+            <?php if ($p['image_path']): ?><img class="rec-thumb" src="../<?= h($p['image_path']) ?>" alt=""><?php endif; ?>
+          </div>
+        </div>
+        <div class="rec-ref">Réf #<?= (int)$p['id'] ?> · <?= h($CATEGORY_OPTIONS[$p['category']] ?? $p['category']) ?></div>
+        <div class="rec-meta">Tailles <?= h($p['sizes']) ?></div>
+        <div class="rec-bottom">
+          <div class="rec-actions">
+            <a class="rec-ic" href="product-form.php?edit=<?= (int)$p['id'] ?>" title="Modifier" aria-label="Modifier">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>
+            </a>
+            <form method="post" style="display:contents" onsubmit="return confirm('Supprimer ce produit ?')">
+              <input type="hidden" name="action" value="delete">
+              <input type="hidden" name="id" value="<?= (int)$p['id'] ?>">
+              <button type="submit" class="rec-ic danger" title="Supprimer" aria-label="Supprimer">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 6h18"/><path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/></svg>
+              </button>
+            </form>
+          </div>
+          <div class="rec-price"><?= fmt_da_admin($p['price']) ?><?php if ((int)$p['original_price'] > (int)$p['price']): ?> <s><?= fmt_da_admin($p['original_price']) ?></s><?php endif; ?></div>
+        </div>
+      </div>
     <?php endforeach; ?>
-    </tbody>
-  </table></div>
+  </div>
 </div>
+<script>
+document.getElementById('prodSearch').addEventListener('input', function () {
+  var q = this.value.toLowerCase();
+  document.querySelectorAll('#prodList .rec').forEach(function (rec) {
+    rec.style.display = rec.textContent.toLowerCase().indexOf(q) !== -1 ? '' : 'none';
+  });
+});
+</script>
 <?php require __DIR__ . '/includes/footer.php'; ?>
