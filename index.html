@@ -652,6 +652,7 @@ footer li a:hover{color:var(--rose)}
 <script>
 
 var P=[]; // loaded from /api/products.php at runtime
+var DEMO_MODE=false; // true when api/products.php isn't reachable (e.g. static hosting) and we fell back to data/products-sample.json — login/checkout need a real backend and are disabled in this mode
 function byId(id){for(var k=0;k<P.length;k++)if(P[k].id===id)return P[k];return null}
 
 var TILES=[
@@ -992,6 +993,7 @@ cD.addEventListener('click',function(){cDom=true;cD.setAttribute('aria-pressed',
 document.getElementById('cartOk').addEventListener('click',function(){
   var nom=document.getElementById('cNom'),tel=document.getElementById('cTel'),btn=this;
   if(!bag.length)return;
+  if(DEMO_MODE){showToast('Mode démo','Impossible d\'envoyer une commande sans serveur backend');return}
   if(!nom.value.trim()){nom.focus();nom.style.borderColor='var(--sale)';return}
   if(tel.value.replace(/\D/g,'').length<9){tel.focus();tel.style.borderColor='var(--sale)';return}
   if(!cWil.value){showToast('Wilaya requise','Choisissez votre wilaya avant de confirmer');return}
@@ -1123,6 +1125,7 @@ function updateAcctUI(){
 
 authSubmit.addEventListener('click',function(){
   authErr.style.display='none';
+  if(DEMO_MODE){authErr.textContent='Compte indisponible en mode démo (pas de serveur backend)';authErr.style.display='block';return}
   var payload,url;
   if(authMode==='login'){
     url='api/login.php';
@@ -1201,15 +1204,24 @@ fetch('api/me.php').then(function(r){return r.json()}).then(function(data){
   authUser=data.user;updateAcctUI();
 }).catch(function(){});
 
-fetch('api/products.php').then(function(r){return r.json()}).then(function(data){
+function loadProducts(data){
   P=data.products||[];
   bag=bag.filter(function(o){return !!byId(o.id)});
   wish=wish.filter(function(id){return !!byId(id)});
   saveLS('sakura_bag',bag);saveLS('sakura_wish',wish);
   paint();
   renderBag();
-}).catch(function(){
-  document.getElementById('grid').innerHTML='<p class="noresult">Impossible de charger les produits. Vérifiez que le serveur PHP et la base de données sont bien configurés (voir README).</p>';
+}
+fetch('api/products.php').then(function(r){return r.json()}).then(loadProducts).catch(function(){
+  // No PHP backend responding (e.g. a static host like GitHub Pages) — fall back to a
+  // bundled sample catalog so the storefront can still be browsed read-only.
+  DEMO_MODE=true;
+  fetch('data/products-sample.json').then(function(r){return r.json()}).then(function(data){
+    loadProducts(data);
+    showToast('Mode démo','Catalogue d\'exemple · connexion et commande indisponibles ici');
+  }).catch(function(){
+    document.getElementById('grid').innerHTML='<p class="noresult">Impossible de charger les produits. Vérifiez que le serveur PHP et la base de données sont bien configurés (voir README).</p>';
+  });
 });
 </script>
 </body>

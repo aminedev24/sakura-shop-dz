@@ -21,6 +21,21 @@ npm run build:css # one-off build
 npm run watch:css # rebuilds on save while you work
 ```
 
+## Static preview (GitHub Pages)
+
+GitHub Pages only serves static files — it can't run `api/products.php`. When that fetch fails, the storefront automatically falls back to the bundled sample catalog at `data/products-sample.json` and shows a "Mode démo" toast. In that mode browsing, filtering, the cart, wishlist, and the delivery/wilaya/daïra calculator all work normally (nothing there touches the backend), but login/account and actually submitting an order are disabled with an explanatory message, since those genuinely need the PHP + MySQL backend. The admin panel isn't usable at all on a static host.
+
+To refresh the sample data after editing products (e.g. via the admin panel), regenerate it from the live database:
+
+```
+php -r '
+require __DIR__ . "/config/db.php";
+require __DIR__ . "/api/_helpers.php";
+$rows = $pdo->query("SELECT * FROM products WHERE active = 1 ORDER BY id ASC")->fetchAll();
+echo json_encode(["products" => array_map("product_to_json", $rows)], JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
+' > data/products-sample.json
+```
+
 ## Admin panel
 
 `http://localhost/sakura-shop-dz/admin/login.php`
