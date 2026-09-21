@@ -1,0 +1,72 @@
+/* Sakura Shop — design tokens, as authored in the claude.ai design project
+   "Algerian women's clothing store" (mood: Doux, shapes: Rond, density: Aéré).
+
+   This file is the SPEC / source of truth. It is not linked by any page.
+   The live copies live in three places and must be kept in sync:
+     - index.html               :root block
+     - admin/assets/admin.css   :root block
+     - styles/tailwind.css      @theme block  (run `npm run build:css` after editing)
+*/
+
+:root {
+  /* Palette */
+  --ground:        #FFFFFF;  /* page background */
+  --surface:       #FFF5F8;  /* tinted bands, cards, image placeholders */
+  --ink:           #1F1420;  /* headings, primary text, footer bg */
+  --muted:         #7A6570;  /* body copy, labels, meta */
+  --line:          #F6E3EA;  /* all borders and hairlines */
+  --accent:        #D6456F;  /* prices, CTAs, active states, links */
+  --accent-soft:   #FFEAF1;  /* accent chips, badges, active nav pill */
+  --on-accent:     #FFFFFF;  /* text on accent fills */
+  --footer-bg:     #1F1420;
+  --footer-text:   #EBD8E0;
+
+  /* Radii */
+  --r-pill: 999px;  /* buttons, chips, badges, steppers */
+  --r-md:   18px;   /* product images, inputs, small cards */
+  --r-lg:   24px;   /* hero image, panels, modal, tinted sections */
+
+  /* Rhythm */
+  --gap:        22px;  /* grid gap */
+  --section:    72px;  /* space between sections */
+  --hero-pad:   52px;
+  --card-min:  230px;  /* grid minmax() column */
+
+  /* Type scale */
+  --t-hero:   58px;  /* weight 600, letter-spacing -0.035em */
+  --t-h1:     40px;  /* weight 600, -0.035em */
+  --t-h2:     32px;  /* weight 600, -0.03em */
+  --t-price:  17px;  /* weight 700, accent */
+  --t-body:   15px;  /* line-height 1.65 */
+  --t-meta: 12.5px;
+  --t-label:   11px; /* weight 700, letter-spacing 0.16em, uppercase */
+}
+
+body {
+  font-family: Outfit, Helvetica, sans-serif; /* weights 300–700 */
+  background: var(--ground);
+  color: var(--ink);
+}
+
+/* Arabic / RTL */
+[dir="rtl"] { font-family: Cairo, sans-serif; } /* weights 400–700 */
+
+/*
+Google Fonts:
+https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Cairo:wght@400;600;700&display=swap
+
+Conventions used throughout
+---------------------------
+Buttons      primary = accent bg + white text, pill; secondary = white bg + --line
+             border; tertiary = text only in --muted
+Nav          category chips, pill, active = --accent-soft bg + --accent text,
+             40px min-height, horizontal scroll on mobile
+Product card image 3/4 aspect, --r-md, --surface behind; promo badge top-start;
+             price in accent with struck-through compare-at in --muted
+Tinted band  --surface bg + --r-lg, used for trust strip, calculator, returns
+Hairline     always 1px solid --line; never a shadow except the modal
+             (0 24px 60px rgba(20,10,18,0.28))
+Photo overlay linear-gradient(transparent, rgba(20,10,18,0.8)) for text on images
+Spacing      flex/grid + gap only; no margins between siblings
+Prices       non-breaking space before DA / دج (4 900 DA)
+*/

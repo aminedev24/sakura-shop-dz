@@ -2,22 +2,48 @@
 
 /* Scan the PHP/HTML sources for class names — they live outside this styles/ folder. */
 @source "../index.html";
+@source "../assets/app.js";
 @source "../admin/**/*.php";
 
+/* Sakura Shop design tokens (mood: Doux, shapes: Rond, density: Aéré).
+   Keep these in sync with the :root blocks in index.html and admin/assets/admin.css. */
 @theme {
+  /* palette */
+  --color-ground: #FFFFFF;
+  --color-surface: #FFF5F8;
+  --color-accent: #D6456F;
+  --color-accent-soft: #FFEAF1;
+  --color-on-accent: #FFFFFF;
+  --color-footer-bg: #1F1420;
+  --color-footer-text: #EBD8E0;
+
+  /* aliases kept so existing utility classes keep resolving */
   --color-page: #FFFFFF;
   --color-paper: #FFFFFF;
-  --color-ink: #111111;
-  --color-ink-2: #555555;
-  --color-rose: #dd1d1d;
-  --color-rose-dk: #b01414;
-  --color-rose-lt: #FDF1F1;
-  --color-sale: #D63A48;
+  --color-ink: #1F1420;
+  --color-ink-2: #4C3C48;
+  --color-rose: #D6456F;
+  --color-rose-dk: #AF385B;
+  --color-rose-lt: #FFEAF1;
+  --color-sale: #C42E4F;
   --color-gold: #C9A227;
   --color-sage: #5C8A6B;
-  --color-grey: #555555;
-  --color-grey-2: #9A9A9A;
-  --color-line: #EBEBEB;
-  --font-serif: Jost, "Segoe UI", Roboto, -apple-system, Helvetica, Arial, sans-serif;
-  --font-sans: Jost, "Segoe UI", Roboto, -apple-system, BlinkMacSystemFont, Helvetica, Arial, sans-serif;
+  --color-grey: #7A6570;
+  --color-grey-2: #A89BA2;
+  --color-line: #F6E3EA;
+
+  /* radii */
+  --radius-pill: 999px;
+  --radius-lg: 24px;
+  --radius-md: 18px;
+  --radius-sm: 12px;
+  --radius-xs: 8px;
+
+  /* the only shadow in the system */
+  --shadow-modal: 0 24px 60px rgba(20, 10, 18, 0.28);
+
+  /* type */
+  --font-serif: Outfit, "Segoe UI", Roboto, -apple-system, Helvetica, Arial, sans-serif;
+  --font-sans: Outfit, "Segoe UI", Roboto, -apple-system, BlinkMacSystemFont, Helvetica, Arial, sans-serif;
+  --font-arabic: Cairo, "Segoe UI", Tahoma, Arial, sans-serif;
 }
