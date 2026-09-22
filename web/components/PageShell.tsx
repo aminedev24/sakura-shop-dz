@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import PromoStrip from './PromoStrip';
+import TopBar from './shop/TopBar';
 import Header from './Header';
 import MobileNav from './MobileNav';
 import Footer from './Footer';
@@ -15,7 +15,7 @@ export default function PageShell({
 }) {
   return (
     <>
-      <PromoStrip />
+      <TopBar />
       <Header />
       <main id="contenu" className="wrap page-prose">
         <nav className="crumbs" aria-label="Fil d'Ariane">

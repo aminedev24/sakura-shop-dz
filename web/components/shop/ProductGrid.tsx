@@ -5,6 +5,7 @@ import { Product, discount } from '@/lib/products';
 import { useShop } from '@/lib/shop-context';
 import { useWishlist } from '@/lib/useWishlist';
 import ProductCard from './ProductCard';
+import { IArrow } from '../icons2';
 
 const CHIPS = [
   { s: 'all', label: 'Tout' },
@@ -18,14 +19,17 @@ const LIMIT = 12;
 
 export default function ProductGrid({
   query,
+  cat,
+  onCat,
   onOpen,
 }: {
   query: string;
+  cat: string;
+  onCat: (s: string) => void;
   onOpen: (p: Product) => void;
 }) {
   const { products, demo, loading, failed } = useShop();
   const wish = useWishlist();
-  const [cat, setCat] = useState('all');
   const [sort, setSort] = useState('def');
   const [showAll, setShowAll] = useState(false);
 
@@ -48,25 +52,24 @@ export default function ProductGrid({
   }, [products, sort, query, cat, showAll]);
 
   return (
-    <section className="sec reveal" id="boutique">
-      <div className="sec-h shop-head">
+    <section className="sec3 reveal" id="boutique">
+      <div className="sechead">
         <div>
-          <h2>Nos modèles</h2>
-          <p className="shop-sub">
-            <span>{visible.length}</span> modèles · Choisissez votre coupe et votre matière
-          </p>
+          <span className="kicker">Nos coups de cœur</span>
+          <h2>Nouveautés</h2>
+          <p>Les modèles les plus récents, sélectionnés avec soin — {visible.length} affichés.</p>
         </div>
-        <a className="voir" href="#livraison">Livraison &amp; paiement →</a>
+        <a className="seclink" href="#livraison">Voir toute la boutique <IArrow /></a>
       </div>
 
-      <div className="filters" role="group" aria-label="Filtrer">
+      <div className="chips3" role="group" aria-label="Filtrer">
         {CHIPS.map((c) => (
           <button
             key={c.s}
-            className="chip"
+            className="chip3"
             type="button"
             aria-pressed={cat === c.s}
-            onClick={() => setCat(c.s)}
+            onClick={() => onCat(c.s)}
           >
             {c.label}
           </button>
@@ -91,7 +94,7 @@ export default function ProductGrid({
         </div>
       </div>
 
-      <div className="grid" id="grid">
+      <div className="grid3" id="grid">
         {visible.map((p) => (
           <ProductCard key={p.id} p={p} wished={wish.has(p.id)} onWish={wish.toggle} onOpen={onOpen} />
         ))}

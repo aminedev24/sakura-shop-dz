@@ -1,22 +1,24 @@
-import { Trust0, Trust1, Trust2, Trust3 } from '../icons';
+import { IShield, ITruck, ICard, IHeadset } from '../icons2';
 
 const ITEMS = [
-  { icon: Trust0, h: 'Livraison 58 wilayas',   p: 'Nous livrons partout en Algérie, avec délais de 24h à 3-5 jours selon votre wilaya.' },
-  { icon: Trust1, h: 'Paiement à la livraison', p: 'Payez à la réception de votre commande. Vous ouvrez et vérifiez avant de payer.' },
-  { icon: Trust2, h: 'Du S au XXL',             p: 'Toutes les tailles disponibles, avec des coupes amples pensées pour le confort.' },
-  { icon: Trust3, h: 'Qualité garantie',        p: 'Coton doux et satin premium, testés pour un confort toute la journée.' },
+  { icon: <IShield />,  b: 'Qualité garantie',       s: 'Tissus doux et durables' },
+  { icon: <ITruck />,   b: 'Livraison 58 wilayas',   s: 'Rapide et sécurisée' },
+  { icon: <ICard />,    b: 'Paiement à la livraison', s: 'Simple et fiable' },
+  { icon: <IHeadset />, b: 'Service client',          s: 'Toujours à votre écoute' },
 ];
 
 export default function TrustStrip() {
   return (
-    <section className="sec reveal" id="pourquoi" aria-label="Pourquoi nous choisir">
-      <div className="sec-h"><h2>Pourquoi choisir Sakura Shop ?</h2></div>
-      <div className="trust">
+    <section className="sec3 reveal" id="pourquoi" aria-label="Pourquoi nous choisir">
+      <div className="sechead sechead-c">
+        <h2>Pourquoi choisir Sakura Shop ?</h2>
+        <p>Plus qu’une boutique, une expérience de confort.</p>
+      </div>
+      <div className="why">
         {ITEMS.map((i) => (
-          <div className="trust-item" key={i.h}>
-            <div className="ti-icon">{i.icon}</div>
-            <h4>{i.h}</h4>
-            <p>{i.p}</p>
+          <div className="why-item" key={i.b}>
+            <span className="why-ic">{i.icon}</span>
+            <span><b>{i.b}</b><span>{i.s}</span></span>
           </div>
         ))}
       </div>

@@ -5,10 +5,11 @@ import { useReveal } from '@/lib/useReveal';
 import { ShopProvider, useShop } from '@/lib/shop-context';
 import { Product } from '@/lib/products';
 import { useAuth } from '@/lib/useAuth';
-import PromoStrip from '../PromoStrip';
+import TopBar from './TopBar';
 import Footer from '../Footer';
 import ShopHeader from './ShopHeader';
 import Hero from './Hero';
+import PromoBanner from './PromoBanner';
 import TrustStrip from './TrustStrip';
 import ProductGrid from './ProductGrid';
 import DeliveryCalculator from './DeliveryCalculator';
@@ -25,6 +26,7 @@ function Shell() {
   const { showToast } = useShop();
   const auth = useAuth();
   const [query, setQuery] = useState('');
+  const [cat, setCat] = useState('all');
   const [bagOpen, setBagOpen] = useState(false);
   const [acctOpen, setAcctOpen] = useState(false);
   const [authOpen, setAuthOpen] = useState(false);
@@ -33,10 +35,11 @@ function Shell() {
 
   return (
     <>
-      <PromoStrip />
+      <TopBar />
       <ShopHeader
         query={query}
         onQuery={setQuery}
+        wishCount={0}
         bagOpen={bagOpen}
         onBagToggle={() => { setBagOpen((v) => !v); setAcctOpen(false); }}
         cart={<CartPanel open={bagOpen} onClose={() => setBagOpen(false)} />}
@@ -64,7 +67,8 @@ function Shell() {
         <Hero />
         <div className="wrap">
           <TrustStrip />
-          <ProductGrid query={query} onOpen={setModal} />
+          <ProductGrid query={query} cat={cat} onCat={setCat} onOpen={setModal} />
+          <PromoBanner />
           <DeliveryCalculator />
           <SizeGuide />
         </div>
