@@ -16,7 +16,7 @@ export default function NavDrawer({
   onClose: () => void;
   nav: NavEntry[];
 }) {
-  const { t, lang, setLang } = useLang();
+  const { t } = useLang();
 
   // Escape closes, and the page must not scroll behind the drawer
   useEffect(() => {
@@ -59,9 +59,6 @@ export default function NavDrawer({
         </nav>
 
         <div className="navdrawer-foot">
-          <button type="button" className="langbtn" onClick={() => setLang(lang === 'fr' ? 'ar' : 'fr')}>
-            {t.langLabel}
-          </button>
           <a className="navdrawer-tel" href="tel:+213560000000">
             <IPhone />
             <span><b>05 60 00 00 00</b><span>{t.callUs}</span></span>

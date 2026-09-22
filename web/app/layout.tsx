@@ -2,6 +2,8 @@ import type { Metadata } from 'next';
 import './globals.css';
 import './redesign.css';
 import { LangProvider } from '@/lib/i18n';
+import { ShopProvider } from '@/lib/shop-context';
+import Toast from '@/components/shop/Toast';
 
 export const metadata: Metadata = {
   title: { default: 'Sakura Shop', template: '%s — Sakura Shop' },
@@ -32,7 +34,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         />
       </head>
       <body>
-        <LangProvider>{children}</LangProvider>
+        <LangProvider>
+          <ShopProvider>
+            {children}
+            <Toast />
+          </ShopProvider>
+        </LangProvider>
       </body>
     </html>
   );

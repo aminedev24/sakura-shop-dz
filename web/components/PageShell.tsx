@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import { useLang } from '@/lib/i18n';
 import TopBar from './shop/TopBar';
-import Header from './Header';
+import SiteHeader from './SiteHeader';
 import MobileNav from './MobileNav';
 import Footer from './Footer';
 
@@ -20,7 +20,7 @@ export default function PageShell({
   return (
     <>
       <TopBar />
-      <Header />
+      <SiteHeader />
       <main id="contenu" className="wrap page-prose">
         <nav className="crumbs" aria-label="Fil d'Ariane">
           <Link href="/">{t.navHome}</Link>

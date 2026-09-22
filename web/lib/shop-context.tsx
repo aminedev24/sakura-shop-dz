@@ -24,6 +24,10 @@ type Shop = {
   subtotal: number;
   toast: ToastMsg;
   showToast: (title: string, sub: string) => void;
+  /** search box text, here so the header can write it and the grid can read it
+   *  even though they no longer share a parent component */
+  query: string;
+  setQuery: (v: string) => void;
 };
 
 const Ctx = createContext<Shop | null>(null);
@@ -42,6 +46,7 @@ export function ShopProvider({ children }: { children: React.ReactNode }) {
   const catalog = useProducts();
   const [lines, setLines] = useState<Line[]>([]);
   const [toast, setToast] = useState<ToastMsg>(null);
+  const [query, setQuery] = useState('');
   const timer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   // localStorage is unavailable while the page is prerendered
@@ -96,8 +101,8 @@ export function ShopProvider({ children }: { children: React.ReactNode }) {
   const value = useMemo<Shop>(() => ({
     products: catalog.products, byId, demo: catalog.demo,
     loading: catalog.loading, failed: catalog.failed,
-    lines, add, remove, update, clear, count, subtotal, toast, showToast,
-  }), [catalog, byId, lines, add, remove, update, clear, count, subtotal, toast, showToast]);
+    lines, add, remove, update, clear, count, subtotal, toast, showToast, query, setQuery,
+  }), [catalog, byId, lines, add, remove, update, clear, count, subtotal, toast, showToast, query]);
 
   return <Ctx.Provider value={value}>{children}</Ctx.Provider>;
 }

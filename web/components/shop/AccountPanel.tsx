@@ -75,6 +75,12 @@ export default function AccountPanel({
             })}
           </div>
 
+          {/* the admin panel is a separate PHP app; surfaced here rather than in
+              public navigation so it is not advertised to every visitor */}
+          {user.role === 'admin' && (
+            <a className="acct-admin" href="/admin/">{t.adminPanel} →</a>
+          )}
+
           <button
             className="ok"
             type="button"

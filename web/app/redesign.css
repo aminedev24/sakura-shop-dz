@@ -383,3 +383,138 @@ html.has-js .reveal.vis{opacity:1;transform:none}
   .editorial-image img{transition:none}
   .editorial:hover .editorial-image img{transform:none}
 }
+
+/* admin entry point, shown only to signed-in admins */
+.acct-admin{display:block;margin-top:12px;padding:10px 12px;border-radius:12px;
+  background:var(--accent-soft);color:var(--accent);font-size:13px;font-weight:700;text-align:center}
+.acct-admin:hover{background:var(--accent);color:#fff}
+
+/* ============================================================
+   SMALL SCREENS
+   ============================================================ */
+@media(max-width:900px){
+  /* the strip has a fixed height, so wrapping clipped the items mid-line.
+     Scroll them horizontally instead. */
+  .topbar-items{flex-wrap:nowrap}
+  .topbar-in{overflow-x:auto;scrollbar-width:none;-ms-overflow-style:none;justify-content:flex-start}
+  .topbar-in::-webkit-scrollbar{display:none}
+}
+
+@media(max-width:620px){
+  .topbar{font-size:11.5px}
+  .topbar-in{height:34px;gap:8px}
+  .topbar-items{gap:8px}
+
+  /* burger + brand + language + four icons overflowed 390px and cut off the
+     search control. The language switch lives in the drawer, and favourites
+     are reachable from the shop, so both come out of the bar here. */
+  .hdr-in{height:62px;gap:8px}
+  .hdr-actions{gap:2px}
+  .hdr-actions > .langbtn{display:none}
+  /* nth-of-type counts buttons, and .langbtn is one too, so it hid the wrong
+     control — target the classes explicitly */
+  .hdr-actions > .ib-wish{display:none}
+  .iconbtn{width:36px;height:36px}
+  .iconbtn svg{width:19px;height:19px}
+  .brand svg.mark{width:31px;height:31px}
+  .brand b{font-size:17.5px}
+  .brand small{font-size:7.5px;letter-spacing:.2em}
+  .hdr-searchbar{height:40px;padding-inline:14px 4px;margin-inline-start:8px}
+
+  /* section rhythm is too generous on a phone */
+  .sec3{padding-top:38px}
+  .sechead{margin-bottom:18px}
+  .sechead h2{font-size:26px}
+  .hero3{padding-top:12px}
+}
+
+@media(max-width:360px){
+  /* only on the very narrowest phones drop search as well — 390px devices
+     (iPhone 12/13/14) have room for it */
+  .hdr-actions > .ib-search{display:none}
+  .brand small{display:none}
+}
+
+/* ---------- why-us: larger icons, row layout on narrow cards ---------- */
+.why-ic{width:54px;height:54px}
+.why-ic svg{width:24px;height:24px}
+.why-item{padding:24px 20px;gap:14px}
+.why-item b{font-size:15.5px}
+
+@media(max-width:900px){
+  /* two per row: the card is wide enough that a stacked icon leaves the right
+     half empty, so put the icon beside the text */
+  .why-item{flex-direction:row;align-items:center;gap:15px;padding:18px}
+  .why-ic{width:50px;height:50px}
+}
+@media(max-width:520px){
+  .why{gap:12px}
+  .why-item{padding:16px 16px;gap:14px}
+  .why-ic{width:48px;height:48px}
+  .why-ic svg{width:22px;height:22px}
+  .why-item b{font-size:15px}
+  .why-item span span{font-size:12.5px}
+}
+
+/* ---------- hero on phones ---------- */
+@media(max-width:620px){
+  .hero3-photo{height:230px}
+  .hero3-in{padding:24px 20px 26px;gap:14px}
+  .hero3-in h1{font-size:clamp(30px,8.5vw,38px);line-height:1.05}
+  .hero3-in p{font-size:14.5px;line-height:1.6}
+  /* ragged auto-width buttons look unfinished stacked; make them match */
+  .hero3-btns{width:100%;gap:9px}
+  .hero3-btns .btn2{width:100%;justify-content:center;padding:14px 20px}
+  /* two tidy columns instead of an uneven wrap */
+  .hero3-feats{display:grid;grid-template-columns:1fr 1fr;gap:14px 12px;margin-top:6px;
+    padding-top:14px;border-top:1px solid var(--line)}
+  .hero3-feat svg{width:18px;height:18px}
+  .hero3-feat b{font-size:12px}
+  .hero3-feat span{font-size:10.5px}
+  .kicker{font-size:10px;padding:6px 13px}
+}
+
+/* ---------- why-us: specificity corrections ---------- */
+/* `.why-item span{display:block}` above also matches .why-ic, which IS a span,
+   and outranks the `.why-ic` rule — so the circle became display:block, the
+   flex centring stopped applying and the glyph sat in the corner. */
+.why-item > .why-ic{display:flex;align-items:center;justify-content:center;
+  flex:none;margin-top:0;font-size:0}
+/* the text wrapper is a span too: without flex:1 it shrinks to its content and
+   leaves the rest of the card empty */
+.why-item > span:not(.why-ic){flex:1;min-width:0}
+
+/* ---------- hero photo on phones ---------- */
+@media(max-width:620px){
+  /* 230px of a portrait collage is a thin unreadable band */
+  .hero3-photo{height:300px}
+  .hero3-photo img{object-position:center 12%}
+}
+@media(max-width:360px){
+  .hero3-photo{height:260px}
+}
+
+/* ---------- language switch: always in the bar, abbreviated on phones ---------- */
+.lang-short{display:none}
+@media(max-width:620px){
+  /* it stays in the header rather than hiding in the drawer */
+  .hdr-actions > .langbtn{display:inline-flex;align-items:center;justify-content:center;
+    min-width:36px;height:36px;padding:0 10px;font-size:13px;font-weight:700}
+  .lang-full{display:none}
+  .lang-short{display:inline}
+}
+
+/* ---------- why-us: one row layout at every width ---------- */
+/* The cards were a column with align-items:flex-start, so each child shrank to
+   its own content width and the rest of the card stayed empty. Icon beside
+   text, text taking the remaining width, at every size. */
+.why-item{flex-direction:row;align-items:center;gap:16px;padding:20px 18px}
+.why-item > .why-ic{width:52px;height:52px}
+.why-item > .why-ic svg{width:23px;height:23px}
+.why-item > span:not(.why-ic){flex:1 1 auto;min-width:0;width:auto}
+.why-item b{font-size:15px;line-height:1.25}
+.why-item span span{font-size:12.5px;line-height:1.4;margin-top:3px}
+@media(max-width:520px){
+  .why-item{padding:16px;gap:14px}
+  .why-item > .why-ic{width:48px;height:48px}
+}

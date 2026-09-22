@@ -24,6 +24,10 @@ export default function config(phase) {
               { source: '/api/:path*', destination: `${PHP_ORIGIN}/api/:path*` },
               { source: '/uploads/:path*', destination: `${PHP_ORIGIN}/uploads/:path*` },
               { source: '/data/:path*', destination: `${PHP_ORIGIN}/data/:path*` },
+              // the admin panel is a separate PHP app; without this `next dev`
+              // answers /admin/ itself and serves the Next 404
+              { source: '/admin', destination: `${PHP_ORIGIN}/admin/index.php` },
+              { source: '/admin/:path*', destination: `${PHP_ORIGIN}/admin/:path*` },
             ];
           },
         }),

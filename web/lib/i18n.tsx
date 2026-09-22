@@ -6,7 +6,7 @@ export type Lang = 'fr' | 'ar';
 
 const STRINGS = {
   fr: {
-    dir: 'ltr', langLabel: 'العربية', langSwitchTo: "Passer à l'arabe", currency: 'DA',
+    dir: 'ltr', langLabel: 'العربية', langShort: 'ع', langSwitchTo: "Passer à l'arabe", currency: 'DA',
     // top bar
     tbDelivery: 'Livraison 58 wilayas', tbCod: 'Paiement à la livraison',
     tbFree: 'Livraison offerte dès 12 000 DA', follow: 'Suivez-nous',
@@ -114,9 +114,10 @@ const STRINGS = {
     nfTitle: 'Page introuvable',
     nfText: 'Cette page n’existe pas ou a été déplacée. Retournez à la boutique pour retrouver nos modèles.',
     nfCta: 'Retour à la boutique',
+    adminPanel: 'Administration',
   },
   ar: {
-    dir: 'rtl', langLabel: 'Français', langSwitchTo: 'التبديل إلى الفرنسية', currency: 'دج',
+    dir: 'rtl', langLabel: 'Français', langShort: 'FR', langSwitchTo: 'التبديل إلى الفرنسية', currency: 'دج',
     tbDelivery: 'التوصيل إلى 58 ولاية', tbCod: 'الدفع عند الاستلام',
     tbFree: 'توصيل مجاني ابتداءً من \u206612 000\u2069 دج', follow: 'تابعونا',
     navHome: 'الرئيسية', navShop: 'المتجر', navDelivery: 'التوصيل',
@@ -210,6 +211,7 @@ const STRINGS = {
     nfTitle: 'الصفحة غير موجودة',
     nfText: 'هذه الصفحة غير موجودة أو تم نقلها. عودي إلى المتجر لتصفّح موديلاتنا.',
     nfCta: 'العودة إلى المتجر',
+    adminPanel: 'لوحة التحكم',
   },
 } as const;
 

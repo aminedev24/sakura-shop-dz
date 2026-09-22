@@ -2,7 +2,9 @@
 
 import { useCallback, useEffect, useState } from 'react';
 
-export type User = { id: number; name: string; email: string; phone?: string };
+export type User = { id: number; name: string; email: string; phone?: string;
+  /** 'customer' | 'admin' — api/login.php and api/me.php both return it */
+  role?: string };
 
 export type OrderItem = { product_name: string; size: string; qty: number; image_path?: string };
 export type Order = {
