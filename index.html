@@ -24,10 +24,10 @@
       <svg viewBox="0 0 32 32" aria-hidden="true"><g fill="#D6456F"><path d="M16 15.2C12.9 12.9 11.9 8.9 13.6 6.2c1-1.5 1.7-1 2.4.4c.7-1.4 1.4-1.9 2.4-.4C20.1 8.9 19.1 12.9 16 15.2Z" transform="rotate(0 16 16)"/><path d="M16 15.2C12.9 12.9 11.9 8.9 13.6 6.2c1-1.5 1.7-1 2.4.4c.7-1.4 1.4-1.9 2.4-.4C20.1 8.9 19.1 12.9 16 15.2Z" transform="rotate(72 16 16)"/><path d="M16 15.2C12.9 12.9 11.9 8.9 13.6 6.2c1-1.5 1.7-1 2.4.4c.7-1.4 1.4-1.9 2.4-.4C20.1 8.9 19.1 12.9 16 15.2Z" transform="rotate(144 16 16)"/><path d="M16 15.2C12.9 12.9 11.9 8.9 13.6 6.2c1-1.5 1.7-1 2.4.4c.7-1.4 1.4-1.9 2.4-.4C20.1 8.9 19.1 12.9 16 15.2Z" transform="rotate(216 16 16)"/><path d="M16 15.2C12.9 12.9 11.9 8.9 13.6 6.2c1-1.5 1.7-1 2.4.4c.7-1.4 1.4-1.9 2.4-.4C20.1 8.9 19.1 12.9 16 15.2Z" transform="rotate(288 16 16)"/></g><g fill="#AF385B"><circle cx="16" cy="16" r="1.75"/><circle cx="16" cy="11.9" r=".7"/><circle cx="19.9" cy="14.7" r=".7"/><circle cx="18.4" cy="19.3" r=".7"/><circle cx="13.6" cy="19.3" r=".7"/><circle cx="12.1" cy="14.7" r=".7"/></g></svg>
       <span><b>Sakura Shop</b><small>VÊTEMENTS D'INTÉRIEUR</small></span>
     </a>
-    <div class="search" role="search">
+    <form class="search" role="search" id="searchForm">
       <input id="q" type="search" placeholder="Chercher un modèle, une matière…" aria-label="Rechercher">
-      <button id="qBtn" aria-label="Rechercher"><svg viewBox="0 0 24 24" fill="none"><circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="2"/><path d="m20 20-3.5-3.5" stroke="currentColor" stroke-width="2"/></svg></button>
-    </div>
+      <button id="qBtn" type="submit" aria-label="Rechercher"><svg viewBox="0 0 24 24" fill="none"><circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="2"/><path d="m20 20-3.5-3.5" stroke="currentColor" stroke-width="2"/></svg></button>
+    </form>
     <div class="hd-r">
       <a class="tel" href="tel:+213560000000">
         <svg viewBox="0 0 24 24" fill="none"><path d="M5 4h4l2 5-2.5 1.5a12 12 0 0 0 5 5L15 13l5 2v4a1 1 0 0 1-1 1A16 16 0 0 1 4 5a1 1 0 0 1 1-1Z" stroke="currentColor" stroke-width="1.7"/></svg>
@@ -45,7 +45,7 @@
       <div class="bagwrap">
         <button class="bag" id="bagBtn" aria-haspopup="true" aria-expanded="false">
           <svg viewBox="0 0 24 24" fill="none"><path d="M6 8h12l-1 12H7z" stroke="currentColor" stroke-width="1.7"/><path d="M9 8V6a3 3 0 0 1 6 0v2" stroke="currentColor" stroke-width="1.7"/></svg>
-          <i id="cCount">0</i>
+          <span class="count" id="cCount">0</span>
           <span class="t"><span>Panier</span><b id="cTotal">0 DA</b></span>
         </button>
         <div class="bagpanel" id="bagPanel" role="dialog" aria-label="Panier">
@@ -57,6 +57,8 @@
     </div>
   </div>
 </header>
+
+<main id="contenu">
 
 <!-- ============ HERO ============ -->
 <section class="wrap hero hero-v2" aria-label="Mise en avant">
@@ -78,7 +80,6 @@
           <div class="hero-art-label">S A K U R A</div>
           <div class="hero-art-inner"><img id="heroImg" alt="Ensemble pyjama Sakura Shop"></div>
         </div>
-        <div class="hero-badge badge-bottom">✓ 48 h pour échanger</div>
       </div>
     </div>
   </div>
@@ -87,7 +88,7 @@
 
 <!-- ============ BOUTIQUE ============ -->
 <div class="wrap">
-  <section class="sec reveal" aria-label="Pourquoi nous choisir">
+  <section class="sec reveal" id="pourquoi" aria-label="Pourquoi nous choisir">
     <div class="sec-h"><h2>Pourquoi choisir Sakura Shop ?</h2></div>
     <div class="trust">
       <div class="trust-item">
@@ -101,9 +102,9 @@
         <p>Payez à la réception de votre commande. Vous ouvrez et vérifiez avant de payer.</p>
       </div>
       <div class="trust-item">
-        <div class="ti-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M5 3l4 5-4 5M14 3l4 5-4 5"/><path d="M3 12v6a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-6"/><path d="M10 12h4"/></svg></div>
-        <h4>Échange sous 48h</h4>
-        <p>Mauvaise taille ? Échange gratuit sous 48h après réception de votre commande.</p>
+        <div class="ti-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M20.6 13.4 13.4 20.6a2 2 0 0 1-2.8 0l-7.2-7.2A2 2 0 0 1 3 12V4a1 1 0 0 1 1-1h8a2 2 0 0 1 1.4.6l7.2 7.2a2 2 0 0 1 0 2.6Z"/><circle cx="7.5" cy="7.5" r="1.3"/></svg></div>
+        <h4>Du S au XXL</h4>
+        <p>Toutes les tailles disponibles, avec des coupes amples pensées pour le confort.</p>
       </div>
       <div class="trust-item">
         <div class="ti-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 21s-7.5-4.9-7.5-11a4.5 4.5 0 0 1 8-2.8A4.5 4.5 0 0 1 20 10c0 6.1-8 11-8 11Z"/></svg></div>
@@ -154,9 +155,6 @@
         <span class="section-kicker">🚚 Livraison simple &amp; transparente</span>
         <h2>Combien coûte la livraison chez vous ?</h2>
         <div class="dp">
-          <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="2" y="6" width="20" height="12" rx="2"/><path d="M2 10h20"/></svg>Payer à la réception</div>
-          <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/><path d="m9 12 2 2 4-4"/></svg>Ouvrir avant de payer</div>
-          <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 12a8 8 0 1 1 2.5 5.8"/><path d="M4 20v-5h5"/></svg>Échange sous 48h</div>
         </div>
       </div>
       <div class="calc">
@@ -185,24 +183,9 @@
     </details>
   </section>
 
-  <section class="sec reveal" id="echange" aria-label="Échange et retour">
-    <div class="sec-h"><h2>Échange &amp; retour</h2><a class="voir" href="#livraison">Tarifs de livraison →</a></div>
-    <div class="policy-grid">
-      <div class="policy-card">
-        <div class="pc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 7h11a4 4 0 0 1 0 8H9l3-3M4 7l3-3M4 7l3 3"/></svg></div>
-        <div><h4>Échange taille sous 48h</h4><p>Si la taille ne vous convient pas, contactez-nous sur WhatsApp dans les 48h suivant la livraison pour un échange.</p></div>
-      </div>
-      <div class="policy-card">
-        <div class="pc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M8 16h12M8 16l3 3m-3-3 3-3M16 8H4m12 0-3 3m3-3-3-3"/></svg></div>
-        <div><h4>Retour pour un produit neuf</h4><p>Le produit doit être non porté, non lavé et dans son emballage d'origine pour être éligible.</p></div>
-      </div>
-      <div class="policy-card">
-        <div class="pc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 21s7-6 7-11a7 7 0 1 0-14 0c0 5 7 11 7 11Z"/><circle cx="12" cy="10" r="2.5"/></svg></div>
-        <div><h4>Livraison partout en Algérie</h4><p>58 wilayas couvertes. Frais calculés selon votre wilaya et le mode de livraison choisi.</p></div>
-      </div>
-    </div>
-  </section>
 </div>
+
+</main>
 
 <footer>
   <div class="wrap fg">
@@ -219,7 +202,9 @@
       <li><a href="#boutique">Modèles boutonnés</a></li><li><a href="#boutique">Nouveautés</a></li></ul></div>
     <div><h5>Aide</h5><ul>
       <li><a href="#guide">Guide des tailles</a></li><li><a href="#livraison">Tarifs de livraison</a></li>
-      <li><a href="#echange">Échange &amp; retour</a></li></ul></div>
+      <li><a href="#pourquoi">Pourquoi nous choisir</a></li>
+      <li><a href="about.html">À propos</a></li>
+      <li><a href="conditions.html">Conditions générales de vente</a></li></ul></div>
     <div><h5>Contact</h5><ul class="fc">
       <li><svg viewBox="0 0 24 24" fill="none"><path d="M5 4h4l2 5-2.5 1.5a12 12 0 0 0 5 5L15 13l5 2v4a1 1 0 0 1-1 1A16 16 0 0 1 4 5a1 1 0 0 1 1-1Z" stroke="currentColor" stroke-width="1.7"/></svg><span>05 60 00 00 00</span></li>
       <li><svg viewBox="0 0 24 24" fill="none"><path d="M12 21s7-6 7-11a7 7 0 1 0-14 0c0 5 7 11 7 11Z" stroke="currentColor" stroke-width="1.7"/></svg><span>Alger — Algérie</span></li>
@@ -237,7 +222,7 @@
   <a href="#" data-mobile="home"><svg viewBox="0 0 24 24" fill="none"><path d="m3 10 9-7 9 7v10a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1V10Z" stroke="currentColor" stroke-width="1.7"/></svg><span>Accueil</span></a>
   <a href="#boutique" data-mobile="shop"><svg viewBox="0 0 24 24" fill="none"><path d="M6 8h12l-1 12H7z" stroke="currentColor" stroke-width="1.7"/><path d="M9 8V6a3 3 0 0 1 6 0v2" stroke="currentColor" stroke-width="1.7"/></svg><span>Boutique</span></a>
   <a href="#livraison" data-mobile="delivery"><svg viewBox="0 0 24 24" fill="none"><path d="M3 7h11v10H3zM14 10h4l3 3v4h-7z" stroke="currentColor" stroke-width="1.7"/><circle cx="7" cy="19" r="2" stroke="currentColor" stroke-width="1.7"/><circle cx="18" cy="19" r="2" stroke="currentColor" stroke-width="1.7"/></svg><span>Livraison</span></a>
-  <a href="#" data-mobile="cart"><span class="mobile-cart-icon"><svg viewBox="0 0 24 24" fill="none"><path d="M6 8h12l-1 12H7z" stroke="currentColor" stroke-width="1.7"/><path d="M9 8V6a3 3 0 0 1 6 0v2" stroke="currentColor" stroke-width="1.7"/></svg><i id="mobileCartCount">0</i></span><span>Panier</span></a>
+  <button type="button" data-mobile="cart" aria-label="Ouvrir le panier"><span class="mobile-cart-icon"><svg viewBox="0 0 24 24" fill="none"><path d="M6 8h12l-1 12H7z" stroke="currentColor" stroke-width="1.7"/><path d="M9 8V6a3 3 0 0 1 6 0v2" stroke="currentColor" stroke-width="1.7"/></svg><span class="count" id="mobileCartCount">0</span></span><span>Panier</span></button>
 </nav>
 
 <div class="scrim" id="scrim"></div>

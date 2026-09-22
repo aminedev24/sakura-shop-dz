@@ -117,7 +117,6 @@ document.getElementById('tiles').querySelectorAll('.tile').forEach(function(t){
 function card(p,idx){
   var off=Math.max(0,Math.round((1-p.p/p.o)*100)),
       extra=p.tag==='new'?'<span class="tag new">Nouveau</span>':(p.tag==='low'?'<span class="tag low">Stock limité</span>':''),
-      swatches='<span class="swatch s1"></span><span class="swatch s2"></span><span class="swatch s3"></span>',
       opts='<option value="">Choisir la taille</option>'+p.sz.map(function(t){return '<option value="'+t+'"'+(p.out.indexOf(t)>-1?' disabled':'')+'>'+t+(p.out.indexOf(t)>-1?' — épuisé':'')+'</option>'}).join('');
   return '<article class="card" data-i="'+idx+'" data-c="'+p.c+'" data-n="'+(p.n+' '+p.m).toLowerCase()+'" data-off="'+off+'">'
    +'<div class="ph"><img src="'+p.img+'" alt="'+p.n+'" loading="lazy">'
@@ -127,7 +126,6 @@ function card(p,idx){
    +'<div class="info"><div class="meta-row"><span class="mat">'+p.m+'</span><div class="rate"><span class="st">'+stars(p.r)+'</span></div></div>'
    +'<h3>'+p.n+'</h3>'
    +'<div class="price-row"><span class="now">'+fmt(p.p)+'</span>'+(p.o>p.p?'<span class="was">'+fmt(p.o)+'</span>':'')+'</div>'
-   +'<div class="swatches">'+swatches+'</div>'
    +'<div class="product-action"><select class="size-select" aria-label="Choisir la taille pour '+p.n+'">'+opts+'</select><button class="cart-btn" aria-label="Ajouter '+p.n+' au panier">Ajouter</button></div>'
    +'</div></article>';
 }
@@ -204,7 +202,7 @@ function setFiltre(s){
 }
 chips.forEach(function(c){c.addEventListener('click',function(){setFiltre(c.dataset.s)})});
 q.addEventListener('input',rafraichir);
-document.getElementById('qBtn').addEventListener('click',rafraichir);
+document.getElementById('searchForm').addEventListener('submit',function(e){e.preventDefault();rafraichir();});
 
 /* livraison (estimation informative, indépendante du panier) */
 var wil=document.getElementById('wil');
