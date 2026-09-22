@@ -1,7 +1,8 @@
 'use client';
 
 import { useMemo, useState } from 'react';
-import { useProducts, discount } from '@/lib/products';
+import { Product, discount } from '@/lib/products';
+import { useShop } from '@/lib/shop-context';
 import { useWishlist } from '@/lib/useWishlist';
 import ProductCard from './ProductCard';
 
@@ -15,8 +16,14 @@ const CHIPS = [
 
 const LIMIT = 12;
 
-export default function ProductGrid({ query }: { query: string }) {
-  const { products, demo, loading, failed } = useProducts();
+export default function ProductGrid({
+  query,
+  onOpen,
+}: {
+  query: string;
+  onOpen: (p: Product) => void;
+}) {
+  const { products, demo, loading, failed } = useShop();
   const wish = useWishlist();
   const [cat, setCat] = useState('all');
   const [sort, setSort] = useState('def');
@@ -86,7 +93,7 @@ export default function ProductGrid({ query }: { query: string }) {
 
       <div className="grid" id="grid">
         {visible.map((p) => (
-          <ProductCard key={p.id} p={p} wished={wish.has(p.id)} onWish={wish.toggle} />
+          <ProductCard key={p.id} p={p} wished={wish.has(p.id)} onWish={wish.toggle} onOpen={onOpen} />
         ))}
         {!loading && !visible.length && (
           <p className="noresult">

@@ -3,14 +3,23 @@
 import Link from 'next/link';
 import Logo from '../Logo';
 import { Search, Phone, Account, Bag } from '../icons';
+import { fmt } from '@/lib/format';
+import { useShop } from '@/lib/shop-context';
 
 export default function ShopHeader({
   query,
   onQuery,
+  bagOpen,
+  onBagToggle,
+  cart,
 }: {
   query: string;
   onQuery: (v: string) => void;
+  bagOpen: boolean;
+  onBagToggle: () => void;
+  cart: React.ReactNode;
 }) {
+  const { count, subtotal } = useShop();
   return (
     <header>
       <div className="wrap hd">
@@ -56,14 +65,21 @@ export default function ShopHeader({
           </div>
 
           <div className="bagwrap">
-            <button className="bag" type="button" aria-haspopup="true" aria-expanded="false">
+            <button
+              className="bag"
+              type="button"
+              aria-haspopup="true"
+              aria-expanded={bagOpen}
+              onClick={onBagToggle}
+            >
               {Bag}
-              <span className="count">0</span>
+              <span className="count">{count}</span>
               <span className="t">
                 <span>Panier</span>
-                <b>0 DA</b>
+                <b>{fmt(subtotal)}</b>
               </span>
             </button>
+            {cart}
           </div>
         </div>
       </div>
