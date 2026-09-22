@@ -12,12 +12,20 @@ export default function ShopHeader({
   bagOpen,
   onBagToggle,
   cart,
+  acctLabel,
+  acctOpen,
+  onAcctClick,
+  account,
 }: {
   query: string;
   onQuery: (v: string) => void;
   bagOpen: boolean;
   onBagToggle: () => void;
   cart: React.ReactNode;
+  acctLabel: string;
+  acctOpen: boolean;
+  onAcctClick: () => void;
+  account: React.ReactNode;
 }) {
   const { count, subtotal } = useShop();
   return (
@@ -55,13 +63,18 @@ export default function ShopHeader({
             </span>
           </a>
 
-          {/* account and cart panels are phases 4–5; the controls render so the
-              header matches the HTML build, but do not open anything yet */}
           <div className="acctwrap">
-            <button className="bag acct" type="button" aria-haspopup="true" aria-expanded="false">
+            <button
+              className={acctLabel === 'Connexion' ? 'bag acct' : 'bag acct on'}
+              type="button"
+              aria-haspopup="true"
+              aria-expanded={acctOpen}
+              onClick={onAcctClick}
+            >
               {Account}
-              <span>Connexion</span>
+              <span>{acctLabel}</span>
             </button>
+            {account}
           </div>
 
           <div className="bagwrap">
