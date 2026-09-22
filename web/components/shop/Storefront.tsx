@@ -68,10 +68,10 @@ function Shell() {
         <div className="wrap">
           <TrustStrip />
           <ProductGrid query={query} cat={cat} onCat={setCat} onOpen={setModal} />
-          <PromoBanner />
           <DeliveryCalculator />
           <SizeGuide />
         </div>
+        <PromoBanner />
       </main>
       <Fab />
       <ShopMobileNav onCart={() => setBagOpen(true)} />

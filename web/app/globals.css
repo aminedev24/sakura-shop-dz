@@ -81,7 +81,7 @@ header{background:var(--paper);position:sticky;top:0;z-index:45;border-bottom:1p
 .search input::placeholder{color:var(--grey-2)}
 .search button{border:0;background:none;color:var(--grey);width:44px;cursor:pointer;display:flex;align-items:center;justify-content:center}
 .search svg{width:17px;height:17px}
-.hd-r{margin-left:auto;display:flex;align-items:center;gap:20px;flex:none}
+.hd-r{margin-inline-start:auto;display:flex;align-items:center;gap:20px;flex:none}
 .tel{display:flex;align-items:center;gap:9px;line-height:1.15}
 .tel svg{width:19px;height:19px;color:var(--rose)}
 .tel b{font-size:14.5px;display:block}
@@ -584,7 +584,7 @@ footer li a:hover{color:var(--rose)}
 
 /* ---------- content pages (À propos, CGV) ---------- */
 .hd-slim{gap:26px}
-.page-nav{display:flex;gap:22px;flex-wrap:wrap;margin-left:auto}
+.page-nav{display:flex;gap:22px;flex-wrap:wrap;margin-inline-start:auto}
 .page-nav a{font-size:13.5px;font-weight:600;color:var(--ink-2);padding:6px 0;border-bottom:2px solid transparent;transition:.2s}
 .page-nav a:hover,.page-nav a[aria-current="page"]{color:var(--accent);border-bottom-color:var(--accent)}
 .crumbs{display:flex;gap:8px;align-items:center;font-size:12.5px;color:var(--grey);margin:0 0 18px}
@@ -600,9 +600,6 @@ footer li a:hover{color:var(--rose)}
 .page-prose li{font-size:var(--t-body);line-height:1.75;color:var(--ink-2);margin-bottom:7px}
 .page-prose a{color:var(--accent);font-weight:600}
 .page-prose a:hover{text-decoration:underline}
-.page-note{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-lg);padding:18px 22px;margin:26px 0}
-.page-note p{margin:0}
-.page-note b{color:var(--ink)}
 .page-updated{font-size:12.5px;color:var(--grey);margin-top:34px;padding-top:16px;border-top:1px solid var(--line)}
 .page-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--gap);margin:22px 0 10px}
 .page-card{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-lg);padding:22px}

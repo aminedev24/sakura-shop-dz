@@ -44,9 +44,6 @@ export default function About() {
         </a>.
       </p>
 
-      <div className="page-note">
-        <p><b>[À COMPLÉTER]</b> — {c.note}</p>
-      </div>
     </PageShell>
   );
 }

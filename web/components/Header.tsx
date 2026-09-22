@@ -2,12 +2,16 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import { useState } from 'react';
 import Logo from './Logo';
+import { IMenu } from './icons2';
+import NavDrawer from './shop/NavDrawer';
 import { useLang } from '@/lib/i18n';
 
 export default function Header() {
   const path = usePathname();
   const { t, lang, setLang } = useLang();
+  const [menuOpen, setMenuOpen] = useState(false);
   const NAV = [
     { href: '/#boutique', label: t.navShop },
     { href: '/#livraison', label: t.navDelivery },
@@ -18,6 +22,11 @@ export default function Header() {
   return (
     <header>
       <div className="wrap hd hd-slim">
+        <button className="iconbtn burger" type="button" aria-label={t.openMenu}
+                aria-expanded={menuOpen} onClick={() => setMenuOpen(true)}>
+          <IMenu />
+        </button>
+
         <Link className="logo" href="/">
           <Logo />
           <span>
@@ -53,6 +62,12 @@ export default function Header() {
           </span>
         </a>
       </div>
+
+      <NavDrawer
+        open={menuOpen}
+        onClose={() => setMenuOpen(false)}
+        nav={NAV.map((n) => (n.href.startsWith('/#') ? { label: n.label, anchor: n.href } : { label: n.label, page: n.href }))}
+      />
     </header>
   );
 }

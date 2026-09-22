@@ -16,6 +16,8 @@ export const ITruck = s(<><path d="M3 7h11v10H3zM14 10h4l3 3v4h-7z" /><circle cx
 export const ICard = s(<><rect x="3" y="5" width="18" height="14" rx="2.5" /><path d="M3 10h18" /></>);
 export const IExchange = s(<><path d="M4 8h12a4 4 0 0 1 0 8H9l3-3m-3 3 3 3" /></>);
 export const IStar = s(<path d="m12 4 2.4 5 5.6.8-4 3.9 1 5.5-5-2.7-5 2.7 1-5.5-4-3.9 5.6-.8Z" />);
+export const IMenu = s(<><path d="M4 7h16" /><path d="M4 12h16" /><path d="M4 17h16" /></>);
+export const IPhone = s(<path d="M5 4h4l2 5-2.5 1.5a12 12 0 0 0 5 5L15 13l5 2v4a1 1 0 0 1-1 1A16 16 0 0 1 4 5a1 1 0 0 1 1-1Z" />);
 export const IArrow = s(<path d="M5 12h13m-5-6 6 6-6 6" />);
 export const IShield = s(<><path d="M12 3.5 5 6.2v5.1c0 4.4 3 8 7 9.2 4-1.2 7-4.8 7-9.2V6.2Z" /><path d="m9.2 12 2 2 3.6-3.8" /></>);
 export const IHeadset = s(<><path d="M4 13v-1a8 8 0 0 1 16 0v1" /><path d="M4 13h2.6a1 1 0 0 1 1 1v3.4a1 1 0 0 1-1 1H5.6A1.6 1.6 0 0 1 4 16.8Z" /><path d="M20 13h-2.6a1 1 0 0 0-1 1v3.4a1 1 0 0 0 1 1h1a1.6 1.6 0 0 0 1.6-1.6Z" /></>);

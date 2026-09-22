@@ -1,13 +1,12 @@
 import type { Lang } from './i18n';
 
-export type Clause = { h: string; p: string[]; note?: string };
+export type Clause = { h: string; p: string[] };
 export type AboutContent = {
   title: string; lead: string;
   sell: { h: string; p: string[] };
   work: { h: string; cards: { h: string; p: string }[] };
   fabric: { h: string; p: string[] };
   contact: { h: string; p1a: string; p1b: string; p1c: string; p2a: string; p2b: string };
-  note: string;
   crumb: string;
 };
 export type TermsContent = { title: string; lead: string; clauses: Clause[]; updated: string; crumb: string };
@@ -44,7 +43,6 @@ const ABOUT: Record<Lang, AboutContent> = {
       p2a: 'Retrouvez également nos nouveautés sur ',
       p2b: 'notre page Facebook',
     },
-    note: 'Ajoutez ici votre histoire : année de création, qui est derrière Sakura Shop, et ce qui vous a donné envie de lancer la boutique. C’est la partie que les clientes lisent vraiment.',
   },
   ar: {
     crumb: 'من نحن',
@@ -77,7 +75,6 @@ const ABOUT: Record<Lang, AboutContent> = {
       p2a: 'تابعي جديدنا كذلك على ',
       p2b: 'صفحتنا على فيسبوك',
     },
-    note: 'أضيفي هنا قصتك: سنة التأسيس، من يقف وراء Sakura Shop، وما الذي دفعك لإطلاق المتجر. هذا هو الجزء الذي تقرأه الزبونات فعلاً.',
   },
 };
 
@@ -88,8 +85,7 @@ const TERMS: Record<Lang, TermsContent> = {
     lead: 'Les présentes conditions régissent les ventes réalisées sur le site Sakura Shop. En passant commande, vous en acceptez les termes.',
     updated: 'Dernière mise à jour : septembre 2026.',
     clauses: [
-      { h: 'Identité du vendeur', p: [], note: 'Raison sociale, forme juridique, adresse du siège, numéro de registre de commerce (RC), NIF et numéro de téléphone professionnel. Ces mentions sont obligatoires et doivent figurer ici avant toute mise en ligne.' },
-      { h: 'Produits', p: ['Les produits proposés sont des vêtements d’intérieur et pyjamas. Chaque fiche produit précise la matière, la coupe et les tailles disponibles. Les photographies sont les plus fidèles possibles ; de légères variations de teinte peuvent apparaître selon l’écran utilisé.'] },
+{ h: 'Produits', p: ['Les produits proposés sont des vêtements d’intérieur et pyjamas. Chaque fiche produit précise la matière, la coupe et les tailles disponibles. Les photographies sont les plus fidèles possibles ; de légères variations de teinte peuvent apparaître selon l’écran utilisé.'] },
       { h: 'Prix', p: ['Les prix sont indiqués en dinars algériens (DA), toutes taxes comprises, hors frais de livraison. Les frais de livraison sont calculés séparément selon votre wilaya et le mode de livraison choisi, et vous sont indiqués avant la validation de la commande.', 'Sakura Shop se réserve le droit de modifier ses prix à tout moment. Les produits sont facturés au tarif en vigueur au moment de l’enregistrement de la commande.'] },
       { h: 'Commande', p: ['La commande est enregistrée lorsque vous validez le formulaire avec vos coordonnées de livraison. Un membre de notre équipe vous contacte ensuite par téléphone ou WhatsApp pour confirmer la commande, la taille et l’adresse avant expédition.', 'Sakura Shop se réserve le droit d’annuler toute commande dont les coordonnées seraient manifestement erronées ou injoignables après plusieurs tentatives de contact.'] },
       { h: 'Paiement', p: ['Le règlement s’effectue en espèces, à la livraison, directement auprès du livreur. Vous pouvez ouvrir le colis et vérifier l’article avant de payer.'] },
@@ -106,8 +102,7 @@ const TERMS: Record<Lang, TermsContent> = {
     lead: 'تنظّم هذه الشروط عمليات البيع التي تتم عبر موقع Sakura Shop. بتقديمك للطلب فإنك توافقين على بنودها.',
     updated: 'آخر تحديث: سبتمبر 2026.',
     clauses: [
-      { h: 'هوية البائع', p: [], note: 'التسمية التجارية، الشكل القانوني، عنوان المقر، رقم السجل التجاري (RC)، رقم التعريف الجبائي (NIF) ورقم الهاتف المهني. هذه البيانات إلزامية ويجب إدراجها هنا قبل أي نشر.' },
-      { h: 'المنتجات', p: ['المنتجات المعروضة هي ملابس منزلية وبيجامات. تذكر بطاقة كل منتج القماش والقصّة والمقاسات المتوفرة. الصور مطابقة قدر الإمكان، وقد تظهر فروق طفيفة في اللون حسب الشاشة المستعملة.'] },
+{ h: 'المنتجات', p: ['المنتجات المعروضة هي ملابس منزلية وبيجامات. تذكر بطاقة كل منتج القماش والقصّة والمقاسات المتوفرة. الصور مطابقة قدر الإمكان، وقد تظهر فروق طفيفة في اللون حسب الشاشة المستعملة.'] },
       { h: 'الأسعار', p: ['الأسعار معروضة بالدينار الجزائري (دج)، شاملة للرسوم، دون تكاليف التوصيل. تُحسب تكاليف التوصيل بشكل منفصل حسب ولايتك وطريقة التوصيل المختارة، وتُعرض عليك قبل تأكيد الطلب.', 'يحتفظ Sakura Shop بحق تعديل أسعاره في أي وقت. تُفوتر المنتجات بالسعر الساري وقت تسجيل الطلب.'] },
       { h: 'الطلب', p: ['يُسجَّل الطلب عند تأكيدك للاستمارة ببيانات التوصيل الخاصة بك. يتصل بك بعدها أحد أفراد فريقنا هاتفيًا أو عبر واتساب لتأكيد الطلب والمقاس والعنوان قبل الإرسال.', 'يحتفظ Sakura Shop بحق إلغاء أي طلب تكون بياناته خاطئة بشكل واضح أو يتعذّر الاتصال بصاحبه بعد عدة محاولات.'] },
       { h: 'الدفع', p: ['يتم الدفع نقدًا عند الاستلام، مباشرةً لعامل التوصيل. يمكنك فتح الطرد والتحقّق من القطعة قبل الدفع.'] },
@@ -115,7 +110,7 @@ const TERMS: Record<Lang, TermsContent> = {
       { h: 'التوفّر', p: ['عروضنا سارية في حدود المخزون المتوفر. في حال نفاد قطعة بعد الطلب، نُعلمك في أقرب وقت ونقترح عليك إمّا موديلاً مماثلاً وإمّا إلغاء الطلب دون مصاريف.'] },
       { h: 'المعطيات الشخصية', p: ['المعلومات التي تزوّديننا بها (الاسم، الهاتف، العنوان) تُستعمل فقط لمعالجة طلبك وتوصيله وللاتصال بك بشأنه. لا تُباع ولا تُمنح لأطراف أخرى، باستثناء الناقل المكلّف بالتوصيل الذي يحتاجها لتسليمك الطرد.', 'يمكنك طلب الاطلاع على معطياتك أو تصحيحها أو حذفها بمراسلتنا على contact@sakurashop.dz.'] },
       { h: 'القانون المطبَّق', p: ['تخضع هذه الشروط للقانون الجزائري. في حال نشوب نزاع، يُسعى أولاً إلى حلّ ودّي قبل أي إجراء قضائي.'] },
-      { h: 'الاتصال', p: ['لأي سؤال يتعلّق بهذه الشروط أو بطلب ما: 05 60 00 00 00 أو contact@sakurashop.dz.'] },
+      { h: 'الاتصال', p: ['لأي سؤال يتعلّق بهذه الشروط أو بطلب ما: \u206605 60 00 00 00\u2069 أو contact@sakurashop.dz.'] },
     ],
   },
 };

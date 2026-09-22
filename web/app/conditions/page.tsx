@@ -13,18 +13,12 @@ export default function Conditions() {
       <h1>{c.title}</h1>
       <p className="page-lead">{c.lead}</p>
 
-      {/* numbering comes from the array index, so inserting a clause cannot
-          leave the headings out of sequence */}
+      {/* numbering comes from the array index, so removing or inserting a
+          clause cannot leave the headings out of sequence */}
       {c.clauses.map((cl, i) => (
         <section key={cl.h}>
           <h2>{i + 1}. {cl.h}</h2>
-          {cl.note ? (
-            <div className="page-note">
-              <p><b>[À COMPLÉTER]</b> — {cl.note}</p>
-            </div>
-          ) : (
-            cl.p.map((x, k) => <p key={k}>{x}</p>)
-          )}
+          {cl.p.map((x, k) => <p key={k}>{x}</p>)}
         </section>
       ))}
 

@@ -2,7 +2,8 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
-import { Mark, ISearch, IHeart, IUser, IBag } from '../icons2';
+import { Mark, ISearch, IHeart, IUser, IBag, IMenu } from '../icons2';
+import NavDrawer from './NavDrawer';
 import { useShop } from '@/lib/shop-context';
 import { useLang } from '@/lib/i18n';
 
@@ -24,6 +25,7 @@ export default function ShopHeader({
   const { count } = useShop();
   const { t, lang, setLang } = useLang();
   const [searchOpen, setSearchOpen] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
 
   const NAV: ({ label: string } & ({ anchor: string } | { page: string }))[] = [
     { label: t.navHome, anchor: '#' },
@@ -38,6 +40,11 @@ export default function ShopHeader({
   return (
     <header className="hdr">
       <div className="wrap hdr-in">
+        <button className="iconbtn burger" type="button" aria-label={t.openMenu}
+                aria-expanded={menuOpen} onClick={() => setMenuOpen(true)}>
+          <IMenu />
+        </button>
+
         <Link className="brand" href="/">
           <Mark />
           <span>
@@ -95,6 +102,8 @@ export default function ShopHeader({
           </div>
         </div>
       </div>
+
+      <NavDrawer open={menuOpen} onClose={() => setMenuOpen(false)} nav={NAV} />
     </header>
   );
 }

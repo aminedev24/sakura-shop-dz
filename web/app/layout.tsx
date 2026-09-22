@@ -10,8 +10,20 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="fr">
+    // suppressHydrationWarning: the has-js script below and LangProvider both
+    // set attributes on <html> before/after hydration, which React would
+    // otherwise report as a mismatch
+    <html lang="fr" suppressHydrationWarning>
       <head>
+        {/* Sections marked .reveal start hidden and are shown by an
+            IntersectionObserver. Gate that on JS actually running, set
+            synchronously here so there is no flash, otherwise a hydration
+            failure leaves most of the page permanently invisible. */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: "document.documentElement.classList.add('has-js')",
+          }}
+        />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
         <link
