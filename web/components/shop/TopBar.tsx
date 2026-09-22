@@ -1,17 +1,20 @@
-import { ITruck, ICard, IPin, IInstagram, ITiktok, IFacebook } from '../icons2';
+'use client';
 
-const ITEMS = [
-  { icon: <ITruck />, label: 'Livraison 58 wilayas' },
-  { icon: <ICard />, label: 'Paiement à la livraison' },
-  { icon: <IPin />, label: 'Livraison offerte dès 12 000 DA' },
-];
+import { ITruck, ICard, IPin, IInstagram, ITiktok, IFacebook } from '../icons2';
+import { useLang } from '@/lib/i18n';
 
 export default function TopBar() {
+  const { t } = useLang();
+  const items = [
+    { icon: <ITruck />, label: t.tbDelivery },
+    { icon: <ICard />, label: t.tbCod },
+    { icon: <IPin />, label: t.tbFree },
+  ];
   return (
-    <aside className="topbar" aria-label="Informations livraison">
+    <aside className="topbar" aria-label={t.tbDelivery}>
       <div className="wrap topbar-in">
         <div className="topbar-items">
-          {ITEMS.map((it, i) => (
+          {items.map((it, i) => (
             <span className="topbar-item" key={it.label}>
               {i > 0 && <span className="topbar-sep">·</span>}
               <i>{it.icon}</i>
@@ -20,7 +23,7 @@ export default function TopBar() {
           ))}
         </div>
         <div className="topbar-soc">
-          <span>Suivez-nous</span>
+          <span>{t.follow}</span>
           <a href="https://www.instagram.com/" target="_blank" rel="noopener" aria-label="Instagram"><IInstagram /></a>
           <a href="https://www.tiktok.com/" target="_blank" rel="noopener" aria-label="TikTok"><ITiktok /></a>
           <a href="https://www.facebook.com/sakurashop.dz/" target="_blank" rel="noopener" aria-label="Facebook"><IFacebook /></a>

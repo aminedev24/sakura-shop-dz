@@ -1,9 +1,11 @@
 'use client';
 
 import Link from 'next/link';
+import { useLang } from '@/lib/i18n';
 import { Mark, IInstagram, ITiktok, IFacebook, IYoutube, IArrow } from './icons2';
 
 export default function Footer() {
+  const { t } = useLang();
   return (
     <footer className="ftr">
       <div className="wrap ftr-in">
@@ -11,12 +13,12 @@ export default function Footer() {
           <Mark />
           <span>
             <b>Sakura Shop</b>
-            <small>VÊTEMENTS D&apos;INTÉRIEUR</small>
+            <small>{t.tagline}</small>
           </span>
         </div>
 
         <div className="ftr-soc">
-          <h5>Suivez-nous</h5>
+          <h5>{t.follow}</h5>
           <div className="ftr-soc-row">
             <a href="https://www.instagram.com/" target="_blank" rel="noopener" aria-label="Instagram"><IInstagram /></a>
             <a href="https://www.tiktok.com/" target="_blank" rel="noopener" aria-label="TikTok"><ITiktok /></a>
@@ -27,10 +29,10 @@ export default function Footer() {
 
         <div>
           <form className="news" onSubmit={(e) => e.preventDefault()}>
-            <input type="email" placeholder="Votre adresse e-mail" aria-label="Votre adresse e-mail" />
-            <button type="submit" aria-label="S’inscrire à la newsletter"><IArrow /></button>
+            <input type="email" placeholder={t.newsPh} aria-label={t.newsPh} />
+            <button type="submit" aria-label={t.newsSubmit}><IArrow /></button>
           </form>
-          <p className="news-note">Recevez nos nouveautés et offres exclusives.</p>
+          <p className="news-note">{t.newsNote}</p>
         </div>
 
         <div className="ftr-thanks" aria-hidden="true">
@@ -40,13 +42,13 @@ export default function Footer() {
       </div>
 
       <div className="wrap ftr-bot">
-        <span>© 2026 Sakura Shop — Tous droits réservés</span>
-        <nav aria-label="Liens utiles">
-          <Link href="/#boutique">Boutique</Link>
-          <Link href="/#livraison">Livraison</Link>
-          <Link href="/#guide">Guide des tailles</Link>
-          <Link href="/about">À propos</Link>
-          <Link href="/conditions">Conditions générales de vente</Link>
+        <span>{t.rights}</span>
+        <nav aria-label={t.navShop}>
+          <Link href="/#boutique">{t.navShop}</Link>
+          <Link href="/#livraison">{t.navDelivery}</Link>
+          <Link href="/#guide">{t.navSizes}</Link>
+          <Link href="/about">{t.navAbout}</Link>
+          <Link href="/conditions">{t.termsFull}</Link>
         </nav>
       </div>
     </footer>

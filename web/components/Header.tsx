@@ -3,17 +3,18 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import Logo from './Logo';
-
-const NAV = [
-  { href: '/#boutique', label: 'Boutique' },
-  { href: '/#livraison', label: 'Livraison' },
-  { href: '/#guide', label: 'Guide des tailles' },
-  { href: '/about', label: 'À propos' },
-  { href: '/conditions', label: 'Conditions' },
-];
+import { useLang } from '@/lib/i18n';
 
 export default function Header() {
   const path = usePathname();
+  const { t, lang, setLang } = useLang();
+  const NAV = [
+    { href: '/#boutique', label: t.navShop },
+    { href: '/#livraison', label: t.navDelivery },
+    { href: '/#guide', label: t.navSizes },
+    { href: '/about', label: t.navAbout },
+    { href: '/conditions', label: t.navTerms },
+  ];
   return (
     <header>
       <div className="wrap hd hd-slim">
@@ -21,7 +22,7 @@ export default function Header() {
           <Logo />
           <span>
             <b>Sakura Shop</b>
-            <small>VÊTEMENTS D&apos;INTÉRIEUR</small>
+            <small>{t.tagline}</small>
           </span>
         </Link>
 
@@ -36,6 +37,11 @@ export default function Header() {
             </Link>
           ))}
         </nav>
+
+        <button className="langbtn" type="button" aria-label={t.langSwitchTo}
+                onClick={() => setLang(lang === 'fr' ? 'ar' : 'fr')}>
+          {t.langLabel}
+        </button>
 
         <a className="tel" href="tel:+213560000000">
           <svg viewBox="0 0 24 24" fill="none">

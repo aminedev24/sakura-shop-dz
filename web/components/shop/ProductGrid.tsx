@@ -6,14 +6,7 @@ import { useShop } from '@/lib/shop-context';
 import { useWishlist } from '@/lib/useWishlist';
 import ProductCard from './ProductCard';
 import { IArrow } from '../icons2';
-
-const CHIPS = [
-  { s: 'all', label: 'Tout' },
-  { s: 'coton', label: 'Coton' },
-  { s: 'satin', label: 'Satin' },
-  { s: 'boutonne', label: 'Boutonné' },
-  { s: 'promo', label: 'En promo' },
-];
+import { useLang } from '@/lib/i18n';
 
 const LIMIT = 12;
 
@@ -29,6 +22,14 @@ export default function ProductGrid({
   onOpen: (p: Product) => void;
 }) {
   const { products, demo, loading, failed } = useShop();
+  const { t } = useLang();
+  const CHIPS = [
+    { s: 'all', label: t.fAll },
+    { s: 'coton', label: t.fCoton },
+    { s: 'satin', label: t.fSatin },
+    { s: 'boutonne', label: t.fBout },
+    { s: 'promo', label: t.fPromo },
+  ];
   const wish = useWishlist();
   const [sort, setSort] = useState('def');
   const [showAll, setShowAll] = useState(false);
@@ -55,14 +56,14 @@ export default function ProductGrid({
     <section className="sec3 reveal" id="boutique">
       <div className="sechead">
         <div>
-          <span className="kicker">Nos coups de cœur</span>
-          <h2>Nouveautés</h2>
-          <p>Les modèles les plus récents, sélectionnés avec soin — {visible.length} affichés.</p>
+          <span className="kicker">{t.shopKicker}</span>
+          <h2>{t.shopTitle}</h2>
+          <p>{t.shopSub} — {visible.length} {t.shopSubCount}.</p>
         </div>
-        <a className="seclink" href="#livraison">Voir toute la boutique <IArrow /></a>
+        <a className="seclink" href="#livraison">{t.shopAll} <IArrow /></a>
       </div>
 
-      <div className="chips3" role="group" aria-label="Filtrer">
+      <div className="chips3" role="group" aria-label={t.sortBy}>
         {CHIPS.map((c) => (
           <button
             key={c.s}
@@ -77,19 +78,19 @@ export default function ProductGrid({
       </div>
 
       <div className="sortbar">
-        <label htmlFor="sort">Trier par</label>
-        <select id="sort" aria-label="Trier les produits" value={sort} onChange={(e) => setSort(e.target.value)}>
-          <option value="def">Recommandés</option>
-          <option value="prix-asc">Prix croissant</option>
-          <option value="prix-desc">Prix décroissant</option>
-          <option value="note">Mieux notés</option>
+        <label htmlFor="sort">{t.sortBy}</label>
+        <select id="sort" aria-label={t.sortBy} value={sort} onChange={(e) => setSort(e.target.value)}>
+          <option value="def">{t.sortDef}</option>
+          <option value="prix-asc">{t.sortAsc}</option>
+          <option value="prix-desc">{t.sortDesc}</option>
+          <option value="note">{t.sortRated}</option>
         </select>
         <div className="wish-wrap">
           <span className="wish-count">
             <svg viewBox="0 0 24 24" fill="currentColor">
               <path d="M12 21s-8-5-8-10a4.5 4.5 0 0 1 8-2.8A4.5 4.5 0 0 1 20 11c0 5-8 10-8 10Z" />
             </svg>{' '}
-            {wish.ids.length} favori{wish.ids.length > 1 ? 's' : ''}
+            {wish.ids.length} {wish.ids.length > 1 ? t.favs : t.fav}
           </span>
         </div>
       </div>
@@ -101,20 +102,20 @@ export default function ProductGrid({
         {!loading && !visible.length && (
           <p className="noresult">
             {failed
-              ? 'Impossible de charger les produits. Vérifiez que le serveur PHP et la base de données sont bien configurés (voir README).'
-              : 'Aucun modèle ne correspond.'}
+              ? t.loadFail
+              : t.noResult}
           </p>
         )}
       </div>
 
       {demo && (
         <p className="shop-sub" style={{ marginTop: 12 }}>
-          Mode démo · catalogue d’exemple, connexion et commande indisponibles ici.
+          {t.demoNote}
         </p>
       )}
 
       <button className="more" type="button" onClick={() => setShowAll((v) => !v)}>
-        {showAll ? 'Afficher moins' : 'Afficher tous les modèles'}
+        {showAll ? t.showLess : t.showAll}
       </button>
     </section>
   );

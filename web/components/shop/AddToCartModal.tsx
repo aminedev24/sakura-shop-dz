@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { Product } from '@/lib/products';
-import { fmt } from '@/lib/format';
+import { useLang, useMoney } from '@/lib/i18n';
 import { useShop } from '@/lib/shop-context';
 
 export default function AddToCartModal({
@@ -13,6 +13,8 @@ export default function AddToCartModal({
   onClose: () => void;
 }) {
   const { add, showToast } = useShop();
+  const { t } = useLang();
+  const money = useMoney();
   const [size, setSize] = useState('');
   const [qty, setQty] = useState(1);
 
@@ -39,36 +41,36 @@ export default function AddToCartModal({
         className={open ? 'modal on' : 'modal'}
         role="dialog"
         aria-modal="true"
-        aria-label="Ajouter au panier"
+        aria-label={t.addToCart}
         aria-hidden={!open}
       >
         {product && (
           <>
             <div className="mh">
               <b>{product.n}</b>
-              <button className="mx" type="button" aria-label="Fermer" onClick={onClose}>×</button>
+              <button className="mx" type="button" aria-label={t.close} onClick={onClose}>×</button>
             </div>
             <div className="mb">
               <div className="mimg"><img src={`/${product.img}`} alt={product.n} /></div>
               <div>
                 <div className="mprice">
-                  <span className="now">{fmt(product.p)}</span>
-                  {product.o > product.p && <span className="was">{fmt(product.o)}</span>}
+                  <span className="now">{money(product.p)}</span>
+                  {product.o > product.p && <span className="was">{money(product.o)}</span>}
                 </div>
                 <p className="mdesc">{product.d}</p>
                 <div className="frm">
                   <div className="fl">
-                    <label htmlFor="mS">Taille</label>
+                    <label htmlFor="mS">{t.size}</label>
                     <select id="mS" value={size} onChange={(e) => setSize(e.target.value)}>
                       {product.sz.map((s) => (
                         <option key={s} value={s} disabled={product.out.includes(s)}>
-                          {product.out.includes(s) ? `${s} — épuisé` : s}
+                          {product.out.includes(s) ? `${s} — ${t.soldOut}` : s}
                         </option>
                       ))}
                     </select>
                   </div>
                   <div className="fl">
-                    <label htmlFor="mQ">Quantité</label>
+                    <label htmlFor="mQ">{t.qty}</label>
                     <select id="mQ" value={qty} onChange={(e) => setQty(Number(e.target.value))}>
                       {[1,2,3,4,5,6,7,8,9,10].map((n) => <option key={n} value={n}>{n}</option>)}
                     </select>
@@ -76,8 +78,8 @@ export default function AddToCartModal({
                 </div>
                 <div className="recap">
                   <div className="rl tot">
-                    <span>Article ×{qty}</span>
-                    <span>{fmt(product.p * qty)}</span>
+                    <span>{t.item} ×{qty}</span>
+                    <span>{money(product.p * qty)}</span>
                   </div>
                 </div>
                 <button
@@ -86,11 +88,11 @@ export default function AddToCartModal({
                   disabled={!size}
                   onClick={() => {
                     add(product.id, size, qty);
-                    showToast('Ajouté au panier', `${product.n} — Taille ${size} × ${qty}`);
+                    showToast(t.tAddT, `${product.n} — ${t.size} ${size} × ${qty}`);
                     onClose();
                   }}
                 >
-                  Ajouter au panier
+                  {t.addToCart}
                 </button>
               </div>
             </div>

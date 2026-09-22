@@ -1,3 +1,7 @@
+'use client';
+
+import { useLang } from '@/lib/i18n';
+
 const ROWS = [
   ['S',   '84 – 88',   '64 – 68', '90 – 94'],
   ['M',   '88 – 94',   '68 – 74', '94 – 100'],
@@ -7,14 +11,15 @@ const ROWS = [
 ];
 
 export default function SizeGuide() {
+  const { t } = useLang();
   return (
     <section className="sec reveal" id="guide">
       <details>
-        <summary>Guide des tailles — mesures en cm</summary>
+        <summary>{t.sgTitle}</summary>
         <div className="scrollx">
           <table>
             <thead>
-              <tr><th>Taille</th><th>Poitrine</th><th>Tour de taille</th><th>Hanches</th></tr>
+              <tr><th>{t.sgSize}</th><th>{t.sgBust}</th><th>{t.sgWaist}</th><th>{t.sgHips}</th></tr>
             </thead>
             <tbody>
               {ROWS.map((r) => (

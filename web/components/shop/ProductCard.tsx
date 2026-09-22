@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { Product, discount, stars } from '@/lib/products';
-import { fmt } from '@/lib/format';
+import { useLang, useMoney } from '@/lib/i18n';
 import { useShop } from '@/lib/shop-context';
 import { IHeart, IHeartFill } from '../icons2';
 
@@ -15,6 +15,8 @@ export default function ProductCard({
   onOpen: (p: Product) => void;
 }) {
   const { add, showToast } = useShop();
+  const { t } = useLang();
+  const money = useMoney();
   const [size, setSize] = useState('');
   const [needs, setNeeds] = useState(false);
   const off = discount(p);
@@ -22,11 +24,11 @@ export default function ProductCard({
   function addOne() {
     if (!size) {
       setNeeds(true);
-      showToast('Choisissez une taille', 'Sélectionnez votre taille avant d’ajouter');
+      showToast(t.tSizeT, t.tSizeS);
       return;
     }
     add(p.id, size, 1);
-    showToast('Ajouté au panier', `« ${p.n} » · Taille ${size}`);
+    showToast(t.tAddT, `« ${p.n} » · ${t.size} ${size}`);
   }
 
   return (
@@ -41,7 +43,7 @@ export default function ProductCard({
         <button
           className={wished ? 'pcard-wish on' : 'pcard-wish'}
           type="button"
-          aria-label="Favori"
+          aria-label={t.favourites}
           aria-pressed={wished}
           onClick={(e) => { e.stopPropagation(); onWish(p.id); }}
         >
@@ -56,27 +58,27 @@ export default function ProductCard({
         </div>
         <h3>{p.n}</h3>
         <div className="pcard-price">
-          <span className="pcard-now">{fmt(p.p)}</span>
-          {p.o > p.p && <span className="pcard-was">{fmt(p.o)}</span>}
+          <span className="pcard-now">{money(p.p)}</span>
+          {p.o > p.p && <span className="pcard-was">{money(p.o)}</span>}
         </div>
         <div className="pcard-act">
           <select
             className={needs ? 'needs' : undefined}
-            aria-label={`Choisir la taille pour ${p.n}`}
+            aria-label={`${t.pickSize} — ${p.n}`}
             value={size}
             onClick={(e) => e.stopPropagation()}
             onChange={(e) => { setSize(e.target.value); setNeeds(false); }}
           >
-            <option value="">Choisir la taille</option>
-            {p.sz.map((t) => {
-              const gone = p.out.includes(t);
-              return <option key={t} value={t} disabled={gone}>{gone ? `${t} — épuisé` : t}</option>;
+            <option value="">{t.pickSize}</option>
+            {p.sz.map((sz) => {
+              const gone = p.out.includes(sz);
+              return <option key={sz} value={sz} disabled={gone}>{gone ? `${sz} — ${t.soldOut}` : sz}</option>;
             })}
           </select>
           <button className="pcard-add" type="button"
-                  aria-label={`Ajouter ${p.n} au panier`}
+                  aria-label={`${t.add} — ${p.n}`}
                   onClick={(e) => { e.stopPropagation(); addOne(); }}>
-            Ajouter
+            {t.add}
           </button>
         </div>
       </div>

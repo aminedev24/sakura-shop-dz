@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import './globals.css';
 import './redesign.css';
+import { LangProvider } from '@/lib/i18n';
 
 export const metadata: Metadata = {
   title: { default: 'Sakura Shop', template: '%s — Sakura Shop' },
@@ -18,7 +19,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           rel="stylesheet"
         />
       </head>
-      <body>{children}</body>
+      <body>
+        <LangProvider>{children}</LangProvider>
+      </body>
     </html>
   );
 }

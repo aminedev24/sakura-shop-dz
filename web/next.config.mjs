@@ -9,7 +9,19 @@ const nextConfig = {
   // cPanel shared hosting has no Node runtime: the production build emits plain
   // files in out/ that Apache serves. Static export forbids rewrites, so it is
   // only applied for production builds and `next dev` keeps the proxy below.
-  ...(isProd ? { output: 'export' } : {}),
+  // the rewrites key must be absent entirely for a static export, not merely
+  // return an empty list, so the two modes are spread in as whole objects
+  ...(isProd
+    ? { output: 'export' }
+    : {
+        async rewrites() {
+          return [
+            { source: '/api/:path*', destination: `${PHP_ORIGIN}/api/:path*` },
+            { source: '/uploads/:path*', destination: `${PHP_ORIGIN}/uploads/:path*` },
+            { source: '/data/:path*', destination: `${PHP_ORIGIN}/data/:path*` },
+          ];
+        },
+      }),
 
   // Apache serves /about/ as /about/index.html
   trailingSlash: true,
@@ -17,14 +29,6 @@ const nextConfig = {
   // the Next image optimiser needs a server; product photos are plain <img>
   images: { unoptimized: true },
 
-  async rewrites() {
-    if (isProd) return [];
-    return [
-      { source: '/api/:path*', destination: `${PHP_ORIGIN}/api/:path*` },
-      { source: '/uploads/:path*', destination: `${PHP_ORIGIN}/uploads/:path*` },
-      { source: '/data/:path*', destination: `${PHP_ORIGIN}/data/:path*` },
-    ];
-  },
 };
 
 export default nextConfig;

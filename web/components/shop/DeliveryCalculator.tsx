@@ -1,10 +1,13 @@
 'use client';
 
 import { useState } from 'react';
-import { WILAYAS, delay } from '@/lib/wilayas';
-import { fmt } from '@/lib/format';
+import { WILAYAS } from '@/lib/wilayas';
+import { useLang, useMoney, useDelay } from '@/lib/i18n';
 
 export default function DeliveryCalculator() {
+  const { t } = useLang();
+  const money = useMoney();
+  const delay = useDelay();
   const [index, setIndex] = useState(0);
   const [home, setHome] = useState(false);
 
@@ -15,13 +18,13 @@ export default function DeliveryCalculator() {
     <section className="sec reveal" id="livraison">
       <div className="deliv">
         <div>
-          <span className="section-kicker">🚚 Livraison simple &amp; transparente</span>
-          <h2>Combien coûte la livraison chez vous ?</h2>
+          <span className="section-kicker">{t.dKicker}</span>
+          <h2>{t.dTitle}</h2>
           <div className="dp"></div>
         </div>
 
         <div className="calc">
-          <label htmlFor="wil">Votre wilaya</label>
+          <label htmlFor="wil">{t.dWilaya}</label>
           <select
             id="wil"
             value={index}
@@ -32,20 +35,20 @@ export default function DeliveryCalculator() {
             ))}
           </select>
 
-          <label>Mode de livraison</label>
+          <label>{t.dMode}</label>
           <div className="seg">
             <button type="button" aria-pressed={!home} onClick={() => setHome(false)}>
-              Au bureau
+              {t.dOffice}
             </button>
             <button type="button" aria-pressed={home} onClick={() => setHome(true)}>
-              À domicile
+              {t.dHome}
             </button>
           </div>
 
           <div className="co">
-            <b>{fmt(fee)}</b>
+            <b>{money(fee)}</b>
             <span>
-              Délai estimé<br />
+              {t.dEta}<br />
               <b style={{ fontFamily: 'var(--sans)', fontSize: '12.5px' }}>{delay(w.hours)}</b>
             </span>
           </div>

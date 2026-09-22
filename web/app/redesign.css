@@ -226,3 +226,48 @@
 .hdr-searchbar button{width:34px;height:34px;border:0;border-radius:50%;background:none;color:var(--muted);
   font-size:20px;line-height:1;cursor:pointer;flex:none}
 .hdr-searchbar button:hover{background:#fff;color:var(--accent)}
+
+/* ---------- language switch ---------- */
+.langbtn{border:1px solid var(--line);background:#fff;color:var(--ink);border-radius:999px;
+  padding:7px 14px;font-size:12.5px;font-weight:600;cursor:pointer;font-family:inherit;
+  white-space:nowrap;margin-inline-end:4px;transition:.18s}
+.langbtn:hover{border-color:var(--accent);color:var(--accent)}
+
+/* ---------- RTL ---------- */
+/* body{font-family:...} in globals.css targets body directly, so the
+   RTL override has to reach body too rather than rely on inheritance */
+[dir="rtl"] body,[dir="rtl"] input,[dir="rtl"] select,[dir="rtl"] button,[dir="rtl"] textarea{font-family:Cairo,"Segoe UI",Tahoma,Arial,sans-serif}
+[dir="rtl"] .hero3-photo{inset:0 42% 0 0}
+[dir="rtl"] .hero3-card::after{background:linear-gradient(265deg,#FFEDF3 0%,#FFEDF3 34%,rgba(255,237,243,.92) 46%,rgba(255,237,243,.35) 58%,rgba(255,237,243,0) 70%)}
+[dir="rtl"] .hero3-badge{right:auto;left:34px}
+[dir="rtl"] .tile3-lbl{left:auto;right:18px}
+[dir="rtl"] .tile3-go{right:auto;left:16px}
+[dir="rtl"] .pcard-off,[dir="rtl"] .pcard-tag{left:auto;right:12px}
+[dir="rtl"] .pcard-wish{right:auto;left:11px}
+[dir="rtl"] .topbar-soc{right:auto;left:0}
+[dir="rtl"] .iconbtn .badge{right:auto;left:2px}
+[dir="rtl"] .news{padding:5px 20px 5px 5px}
+[dir="rtl"] .news-note{margin:8px 20px 0 0}
+[dir="rtl"] .promo-script{transform:rotate(8deg)}
+[dir="rtl"] .promo-deco .heart{right:auto;left:34px}
+/* arrows point the other way in RTL */
+[dir="rtl"] .btn2 svg,[dir="rtl"] .seclink svg,[dir="rtl"] .tile3-go svg,[dir="rtl"] .news button svg{transform:scaleX(-1)}
+[dir="rtl"] .hero3-in,[dir="rtl"] .promo-body{text-align:right}
+
+/* Mixed number/Latin labels ("01 — Adrar", "S", "XXL") must not be reordered
+   by the bidi algorithm inside an RTL page. plaintext resolves each option
+   from its own first strong character. */
+[dir="rtl"] select,[dir="rtl"] option,[dir="rtl"] .pcard-now,[dir="rtl"] .pcard-was,
+[dir="rtl"] .bp-ref,[dir="rtl"] .recap,[dir="rtl"] .co b,[dir="rtl"] .shipping-goal-head{unicode-bidi:plaintext}
+
+/* The content-page header now has four children (logo, language, nav, phone),
+   but .hd is a three-column grid at >=901px, so it wrapped. Flex instead. */
+@media(min-width:901px){
+  .hd-slim{display:flex;align-items:center;gap:22px}
+  .hd-slim .page-nav{margin-inline-start:auto}
+}
+.hd-slim .langbtn{order:5;flex:none}
+.hd-slim .tel{flex:none}
+/* a phone number is digits and spaces only, so bidi reverses it on an RTL page */
+.tel b,.tel span{unicode-bidi:plaintext}
+[dir="rtl"] .tel b{direction:ltr;unicode-bidi:embed}

@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { Order, User, fetchOrders } from '@/lib/useAuth';
-import { fmt } from '@/lib/format';
+import { useLang, useMoney } from '@/lib/i18n';
 
 export default function AccountPanel({
   open,
@@ -15,6 +15,8 @@ export default function AccountPanel({
   onLogin: () => void;
   onLogout: () => void;
 }) {
+  const { t } = useLang();
+  const money = useMoney();
   const [orders, setOrders] = useState<Order[] | null>(null);
 
   useEffect(() => {
@@ -26,11 +28,11 @@ export default function AccountPanel({
   }, [open, user]);
 
   return (
-    <div className={open ? 'acctpanel on' : 'acctpanel'} role="dialog" aria-label="Mon compte" aria-hidden={!open}>
+    <div className={open ? 'acctpanel on' : 'acctpanel'} role="dialog" aria-label={t.account} aria-hidden={!open}>
       {!user ? (
         <div className="acct-prompt">
-          <p>Connectez-vous pour suivre vos commandes.</p>
-          <button className="ok" type="button" style={{ margin: 0 }} onClick={onLogin}>Se connecter</button>
+          <p>{t.acctPrompt}</p>
+          <button className="ok" type="button" style={{ margin: 0 }} onClick={onLogin}>{t.login}</button>
         </div>
       ) : (
         <>
@@ -40,15 +42,15 @@ export default function AccountPanel({
           </div>
 
           <div>
-            {orders === null && 'Chargement…'}
+            {orders === null && t.loading}
             {orders?.length === 0 && (
-              <p className="acct-prompt" style={{ margin: 0 }}>Aucune commande pour l’instant.</p>
+              <p className="acct-prompt" style={{ margin: 0 }}>{t.noOrders}</p>
             )}
             {orders?.map((o) => {
               const loc = o.wilaya_name + (o.daira_name ? `, ${o.daira_name}` : '');
               const deliv = o.delivery_type === 'domicile'
-                ? `Domicile — ${loc}${o.delivery_address ? ` · ${o.delivery_address}` : ''}`
-                : `Bureau — ${loc}`;
+                ? `${t.home} — ${loc}${o.delivery_address ? ` · ${o.delivery_address}` : ''}`
+                : `${t.office} — ${loc}`;
               return (
                 <div className="ord" key={o.id}>
                   <div className="ord-h">
@@ -67,7 +69,7 @@ export default function AccountPanel({
                     ))}
                   </div>
                   <div className="ord-f">{deliv}</div>
-                  <div className="ord-f">{o.created_at} · <b>{fmt(o.total)}</b></div>
+                  <div className="ord-f">{o.created_at} · <b>{money(o.total)}</b></div>
                 </div>
               );
             })}
@@ -79,7 +81,7 @@ export default function AccountPanel({
             style={{ marginTop: 12, background: 'none', border: '1px solid var(--line)', color: 'var(--ink)' }}
             onClick={onLogout}
           >
-            Déconnexion
+            {t.logout}
           </button>
         </>
       )}
