@@ -7,6 +7,7 @@ import Footer from '../Footer';
 import ShopHeader from './ShopHeader';
 import Hero from './Hero';
 import TrustStrip from './TrustStrip';
+import ProductGrid from './ProductGrid';
 import DeliveryCalculator from './DeliveryCalculator';
 import SizeGuide from './SizeGuide';
 import Fab from './Fab';
@@ -25,7 +26,7 @@ export default function Storefront() {
         <Hero />
         <div className="wrap">
           <TrustStrip />
-          {/* product grid: phase 3 */}
+          <ProductGrid query={query} />
           <DeliveryCalculator />
           <SizeGuide />
         </div>
