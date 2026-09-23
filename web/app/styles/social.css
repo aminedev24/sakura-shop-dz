@@ -26,19 +26,48 @@
 
 .social-grid {
   display: grid;
-  grid-template-columns: repeat(6,1fr);
+  grid-template-columns: repeat(6, 1fr);
   gap: 10px;
-  width: 100%;
-  margin-top: 10px;
+  margin-top: 14px;
+  /* break out of .wrap: the strip runs the full viewport width */
+  width: 100vw;
+  margin-inline-start: calc(50% - 50vw);
+  margin-inline-end: calc(50% - 50vw);
+  padding-inline: 0;
 }
 
 .social-tile {
   position: relative;
   display: block;
-  aspect-ratio: 4 / 3;
-  border-radius: 14px;
+  aspect-ratio: 1 / 1.05;
+  border-radius: 16px;
   overflow: hidden;
   background: var(--surface);
+}
+
+/* a heart sits over each frame, as in the reference */
+.social-tile .heart {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  opacity: .92;
+  transition: transform .3s cubic-bezier(.2, .8, .2, 1), opacity .25s;
+  pointer-events: none;
+}
+
+.social-tile .heart svg {
+  width: 30px;
+  height: 30px;
+  filter: drop-shadow(0 2px 6px rgba(31, 20, 32, .35));
+}
+
+.social-tile:hover .heart {
+  transform: scale(1.12);
+  opacity: 1;
 }
 
 .social-tile img {
@@ -71,7 +100,7 @@
 
 @media(max-width:900px) {
   .social-grid {
-    grid-template-columns: repeat(3,1fr);
+    grid-template-columns: repeat(3, 1fr);
   }
 
 }
@@ -88,6 +117,12 @@
 
   .social-tile {
     aspect-ratio: 1;
+    border-radius: 12px;
+  }
+
+  .social-tile .heart svg {
+    width: 24px;
+    height: 24px;
   }
 
   .social-tile {

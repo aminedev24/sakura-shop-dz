@@ -27,6 +27,12 @@ export default function SocialWall() {
         {TILES.map((img, i) => (
           <a className="social-tile" key={`${img}-${i}`} href={PAGE} target="_blank" rel="noopener">
             <img src={`/uploads/products/${img}.jpg`} alt="" loading="lazy" />
+            <span className="heart" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6"
+                   strokeLinecap="round" strokeLinejoin="round">
+                <path d="M12 20.3 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 0 1 19.4 13Z" />
+              </svg>
+            </span>
           </a>
         ))}
       </div>

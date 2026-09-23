@@ -164,7 +164,11 @@ def build():
 
     social = ''.join(
         '<a class="social-tile" href="https://www.facebook.com/sakurashop.dz/" '
-        'target="_blank" rel="noopener"><img src="%s" alt="" loading="lazy"></a>'
+        'target="_blank" rel="noopener"><img src="%s" alt="" loading="lazy">'
+        '<span class="heart"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" '
+        'stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">'
+        '<path d="M12 20.3 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 0 1 19.4 13Z"/>'
+        '</svg></span></a>'
         % data_uri('uploads/products/%s.jpg' % i) for i in SOCIAL_IMGS)
 
     feats = ''.join(
