@@ -162,15 +162,6 @@ def build():
         % (data_uri('uploads/products/%s.jpg' % img), a, b, IC['arrow'])
         for img, a, b in TILE_IMGS)
 
-    social = ''.join(
-        '<a class="social-tile" href="https://www.facebook.com/sakurashop.dz/" '
-        'target="_blank" rel="noopener"><img src="%s" alt="" loading="lazy">'
-        '<span class="heart"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" '
-        'stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">'
-        '<path d="M12 20.3 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 0 1 19.4 13Z"/>'
-        '</svg></span></a>'
-        % data_uri('uploads/products/%s.jpg' % i) for i in SOCIAL_IMGS)
-
     feats = ''.join(
         '<div class="hero3-feat">%s<span><b data-i18n="%s"></b><span data-i18n="%s"></span></span></div>'
         % (IC[i], b, s) for i, b, s in
@@ -188,7 +179,7 @@ def build():
                      % k for k in ('stP1', 'stP2', 'stP3', 'stP4'))
 
     doc = TEMPLATE % dict(
-        css=css, cards=''.join(cards), tiles=tiles, social=social, feats=feats,
+        css=css, cards=''.join(cards), tiles=tiles, feats=feats,
         whys=whys, points=points, mark=MARK,
         hero=data_uri('uploads/products/%s.jpg' % HERO_IMG),
         promo=data_uri('uploads/products/%s.jpg' % PROMO_IMG),
@@ -321,25 +312,46 @@ body{margin:0;background:var(--ground);color:var(--ink);font-family:var(--sans);
   </div>
 </div></section></div>
 
-<section class="wrap social">
-  <span class="kicker" data-i18n="socKicker"></span>
-  <h2 data-i18n="socHandle"></h2>
-  <p data-i18n="socText"></p>
-  <div class="social-grid">%(social)s</div>
-  <div class="social-feed">
-    <div class="social-card">
-      <div class="social-card-head">
-        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M22 12a10 10 0 1 0-11.6 9.9v-7H7.9V12h2.5V9.8c0-2.5 1.5-3.9 3.8-3.9 1.1 0 2.2.2 2.2.2v2.5h-1.3c-1.2 0-1.6.8-1.6 1.6V12h2.8l-.4 2.9h-2.4v7A10 10 0 0 0 22 12Z"/></svg>
-        <b>Sakura Shop</b><span>facebook.com</span>
-      </div>
-      <iframe src="https://www.facebook.com/plugins/page.php?href=https%%3A%%2F%%2Fwww.facebook.com%%2Fsakurashop.dz%%2F&amp;tabs=timeline&amp;width=440&amp;height=460&amp;small_header=true&amp;adapt_container_width=true&amp;hide_cover=false&amp;show_facepile=true"
-              title="Facebook" width="440" height="460" loading="lazy" scrolling="no"
-              allow="clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>
+<section class="social-section"><div class="social-inner">
+  <div>
+    <div class="social-feed-heading">
+      <div class="social-feed-kicker"><span class="social-kicker-dot"></span><span data-i18n="socKicker2"></span></div>
+      <h2><span data-i18n="socTitle1"></span><br><span data-i18n="socTitle2"></span> <span class="accent" data-i18n="socTitle3"></span></h2>
+      <p data-i18n="socLead"></p>
     </div>
-    <a class="social-fallback" href="https://www.facebook.com/sakurashop.dz/" target="_blank" rel="noopener" data-i18n="socFallback"></a>
+    <div class="social-card">
+      <div class="social-card-top">
+        <div class="social-profile">
+          <span class="social-avatar"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M22 12a10 10 0 1 0-11.6 9.9v-7H7.9V12h2.5V9.8c0-2.5 1.5-3.9 3.8-3.9 1.1 0 2.2.2 2.2.2v2.5h-1.3c-1.2 0-1.6.8-1.6 1.6V12h2.8l-.4 2.9h-2.4v7A10 10 0 0 0 22 12Z"/></svg></span>
+          <span class="social-profile-text"><b>Sakura Shop</b><small data-i18n="socPageMeta"></small></span>
+        </div>
+        <a class="social-follow" href="https://www.facebook.com/sakurashop.dz/" target="_blank" rel="noopener" data-i18n="socFollow"></a>
+      </div>
+      <div class="social-frame">
+        <iframe src="https://www.facebook.com/plugins/page.php?href=https%%3A%%2F%%2Fwww.facebook.com%%2Fsakurashop.dz%%2F&amp;tabs=timeline&amp;width=560&amp;height=500&amp;small_header=true&amp;adapt_container_width=true&amp;hide_cover=false&amp;show_facepile=true"
+                title="Facebook" loading="lazy" scrolling="no"
+                allow="clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>
+      </div>
+      <div class="social-card-bottom">
+        <span><svg viewBox="0 0 24 24" fill="none"><path d="M20 11.5a7.5 7.5 0 1 1-2.2-5.3" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><path d="M20 5v5h-5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg><span data-i18n="socLive"></span></span>
+        <a href="https://www.facebook.com/sakurashop.dz/" target="_blank" rel="noopener" data-i18n="socOpen"></a>
+      </div>
+    </div>
   </div>
-  <a class="btn2 ghost social-cta" href="https://www.facebook.com/sakurashop.dz/" target="_blank" rel="noopener" data-i18n="socCta"></a>
-</section>
+  <aside class="social-aside">
+    <span class="social-aside-badge">&#10022; <span data-i18n="socBadge"></span></span>
+    <h3 data-i18n="socAsideH"></h3>
+    <p data-i18n="socAsideP"></p>
+    <div class="social-points">
+      <div class="social-point"><span class="social-point-icon">&#10047;</span><div><strong data-i18n="socPt1"></strong><small data-i18n="socPt1s"></small></div></div>
+      <div class="social-point"><span class="social-point-icon">&#9825;</span><div><strong data-i18n="socPt2"></strong><small data-i18n="socPt2s"></small></div></div>
+      <div class="social-point"><span class="social-point-icon">&#10022;</span><div><strong data-i18n="socPt3"></strong><small data-i18n="socPt3s"></small></div></div>
+    </div>
+    <a class="social-main-cta" href="https://www.facebook.com/sakurashop.dz/" target="_blank" rel="noopener"><span data-i18n="socMainCta"></span>%(ic_arrow)s</a>
+    <a class="social-fallback" href="https://www.facebook.com/sakurashop.dz/" target="_blank" rel="noopener"><span data-i18n="socFallbackQ"></span><span data-i18n="socFallbackA"></span></a>
+    <div class="social-decoration">&#10047;</div>
+  </aside>
+</div></section>
 </main>
 
 <footer class="ftr">
