@@ -10,7 +10,8 @@
     "dev": "npm --prefix web run dev",
     "build": "npm --prefix web run build",
     "preview": "npm --prefix web run preview",
-    "php": "php -S localhost:8000 -t ."
+    "php": "php -S localhost:8000 -t .",
+    "preview:html": "python3 scripts/build-preview.py"
   },
   "repository": {
     "type": "git",
