@@ -5347,11 +5347,8 @@ footer li a:hover {
   grid-auto-rows: clamp(170px, 17vw, 250px);
   gap: 10px;
   margin-top: 14px;
-  /* Full bleed. .social is a centring flex column, so a 100vw item is already
-     centred across the viewport — adding negative inline margins on top of that
-     shifts it off the left edge and leaves a gap on the right. */
-  width: 100vw;
-  max-width: 100vw;
+  /* stays within the page gutters, like every other section */
+  width: 100%;
 }
 
 .social-tile {
