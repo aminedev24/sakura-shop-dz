@@ -136,6 +136,7 @@ const STRINGS = {
     socHandle: '@sakurashop.dz',
     socText: 'Nos dernières pièces en situation, comme sur nos réseaux.',
     socCta: 'Voir la page Facebook',
+    socFallback: 'Le fil Facebook ne s’affiche pas ? Ouvrez la page directement.',
   },
   ar: {
     dir: 'rtl', langLabel: 'Français', langShort: 'FR', langSwitchTo: 'التبديل إلى الفرنسية', currency: 'دج',
@@ -254,6 +255,7 @@ const STRINGS = {
     socHandle: '@sakurashop.dz',
     socText: 'أحدث قطعنا كما تظهر على صفحاتنا.',
     socCta: 'زيارة صفحة فيسبوك',
+    socFallback: 'لا يظهر فيسبوك؟ افتحي الصفحة مباشرة.',
   },
 } as const;
 

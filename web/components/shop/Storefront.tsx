@@ -28,7 +28,6 @@ export default function Storefront() {
       <SiteHeader />
       <main id="contenu">
         <Hero />
-        <StorySection />
         <div className="wrap">
           <TrustStrip />
           <ProductGrid query={query} cat={cat} onCat={setCat} onOpen={openProduct} />
@@ -36,6 +35,7 @@ export default function Storefront() {
         {/* sits between the products and the delivery block rather than at the
             very bottom; it manages its own width, so it is outside .wrap */}
         <PromoBanner />
+        <StorySection />
         <div className="wrap">
           <DeliveryCalculator />
           <SizeGuide />

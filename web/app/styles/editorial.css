@@ -3,7 +3,7 @@
    Loaded from app/styles.css — order matters. */
 .editorial {
   position: relative;
-  width: min(1220px, calc(100% - 72px));
+  width: min(1220px,calc(100% - 72px));
   min-height: 210px;
   margin: 48px auto 0;
   display: grid;
@@ -11,12 +11,14 @@
   overflow: hidden;
   border: 1px solid #f0dfe5;
   border-radius: 24px;
-  background: radial-gradient(circle at 84% 20%, rgba(255, 255, 255, .95) 0, rgba(255, 255, 255, 0) 34%), linear-gradient(105deg, #f7d9e2 0%, #fff4f6 52%, #fdebef 100%);
-  box-shadow: 0 18px 50px rgba(70, 28, 43, .07);
+  background: radial-gradient(circle at 84% 20%,rgba(255,255,255,.95) 0,rgba(255,255,255,0) 34%),
+             linear-gradient(105deg,#f7d9e2 0%,#fff4f6 52%,#fdebef 100%);
+  box-shadow: 0 18px 50px rgba(70,28,43,.07);
 }
 
 [dir="rtl"] .editorial {
-  background: radial-gradient(circle at 16% 20%, rgba(255, 255, 255, .95) 0, rgba(255, 255, 255, 0) 34%), linear-gradient(255deg, #f7d9e2 0%, #fff4f6 52%, #fdebef 100%);
+  background: radial-gradient(circle at 16% 20%,rgba(255,255,255,.95) 0,rgba(255,255,255,0) 34%),
+             linear-gradient(255deg,#f7d9e2 0%,#fff4f6 52%,#fdebef 100%);
 }
 
 .editorial-image {
@@ -34,7 +36,7 @@
   display: block;
   object-fit: cover;
   object-position: center;
-  transition: transform .6s cubic-bezier(.2, .8, .2, 1), filter .35s ease;
+  transition: transform .6s cubic-bezier(.2,.8,.2,1),filter .35s ease;
 }
 
 .editorial:hover .editorial-image img {
@@ -47,11 +49,11 @@
   position: absolute;
   inset: 0;
   pointer-events: none;
-  background: linear-gradient(90deg, rgba(255, 236, 242, 0) 55%, rgba(255, 244, 247, .6) 100%);
+  background: linear-gradient(90deg,rgba(255,236,242,0) 55%,rgba(255,244,247,.6) 100%);
 }
 
 [dir="rtl"] .editorial-image::after {
-  background: linear-gradient(270deg, rgba(255, 236, 242, 0) 55%, rgba(255, 244, 247, .6) 100%);
+  background: linear-gradient(270deg,rgba(255,236,242,0) 55%,rgba(255,244,247,.6) 100%);
 }
 
 .editorial-copy {
@@ -67,7 +69,7 @@
 .editorial-copy h2 {
   margin: 11px 0 8px;
   font-family: var(--serif);
-  font-size: clamp(25px, 2.6vw, 33px);
+  font-size: clamp(25px,2.6vw,33px);
   font-weight: 400;
   line-height: 1.03;
   letter-spacing: -.035em;
@@ -96,13 +98,13 @@
   font-size: 12px;
   font-weight: 700;
   text-decoration: none;
-  transition: background .2s ease, transform .2s ease, box-shadow .2s ease;
+  transition: background .2s ease,transform .2s ease,box-shadow .2s ease;
 }
 
 .editorial-copy .primary:hover {
   background: var(--accent-dk);
   transform: translateY(-2px);
-  box-shadow: 0 10px 22px rgba(214, 69, 111, .18);
+  box-shadow: 0 10px 22px rgba(214,69,111,.18);
 }
 
 .editorial-copy .primary svg {
@@ -122,16 +124,16 @@
   justify-content: center;
   padding: 20px;
   color: #b24d69;
-  font-family: "Brush Script MT", "Segoe Script", cursive;
-  font-size: clamp(24px, 2.4vw, 34px);
+  font-family: "Brush Script MT","Segoe Script",cursive;
+  font-size: clamp(24px,2.4vw,34px);
   line-height: .95;
   text-align: center;
   transform: rotate(-5deg);
 }
 
 [dir="rtl"] .editorial-script {
-  font-family: Cairo, sans-serif;
-  font-size: clamp(17px, 1.7vw, 22px);
+  font-family: Cairo,sans-serif;
+  font-size: clamp(17px,1.7vw,22px);
   font-weight: 700;
   line-height: 1.35;
   transform: rotate(5deg);
@@ -143,7 +145,7 @@
   top: 24px;
   inset-inline-end: 28px;
   color: #e59ab0;
-  font-family: Georgia, serif;
+  font-family: Georgia,serif;
   font-size: 14px;
   transform: rotate(8deg);
 }
@@ -156,8 +158,8 @@
   inset-inline-end: -62px;
   bottom: -84px;
   border-radius: 50%;
-  border: 1px solid rgba(214, 69, 111, .11);
-  box-shadow: 0 0 0 18px rgba(214, 69, 111, .025), 0 0 0 36px rgba(214, 69, 111, .018);
+  border: 1px solid rgba(214,69,111,.11);
+  box-shadow: 0 0 0 18px rgba(214,69,111,.025),0 0 0 36px rgba(214,69,111,.018);
   pointer-events: none;
 }
 

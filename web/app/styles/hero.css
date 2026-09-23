@@ -33,7 +33,7 @@
   position: absolute;
   inset: 0;
   pointer-events: none;
-  background: linear-gradient(95deg, #FFEDF3 0%, #FFEDF3 34%, rgba(255, 237, 243, .92) 46%, rgba(255, 237, 243, .35) 58%, rgba(255, 237, 243, 0) 70%);
+  background: linear-gradient(95deg,#FFEDF3 0%,#FFEDF3 34%,rgba(255,237,243,.92) 46%,rgba(255,237,243,.35) 58%,rgba(255,237,243,0) 70%);
 }
 
 .hero3-in {
@@ -63,7 +63,7 @@
 
 .hero3-in h1 {
   margin: 0;
-  font-size: clamp(38px, 4.6vw, 60px);
+  font-size: clamp(38px,4.6vw,60px);
   line-height: 1.02;
   letter-spacing: -.04em;
   font-weight: 700;
@@ -133,7 +133,7 @@
   display: flex;
   align-items: center;
   gap: 11px;
-  box-shadow: 0 14px 34px rgba(43, 22, 34, .13);
+  box-shadow: 0 14px 34px rgba(43,22,34,.13);
 }
 
 .hero3-badge .pin {
@@ -200,7 +200,7 @@
 }
 
 [dir="rtl"] .hero3-card::after {
-  background: linear-gradient(265deg, #FFEDF3 0%, #FFEDF3 34%, rgba(255, 237, 243, .92) 46%, rgba(255, 237, 243, .35) 58%, rgba(255, 237, 243, 0) 70%);
+  background: linear-gradient(265deg,#FFEDF3 0%,#FFEDF3 34%,rgba(255,237,243,.92) 46%,rgba(255,237,243,.35) 58%,rgba(255,237,243,0) 70%);
 }
 
 [dir="rtl"] .hero3-badge {
@@ -226,7 +226,7 @@
   padding: 5px 11px;
   border: 1px solid #efcbd7;
   border-radius: 999px;
-  background: rgba(255, 255, 255, .78);
+  background: rgba(255,255,255,.78);
   color: var(--accent);
   font-size: 10px;
   font-weight: 700;
@@ -248,7 +248,7 @@
   }
 
   .hero3-in h1 {
-    font-size: clamp(30px, 8.5vw, 38px);
+    font-size: clamp(30px,8.5vw,38px);
     line-height: 1.05;
   }
 

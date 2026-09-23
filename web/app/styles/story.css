@@ -41,7 +41,7 @@
 
 .story-copy h2 {
   margin: 0;
-  font-size: clamp(24px, 2.7vw, 33px);
+  font-size: clamp(24px,2.7vw,33px);
   font-weight: 700;
   letter-spacing: -.03em;
   line-height: 1.14;

@@ -12,7 +12,7 @@
 
 .social h2 {
   margin: 6px 0 0;
-  font-size: clamp(25px, 2.8vw, 34px);
+  font-size: clamp(25px,2.8vw,34px);
   font-weight: 700;
   letter-spacing: -.03em;
   color: var(--ink);
@@ -26,7 +26,7 @@
 
 .social-grid {
   display: grid;
-  grid-template-columns: repeat(6, 1fr);
+  grid-template-columns: repeat(6,1fr);
   gap: 10px;
   width: 100%;
   margin-top: 10px;
@@ -46,7 +46,7 @@
   height: 100%;
   object-fit: cover;
   display: block;
-  transition: transform .45s cubic-bezier(.2, .8, .2, 1);
+  transition: transform .45s cubic-bezier(.2,.8,.2,1);
 }
 
 .social-tile:hover img {
@@ -57,12 +57,12 @@
   content: "";
   position: absolute;
   inset: 0;
-  background: rgba(222, 62, 121, 0);
+  background: rgba(222,62,121,0);
   transition: background .25s;
 }
 
 .social-tile:hover::after {
-  background: rgba(222, 62, 121, .16);
+  background: rgba(222,62,121,.16);
 }
 
 .social-cta {
@@ -71,7 +71,7 @@
 
 @media(max-width:900px) {
   .social-grid {
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(3,1fr);
   }
 
 }
@@ -82,7 +82,7 @@
   }
 
   .social-grid {
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(3,1fr);
     gap: 7px;
   }
 
@@ -101,4 +101,61 @@
     transform: none;
   }
 
+}
+
+/* two columns: the real Facebook timeline beside our own photography */
+.social-split {
+  display: grid;
+  grid-template-columns: 380px 1fr;
+  gap: 22px;
+  width: 100%;
+  margin-top: 14px;
+  align-items: start;
+  text-align: start;
+}
+
+.social-feed {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.social-feed iframe {
+  width: 380px;
+  max-width: 100%;
+  height: 500px;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: var(--surface);
+  overflow: hidden;
+}
+
+/* shown underneath, because the frame is blocked by some ad blockers */
+.social-fallback {
+  font-size: 11.5px;
+  color: var(--muted);
+  text-decoration: underline;
+}
+
+.social-fallback:hover {
+  color: var(--accent);
+}
+
+/* the wall sits beside the feed now, so three columns rather than six */
+.social-split .social-grid {
+  grid-template-columns: repeat(3, 1fr);
+  margin-top: 0;
+}
+
+@media(max-width:900px) {
+  .social-split {
+    grid-template-columns: 1fr;
+    justify-items: center;
+  }
+
+  .social-feed {
+    width: 100%;
+    max-width: 380px;
+    align-items: center;
+  }
 }

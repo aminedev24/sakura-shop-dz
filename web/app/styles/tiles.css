@@ -3,7 +3,7 @@
    Loaded from app/styles.css — order matters. */
 .tiles3 {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(4,1fr);
   gap: 18px;
   margin-top: 22px;
 }
@@ -28,7 +28,7 @@
   content: "";
   position: absolute;
   inset: 0;
-  background: linear-gradient(180deg, rgba(255, 240, 246, 0) 38%, rgba(255, 238, 245, .9) 100%);
+  background: linear-gradient(180deg,rgba(255,240,246,0) 38%,rgba(255,238,245,.9) 100%);
 }
 
 .tile3-lbl {
@@ -80,7 +80,7 @@
 
 @media(max-width:1000px) {
   .tiles3 {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(2,1fr);
   }
 
 }
@@ -106,7 +106,7 @@
   position: absolute;
   inset: 0;
   pointer-events: none;
-  background: linear-gradient(180deg, rgba(31, 20, 32, 0) 42%, rgba(31, 20, 32, .55) 100%);
+  background: linear-gradient(180deg,rgba(31,20,32,0) 42%,rgba(31,20,32,.55) 100%);
 }
 
 .tile3::after {
@@ -118,5 +118,5 @@
 }
 
 .tile3-lbl span {
-  color: rgba(255, 255, 255, .85);
+  color: rgba(255,255,255,.85);
 }

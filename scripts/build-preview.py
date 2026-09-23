@@ -264,16 +264,6 @@ body{margin:0;background:var(--ground);color:var(--ink);font-family:var(--sans);
   </div>
 </div><nav class="tiles3">%(tiles)s</nav></section>
 
-<section class="wrap story" id="story"><div class="story-box">
-  <div class="story-image"><img src="%(story)s" alt=""></div>
-  <div class="story-copy">
-    <span class="kicker" data-i18n="stKicker"></span>
-    <h2 data-i18n="stTitle"></h2>
-    <p data-i18n="stText"></p>
-    <div class="story-points">%(points)s</div>
-  </div>
-</div></section>
-
 <div class="wrap">
   <section class="sec3 reveal" id="pourquoi">
     <div class="sechead sechead-c"><h2 data-i18n="whyTitle"></h2><p data-i18n="whySub"></p></div>
@@ -306,6 +296,16 @@ body{margin:0;background:var(--ground);color:var(--ink);font-family:var(--sans);
   <div class="editorial-script" data-i18n="promoScript"></div>
 </section>
 
+<section class="wrap story" id="story"><div class="story-box">
+  <div class="story-image"><img src="%(story)s" alt=""></div>
+  <div class="story-copy">
+    <span class="kicker" data-i18n="stKicker"></span>
+    <h2 data-i18n="stTitle"></h2>
+    <p data-i18n="stText"></p>
+    <div class="story-points">%(points)s</div>
+  </div>
+</div></section>
+
 <div class="wrap"><section class="sec3 reveal" id="livraison"><div class="deliv">
   <div><span class="section-kicker" data-i18n="dKicker"></span><h2 data-i18n="dTitle"></h2></div>
   <div class="calc">
@@ -321,7 +321,15 @@ body{margin:0;background:var(--ground);color:var(--ink);font-family:var(--sans);
   <span class="kicker" data-i18n="socKicker"></span>
   <h2 data-i18n="socHandle"></h2>
   <p data-i18n="socText"></p>
-  <div class="social-grid">%(social)s</div>
+  <div class="social-split">
+    <div class="social-feed">
+      <iframe src="https://www.facebook.com/plugins/page.php?href=https%%3A%%2F%%2Fwww.facebook.com%%2Fsakurashop.dz%%2F&amp;tabs=timeline&amp;width=380&amp;height=500&amp;small_header=false&amp;adapt_container_width=true&amp;hide_cover=false&amp;show_facepile=true"
+              title="Facebook" width="380" height="500" loading="lazy" scrolling="no"
+              allow="clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>
+      <a class="social-fallback" href="https://www.facebook.com/sakurashop.dz/" target="_blank" rel="noopener" data-i18n="socFallback"></a>
+    </div>
+    <div class="social-grid">%(social)s</div>
+  </div>
   <a class="btn2 ghost social-cta" href="https://www.facebook.com/sakurashop.dz/" target="_blank" rel="noopener" data-i18n="socCta"></a>
 </section>
 </main>

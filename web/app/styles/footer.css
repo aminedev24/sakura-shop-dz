@@ -59,7 +59,7 @@
   width: 34px;
   height: 34px;
   border-radius: 50%;
-  background: rgba(255, 255, 255, .09);
+  background: rgba(255,255,255,.09);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -86,7 +86,7 @@
 }
 
 .ftr-thanks .script {
-  font-family: "Segoe Script", "Brush Script MT", cursive;
+  font-family: "Segoe Script","Brush Script MT",cursive;
   font-size: 24px;
   color: #fff;
 }
@@ -125,9 +125,9 @@
   flex-wrap: wrap;
   margin-top: 30px;
   padding-top: 18px;
-  border-top: 1px solid rgba(255, 255, 255, .1);
+  border-top: 1px solid rgba(255,255,255,.1);
   font-size: 12px;
-  color: rgba(233, 212, 222, .7);
+  color: rgba(233,212,222,.7);
 }
 
 .ftr-bot nav {
@@ -137,7 +137,7 @@
 }
 
 .ftr-bot a {
-  color: rgba(233, 212, 222, .85);
+  color: rgba(233,212,222,.85);
 }
 
 .ftr-bot a:hover {

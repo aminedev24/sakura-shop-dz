@@ -16,7 +16,7 @@
 
 .sechead h2 {
   margin: 8px 0 4px;
-  font-size: clamp(28px, 3.2vw, 38px);
+  font-size: clamp(28px,3.2vw,38px);
   font-weight: 700;
   letter-spacing: -.035em;
   line-height: 1.08;
@@ -59,20 +59,20 @@
 
 .grid3 {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(4,1fr);
   gap: 20px;
 }
 
 @media(max-width:1100px) {
   .grid3 {
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(3,1fr);
   }
 
 }
 
 @media(max-width:840px) {
   .grid3 {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(2,1fr);
   }
 
 }
@@ -112,7 +112,7 @@
   height: 100%;
   object-fit: cover;
   display: block;
-  transition: transform .5s cubic-bezier(.22, 1, .36, 1);
+  transition: transform .5s cubic-bezier(.22,1,.36,1);
 }
 
 .pcard:hover .pcard-ph img {
@@ -151,7 +151,7 @@
   height: 32px;
   border-radius: 50%;
   border: 0;
-  background: rgba(255, 255, 255, .94);
+  background: rgba(255,255,255,.94);
   display: flex;
   align-items: center;
   justify-content: center;
