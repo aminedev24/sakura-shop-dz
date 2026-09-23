@@ -10,6 +10,8 @@ import Hero from './Hero';
 import TrustStrip from './TrustStrip';
 import ProductGrid from './ProductGrid';
 import PromoBanner from './PromoBanner';
+import StorySection from './StorySection';
+import SocialWall from './SocialWall';
 import DeliveryCalculator from './DeliveryCalculator';
 import SizeGuide from './SizeGuide';
 import Fab from './Fab';
@@ -26,6 +28,7 @@ export default function Storefront() {
       <SiteHeader />
       <main id="contenu">
         <Hero />
+        <StorySection />
         <div className="wrap">
           <TrustStrip />
           <ProductGrid query={query} cat={cat} onCat={setCat} onOpen={openProduct} />
@@ -37,6 +40,7 @@ export default function Storefront() {
           <DeliveryCalculator />
           <SizeGuide />
         </div>
+        <SocialWall />
       </main>
       <Fab />
       <ShopMobileNav onCart={() => {
