@@ -3,10 +3,12 @@
    Loaded from app/styles.css — order matters. */
 .social-section {
   position: relative;
-  margin: 20px 0;
+  /* the band stops at the page gutters rather than running edge to edge */
+  width: min(1300px, calc(100% - 40px));
+  margin: 20px auto;
   overflow: hidden;
-  border-top: 1px solid var(--line);
-  border-bottom: 1px solid var(--line);
+  border: 1px solid var(--line);
+  border-radius: var(--r-lg);
   background:
     radial-gradient(circle at 7% 25%, rgba(214, 69, 111, .08), transparent 22%),
     radial-gradient(circle at 93% 74%, rgba(214, 69, 111, .08), transparent 25%),
@@ -16,9 +18,9 @@
 .social-inner {
   position: relative;
   z-index: 2;
-  width: min(1220px, calc(100% - 40px));
+  width: min(1220px, calc(100% - 80px));
   margin: auto;
-  padding: 68px 0;
+  padding: 58px 0;
   display: grid;
   grid-template-columns: minmax(0, 1.1fr) minmax(340px, .9fr);
   gap: 58px;
@@ -360,8 +362,13 @@
 
 @media(max-width:620px) {
   .social-inner {
+    width: calc(100% - 36px);
+    padding: 40px 0;
+  }
+
+  .social-section {
     width: calc(100% - 28px);
-    padding: 45px 0;
+    border-radius: 18px;
   }
 
   .social-feed-heading h2 {
