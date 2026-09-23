@@ -50,9 +50,12 @@
   display: flex;
   align-items: center;
   gap: 22px;
-  margin-inline-start: 14px;
   flex-wrap: nowrap;
   overflow: visible;
+  /* take the space between the brand and the actions, and centre within it */
+  flex: 1;
+  justify-content: center;
+  margin-inline: 14px;
 }
 
 .mainnav a {
