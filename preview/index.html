@@ -5323,8 +5323,8 @@ footer li a:hover {
 }
 
 .social h2 {
-  margin: 6px 0 0;
-  font-size: clamp(25px,2.8vw,34px);
+  margin: 8px 0 0;
+  font-size: clamp(30px, 3.4vw, 44px);
   font-weight: 700;
   letter-spacing: -.03em;
   color: var(--ink);
@@ -5341,11 +5341,11 @@ footer li a:hover {
   grid-template-columns: repeat(6, 1fr);
   gap: 10px;
   margin-top: 14px;
-  /* break out of .wrap: the strip runs the full viewport width */
+  /* Full bleed. .social is a centring flex column, so a 100vw item is already
+     centred across the viewport — adding negative inline margins on top of that
+     shifts it off the left edge and leaves a gap on the right. */
   width: 100vw;
-  margin-inline-start: calc(50% - 50vw);
-  margin-inline-end: calc(50% - 50vw);
-  padding-inline: 0;
+  max-width: 100vw;
 }
 
 .social-tile {
