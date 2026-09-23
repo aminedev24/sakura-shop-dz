@@ -323,9 +323,15 @@ body{margin:0;background:var(--ground);color:var(--ink);font-family:var(--sans);
   <p data-i18n="socText"></p>
   <div class="social-grid">%(social)s</div>
   <div class="social-feed">
-    <iframe src="https://www.facebook.com/plugins/page.php?href=https%%3A%%2F%%2Fwww.facebook.com%%2Fsakurashop.dz%%2F&amp;tabs=timeline&amp;width=400&amp;height=460&amp;small_header=false&amp;adapt_container_width=true&amp;hide_cover=false&amp;show_facepile=true"
-            title="Facebook" width="400" height="460" loading="lazy" scrolling="no"
-            allow="clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>
+    <div class="social-card">
+      <div class="social-card-head">
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M22 12a10 10 0 1 0-11.6 9.9v-7H7.9V12h2.5V9.8c0-2.5 1.5-3.9 3.8-3.9 1.1 0 2.2.2 2.2.2v2.5h-1.3c-1.2 0-1.6.8-1.6 1.6V12h2.8l-.4 2.9h-2.4v7A10 10 0 0 0 22 12Z"/></svg>
+        <b>Sakura Shop</b><span>facebook.com</span>
+      </div>
+      <iframe src="https://www.facebook.com/plugins/page.php?href=https%%3A%%2F%%2Fwww.facebook.com%%2Fsakurashop.dz%%2F&amp;tabs=timeline&amp;width=440&amp;height=460&amp;small_header=true&amp;adapt_container_width=true&amp;hide_cover=false&amp;show_facepile=true"
+              title="Facebook" width="440" height="460" loading="lazy" scrolling="no"
+              allow="clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>
+    </div>
     <a class="social-fallback" href="https://www.facebook.com/sakurashop.dz/" target="_blank" rel="noopener" data-i18n="socFallback"></a>
   </div>
   <a class="btn2 ghost social-cta" href="https://www.facebook.com/sakurashop.dz/" target="_blank" rel="noopener" data-i18n="socCta"></a>

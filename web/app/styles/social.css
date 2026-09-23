@@ -1,5 +1,5 @@
 /* SOCIAL
-   Instagram-style photo wall.
+   Photo strip plus the live Facebook timeline.
    Loaded from app/styles.css — order matters. */
 .social {
   padding-top: 56px;
@@ -35,7 +35,7 @@
 .social-tile {
   position: relative;
   display: block;
-  aspect-ratio: 1;
+  aspect-ratio: 4 / 3;
   border-radius: 14px;
   overflow: hidden;
   background: var(--surface);
@@ -87,6 +87,10 @@
   }
 
   .social-tile {
+    aspect-ratio: 1;
+  }
+
+  .social-tile {
     border-radius: 11px;
   }
 
@@ -103,23 +107,61 @@
 
 }
 
-/* the feed sits below the full-width strip, centred */
+/* the feed sits below the strip, in a card so it reads as part of the page
+   rather than a pasted-in widget */
 .social-feed {
+  width: 100%;
+  max-width: 440px;
+  margin-top: 26px;
   display: flex;
   flex-direction: column;
+  gap: 9px;
   align-items: center;
-  gap: 8px;
-  margin-top: 22px;
 }
 
-.social-feed iframe {
-  width: 400px;
-  max-width: 100%;
-  height: 460px;
+.social-card {
+  width: 100%;
   border: 1px solid var(--line);
-  border-radius: 14px;
-  background: var(--surface);
+  border-radius: var(--r-card);
+  background: #fff;
+  box-shadow: 0 14px 36px rgba(31, 20, 32, .07);
   overflow: hidden;
+}
+
+.social-card-head {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  padding: 12px 15px;
+  border-bottom: 1px solid var(--line);
+  background: var(--surface);
+}
+
+.social-card-head svg {
+  width: 19px;
+  height: 19px;
+  color: #1877F2;  /* Facebook blue, the one place the brand colour belongs */
+  flex: none;
+}
+
+.social-card-head b {
+  font-size: 13.5px;
+  font-weight: 700;
+  color: var(--ink);
+}
+
+.social-card-head span {
+  margin-inline-start: auto;
+  font-size: 11.5px;
+  color: var(--muted);
+}
+
+.social-card iframe {
+  display: block;
+  width: 100%;
+  height: 460px;
+  border: 0;
+  background: #fff;
 }
 
 /* a real fallback: some ad blockers drop third party frames entirely */
