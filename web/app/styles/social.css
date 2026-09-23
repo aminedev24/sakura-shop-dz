@@ -162,16 +162,57 @@
    rather than a pasted-in widget */
 .social-feed {
   width: 100%;
-  max-width: 440px;
+  max-width: 900px;
   /* the strip above runs full bleed, so the card needs a clear footing or it
      reads as a stray widget dropped under it */
   margin-top: 34px;
   padding-top: 28px;
   border-top: 1px solid var(--line);
+  /* a lone 440px card stranded mid-row reads as an orphan, so it shares the
+     row with the follow copy on desktop */
+  display: grid;
+  grid-template-columns: 440px 1fr;
+  gap: 28px;
+  align-items: start;
+  text-align: start;
+}
+
+.social-aside {
   display: flex;
   flex-direction: column;
-  gap: 9px;
-  align-items: center;
+  align-items: flex-start;
+  gap: 10px;
+  padding-top: 6px;
+}
+
+.social-aside h3 {
+  margin: 0;
+  font-size: 19px;
+  font-weight: 700;
+  letter-spacing: -.02em;
+  color: var(--ink);
+}
+
+.social-aside p {
+  margin: 0;
+  font-size: 13.5px;
+  line-height: 1.65;
+  color: var(--muted);
+  max-width: 40ch;
+}
+
+@media(max-width:860px) {
+  .social-feed {
+    grid-template-columns: 1fr;
+    justify-items: center;
+    max-width: 440px;
+    text-align: center;
+  }
+
+  .social-aside {
+    align-items: center;
+    text-align: center;
+  }
 }
 
 .social-card {

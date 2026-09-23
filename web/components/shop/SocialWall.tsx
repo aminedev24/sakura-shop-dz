@@ -59,12 +59,16 @@ export default function SocialWall() {
           />
         </div>
 
-        <a className="btn2 ghost social-cta" href={PAGE} target="_blank" rel="noopener">
-          {t.socCta}
-        </a>
-        <a className="social-fallback" href={PAGE} target="_blank" rel="noopener">
-          {t.socFallback}
-        </a>
+        <div className="social-aside">
+          <h3>{t.socAsideTitle}</h3>
+          <p>{t.socAsideText}</p>
+          <a className="btn2 social-cta" href={PAGE} target="_blank" rel="noopener">
+            {t.socCta}
+          </a>
+          <a className="social-fallback" href={PAGE} target="_blank" rel="noopener">
+            {t.socFallback}
+          </a>
+        </div>
       </div>
     </section>
   );

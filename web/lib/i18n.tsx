@@ -136,7 +136,9 @@ const STRINGS = {
     socHandle: '@sakurashop.dz',
     socText: 'Un petit mur visuel pour donner vie à la marque.',
     socCta: 'Voir la page Facebook',
-    socFallback: 'Le fil Facebook ne s’affiche pas ? Ouvrez la page directement.',
+    socFallback: 'Le fil ne s’affiche pas ? Ouvrez la page directement.',
+    socAsideTitle: 'Suivez-nous sur Facebook',
+    socAsideText: 'Nouveautés, arrivages et coulisses de la boutique : tout passe d’abord par notre page.',
   },
   ar: {
     dir: 'rtl', langLabel: 'Français', langShort: 'FR', langSwitchTo: 'التبديل إلى الفرنسية', currency: 'دج',
@@ -255,7 +257,9 @@ const STRINGS = {
     socHandle: '@sakurashop.dz',
     socText: 'جدار بصري صغير يعطي الحياة للعلامة.',
     socCta: 'زيارة صفحة فيسبوك',
-    socFallback: 'لا يظهر فيسبوك؟ افتحي الصفحة مباشرة.',
+    socFallback: 'لا يظهر الفيد؟ افتحي الصفحة مباشرة.',
+    socAsideTitle: 'تابعينا على فيسبوك',
+    socAsideText: 'الجديد والوصولات وكواليس المتجر: كل شيء يمرّ أولاً عبر صفحتنا.',
   },
 } as const;
 
