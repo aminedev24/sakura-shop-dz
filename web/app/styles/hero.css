@@ -1,0 +1,313 @@
+/* HERO
+   Hero panel: photo, gradient, badge, headline, calls to action, feature row.
+   Loaded from app/styles.css — order matters. */
+.hero3 {
+  padding-top: 18px;
+}
+
+.hero3-card {
+  position: relative;
+  border-radius: var(--r-lg);
+  overflow: hidden;
+  min-height: 520px;
+  display: flex;
+  align-items: center;
+  background: var(--surface);
+}
+
+.hero3-photo {
+  position: absolute;
+  inset: 0 0 0 42%;
+  overflow: hidden;
+}
+
+.hero3-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 18%;
+}
+
+.hero3-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(95deg, #FFEDF3 0%, #FFEDF3 34%, rgba(255, 237, 243, .92) 46%, rgba(255, 237, 243, .35) 58%, rgba(255, 237, 243, 0) 70%);
+}
+
+.hero3-in {
+  position: relative;
+  z-index: 2;
+  padding: 52px 56px;
+  max-width: 680px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  align-items: flex-start;
+}
+
+.kicker {
+  display: inline-flex;
+  align-items: center;
+  background: var(--accent-soft);
+  color: var(--accent);
+  border: 1px solid #FFD5E5;
+  border-radius: 999px;
+  padding: 7px 15px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .09em;
+  text-transform: uppercase;
+}
+
+.hero3-in h1 {
+  margin: 0;
+  font-size: clamp(38px, 4.6vw, 60px);
+  line-height: 1.02;
+  letter-spacing: -.04em;
+  font-weight: 700;
+  color: var(--ink);
+  text-wrap: pretty;
+}
+
+.hero3-in p {
+  margin: 0;
+  font-size: 16px;
+  line-height: 1.65;
+  color: var(--muted);
+  max-width: 42ch;
+  text-wrap: pretty;
+}
+
+.hero3-btns {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-top: 2px;
+}
+
+.hero3-feats {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+  margin-top: 12px;
+}
+
+.hero3-feat {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+}
+
+.hero3-feat svg {
+  width: 20px;
+  height: 20px;
+  color: var(--accent);
+  flex: none;
+}
+
+.hero3-feat b {
+  display: block;
+  font-size: 12.5px;
+  font-weight: 700;
+  color: var(--ink);
+  line-height: 1.25;
+}
+
+.hero3-feat span {
+  display: block;
+  font-size: 11px;
+  color: var(--muted);
+  line-height: 1.25;
+}
+
+.hero3-badge {
+  position: absolute;
+  z-index: 3;
+  top: 46px;
+  right: 34px;
+  background: #fff;
+  border-radius: 16px;
+  padding: 13px 18px;
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  box-shadow: 0 14px 34px rgba(43, 22, 34, .13);
+}
+
+.hero3-badge .pin {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: var(--accent-soft);
+  color: var(--accent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+}
+
+.hero3-badge .pin svg {
+  width: 17px;
+  height: 17px;
+}
+
+.hero3-badge b {
+  display: block;
+  font-size: 14px;
+  color: var(--ink);
+  line-height: 1.2;
+}
+
+.hero3-badge span {
+  display: block;
+  font-size: 11px;
+  color: var(--muted);
+}
+
+@media(max-width:900px) {
+  .hero3-card {
+    min-height: auto;
+    flex-direction: column;
+  }
+
+  .hero3-photo {
+    position: relative;
+    inset: auto;
+    width: 100%;
+    height: 260px;
+    order: -1;
+  }
+
+  .hero3-card::after {
+    display: none;
+  }
+
+  .hero3-in {
+    padding: 28px 22px 32px;
+    max-width: none;
+  }
+
+  .hero3-badge {
+    display: none;
+  }
+
+}
+
+[dir="rtl"] .hero3-photo {
+  inset: 0 42% 0 0;
+}
+
+[dir="rtl"] .hero3-card::after {
+  background: linear-gradient(265deg, #FFEDF3 0%, #FFEDF3 34%, rgba(255, 237, 243, .92) 46%, rgba(255, 237, 243, .35) 58%, rgba(255, 237, 243, 0) 70%);
+}
+
+[dir="rtl"] .hero3-badge {
+  right: auto;
+  left: 34px;
+}
+
+[dir="rtl"] .hero3-in,
+/* Mixed number/Latin labels ("01 — Adrar", "S", "XXL") must not be reordered by the bidi algorithm inside an RTL page. plaintext resolves each option from its own first strong character. */ [dir="rtl"] select,
+[dir="rtl"] option,
+[dir="rtl"] .pcard-now,
+[dir="rtl"] .pcard-was,
+[dir="rtl"] .bp-ref,
+[dir="rtl"] .recap,
+[dir="rtl"] .co b,
+[dir="rtl"] .shipping-goal-head {
+  unicode-bidi: plaintext;
+}
+
+.editorial-copy .kicker {
+  display: inline-flex;
+  align-items: center;
+  padding: 5px 11px;
+  border: 1px solid #efcbd7;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, .78);
+  color: var(--accent);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .08em;
+}
+
+@media(max-width:620px) {
+  .hero3 {
+    padding-top: 12px;
+  }
+
+  .hero3-photo {
+    height: 230px;
+  }
+
+  .hero3-in {
+    padding: 24px 20px 26px;
+    gap: 14px;
+  }
+
+  .hero3-in h1 {
+    font-size: clamp(30px, 8.5vw, 38px);
+    line-height: 1.05;
+  }
+
+  .hero3-in p {
+    font-size: 14.5px;
+    line-height: 1.6;
+  }
+
+  .hero3-btns {
+    width: 100%;
+    gap: 9px;
+  }
+
+  .hero3-btns .btn2 {
+    width: 100%;
+    justify-content: center;
+    padding: 14px 20px;
+  }
+
+  .hero3-feats {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px 12px;
+    margin-top: 6px;
+    padding-top: 14px;
+    border-top: 1px solid var(--line);
+  }
+
+  .hero3-feat svg {
+    width: 18px;
+    height: 18px;
+  }
+
+  .hero3-feat b {
+    font-size: 12px;
+  }
+
+  .hero3-feat span {
+    font-size: 10.5px;
+  }
+
+  .kicker {
+    font-size: 10px;
+    padding: 6px 13px;
+  }
+
+  .hero3-photo {
+    height: 300px;
+  }
+
+  .hero3-photo img {
+    object-position: center 12%;
+  }
+
+}
+
+@media(max-width:360px) {
+  .hero3-photo {
+    height: 260px;
+  }
+
+}

@@ -1,0 +1,91 @@
+/* MISC
+   Shared buttons, scroll reveal and right-to-left corrections.
+   Loaded from app/styles.css — order matters. */
+.btn2 {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  border: 0;
+  border-radius: 999px;
+  padding: 15px 26px;
+  font-size: 14.5px;
+  font-weight: 600;
+  cursor: pointer;
+  background: var(--accent);
+  color: #fff;
+  transition: .18s;
+  font-family: inherit;
+}
+
+.btn2:hover {
+  background: var(--accent-dk);
+}
+
+.btn2 svg {
+  width: 16px;
+  height: 16px;
+}
+
+.btn2.ghost {
+  background: #fff;
+  color: var(--ink);
+  border: 1px solid var(--line);
+}
+
+.btn2.ghost svg {
+  color: var(--accent);
+}
+
+.btn2.ghost:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+[dir="rtl"] body,
+[dir="rtl"] input,
+[dir="rtl"] select,
+[dir="rtl"] button,
+[dir="rtl"] textarea {
+  font-family: Cairo, "Segoe UI", Tahoma, Arial, sans-serif;
+}
+
+@media(min-width:901px) {
+  .hd-slim {
+    display: flex;
+    align-items: center;
+    gap: 22px;
+  }
+
+  .hd-slim .page-nav {
+    margin-inline-start: auto;
+  }
+
+}
+
+.hd-slim .tel {
+  flex: none;
+}
+
+.tel b, .tel span {
+  unicode-bidi: plaintext;
+}
+
+[dir="rtl"] .tel b {
+  direction: ltr;
+  unicode-bidi: embed;
+}
+
+.reveal {
+  opacity: 1;
+  transform: none;
+}
+
+html.has-js .reveal {
+  opacity: 0;
+  transform: translateY(28px);
+}
+
+html.has-js .reveal.vis {
+  opacity: 1;
+  transform: none;
+}

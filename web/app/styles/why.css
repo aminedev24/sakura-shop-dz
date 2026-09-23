@@ -1,0 +1,230 @@
+/* WHY
+   "Pourquoi choisir" — reassurance cards.
+   Loaded from app/styles.css — order matters. */
+.why {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 22px;
+  margin-top: 8px;
+}
+
+.why-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.why-ic {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: var(--accent-soft);
+  color: var(--accent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+}
+
+.why-ic svg {
+  width: 19px;
+  height: 19px;
+}
+
+.why-item b {
+  display: block;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--ink);
+  line-height: 1.3;
+}
+
+.why-item span {
+  display: block;
+  font-size: 12.5px;
+  color: var(--muted);
+  line-height: 1.45;
+  margin-top: 2px;
+}
+
+@media(max-width:900px) {
+  .why {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+}
+
+@media(max-width:520px) {
+  .why {
+    grid-template-columns: 1fr;
+  }
+
+}
+
+.why {
+  gap: 18px;
+}
+
+.why-item {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--r-card);
+  padding: 22px 20px;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 12px;
+  transition: .22s;
+}
+
+.why-item:hover {
+  border-color: #F2C9DA;
+  transform: translateY(-3px);
+  background: #fff;
+}
+
+.why-ic {
+  width: 44px;
+  height: 44px;
+  background: #fff;
+  border: 1px solid var(--line);
+}
+
+.why-item:hover .why-ic {
+  background: var(--accent);
+  color: #fff;
+  border-color: var(--accent);
+}
+
+.why-item b {
+  font-size: 15px;
+}
+
+.why-item span span {
+  font-size: 13px;
+  margin-top: 4px;
+}
+
+.why-ic {
+  width: 54px;
+  height: 54px;
+}
+
+.why-ic svg {
+  width: 24px;
+  height: 24px;
+}
+
+.why-item {
+  padding: 24px 20px;
+  gap: 14px;
+}
+
+.why-item b {
+  font-size: 15.5px;
+}
+
+@media(max-width:900px) {
+  .why-item {
+    flex-direction: row;
+    align-items: center;
+    gap: 15px;
+    padding: 18px;
+  }
+
+  .why-ic {
+    width: 50px;
+    height: 50px;
+  }
+
+}
+
+@media(max-width:520px) {
+  .why {
+    gap: 12px;
+  }
+
+  .why-item {
+    padding: 16px 16px;
+    gap: 14px;
+  }
+
+  .why-ic {
+    width: 48px;
+    height: 48px;
+  }
+
+  .why-ic svg {
+    width: 22px;
+    height: 22px;
+  }
+
+  .why-item b {
+    font-size: 15px;
+  }
+
+  .why-item span span {
+    font-size: 12.5px;
+  }
+
+}
+
+.why-item > .why-ic {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+  margin-top: 0;
+  font-size: 0;
+}
+
+.why-item > span:not(.why-ic) {
+  flex: 1;
+  min-width: 0;
+}
+
+.why-item {
+  flex-direction: row;
+  align-items: center;
+  gap: 16px;
+  padding: 20px 18px;
+}
+
+.why-item > .why-ic {
+  width: 52px;
+  height: 52px;
+}
+
+.why-item > .why-ic svg {
+  width: 23px;
+  height: 23px;
+}
+
+.why-item > span:not(.why-ic) {
+  flex: 1 1 auto;
+  min-width: 0;
+  width: auto;
+}
+
+.why-item b {
+  font-size: 15px;
+  line-height: 1.25;
+}
+
+.why-item span span {
+  font-size: 12.5px;
+  line-height: 1.4;
+  margin-top: 3px;
+}
+
+@media(max-width:520px) {
+  .why-item {
+    padding: 16px;
+    gap: 14px;
+  }
+
+  .why-item > .why-ic {
+    width: 48px;
+    height: 48px;
+  }
+
+}

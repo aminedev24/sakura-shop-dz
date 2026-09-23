@@ -1,0 +1,15 @@
+/* Redesign layer, split by section. Import order is the cascade order:
+   tokens first, shared corrections last. Edit a section in its own file. */
+@import './styles/tokens.css';
+@import './styles/topbar.css';
+@import './styles/header.css';
+@import './styles/hero.css';
+@import './styles/tiles.css';
+@import './styles/story.css';
+@import './styles/why.css';
+@import './styles/products.css';
+@import './styles/editorial.css';
+@import './styles/social.css';
+@import './styles/panels.css';
+@import './styles/footer.css';
+@import './styles/misc.css';

@@ -1,0 +1,122 @@
+/* TILES
+   Category tiles under the hero.
+   Loaded from app/styles.css — order matters. */
+.tiles3 {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 18px;
+  margin-top: 22px;
+}
+
+.tile3 {
+  position: relative;
+  display: block;
+  border-radius: var(--r-card);
+  overflow: hidden;
+  aspect-ratio: 16/11;
+  background: var(--surface);
+}
+
+.tile3 img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.tile3::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(255, 240, 246, 0) 38%, rgba(255, 238, 245, .9) 100%);
+}
+
+.tile3-lbl {
+  position: absolute;
+  z-index: 2;
+  left: 18px;
+  bottom: 16px;
+}
+
+.tile3-lbl b {
+  display: block;
+  font-size: 19px;
+  font-weight: 700;
+  color: var(--ink);
+  letter-spacing: -.02em;
+}
+
+.tile3-lbl span {
+  display: block;
+  font-size: 12.5px;
+  color: var(--muted);
+}
+
+.tile3-go {
+  position: absolute;
+  z-index: 2;
+  right: 16px;
+  bottom: 16px;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: var(--accent);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: .18s;
+}
+
+.tile3-go svg {
+  width: 16px;
+  height: 16px;
+}
+
+.tile3:hover .tile3-go {
+  background: var(--accent-dk);
+  transform: translateX(2px);
+}
+
+@media(max-width:1000px) {
+  .tiles3 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+}
+
+@media(max-width:560px) {
+  .tiles3 {
+    grid-template-columns: 1fr;
+  }
+
+}
+
+[dir="rtl"] .tile3-lbl {
+  left: auto;
+  right: 18px;
+}
+
+[dir="rtl"] .tile3-go {
+  right: auto;
+  left: 16px;
+}
+
+.tile3-shade {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(180deg, rgba(31, 20, 32, 0) 42%, rgba(31, 20, 32, .55) 100%);
+}
+
+.tile3::after {
+  display: none;
+}
+
+.tile3-lbl b {
+  color: #fff;
+}
+
+.tile3-lbl span {
+  color: rgba(255, 255, 255, .85);
+}

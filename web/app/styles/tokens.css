@@ -1,0 +1,16 @@
+/* TOKENS
+   Design tokens — colours, radii, rhythm. Everything else derives from these.
+   Loaded from app/styles.css — order matters. */
+:root {
+  --accent: #DE3E79;
+  --accent-dk: #C22C64;
+  --accent-soft: #FFEAF2;
+  --ink: #1F1420;
+  --muted: #7A6570;
+  --line: #F6E3EA;
+  --surface: #FFF5F8;
+  --footer-bg: #2B1622;
+  --footer-text: #E9D4DE;
+  --r-card: 20px;
+  --r-lg: 26px;
+}

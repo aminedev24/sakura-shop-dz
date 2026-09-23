@@ -115,9 +115,12 @@ MARK = ('<svg viewBox="0 0 32 32" class="mark" aria-hidden="true"><defs>'
 
 
 def build():
-    css = (io.open(os.path.join(ROOT, 'web/app/globals.css'), encoding='utf-8').read()
-           + '\n'
-           + io.open(os.path.join(ROOT, 'web/app/redesign.css'), encoding='utf-8').read())
+    css = io.open(os.path.join(ROOT, 'web/app/globals.css'), encoding='utf-8').read()
+    # the redesign layer is split per section; follow styles.css for the order
+    index = io.open(os.path.join(ROOT, 'web/app/styles.css'), encoding='utf-8').read()
+    for name in re.findall(r"@import '\./styles/([\w-]+)\.css'", index):
+        css += '\n' + io.open(os.path.join(ROOT, 'web/app/styles', name + '.css'),
+                              encoding='utf-8').read()
     fr, ar = dictionaries()
 
     cards = []

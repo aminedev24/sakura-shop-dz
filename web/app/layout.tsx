@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import './globals.css';
-import './redesign.css';
+import './styles.css';
 import { LangProvider } from '@/lib/i18n';
 import { ShopProvider } from '@/lib/shop-context';
 import Toast from '@/components/shop/Toast';

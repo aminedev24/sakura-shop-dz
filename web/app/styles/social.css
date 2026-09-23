@@ -1,0 +1,104 @@
+/* SOCIAL
+   Instagram-style photo wall.
+   Loaded from app/styles.css — order matters. */
+.social {
+  padding-top: 56px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.social h2 {
+  margin: 6px 0 0;
+  font-size: clamp(25px, 2.8vw, 34px);
+  font-weight: 700;
+  letter-spacing: -.03em;
+  color: var(--ink);
+}
+
+.social > p {
+  margin: 0 0 6px;
+  font-size: 13.5px;
+  color: var(--muted);
+}
+
+.social-grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 10px;
+  width: 100%;
+  margin-top: 10px;
+}
+
+.social-tile {
+  position: relative;
+  display: block;
+  aspect-ratio: 1;
+  border-radius: 14px;
+  overflow: hidden;
+  background: var(--surface);
+}
+
+.social-tile img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform .45s cubic-bezier(.2, .8, .2, 1);
+}
+
+.social-tile:hover img {
+  transform: scale(1.07);
+}
+
+.social-tile::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(222, 62, 121, 0);
+  transition: background .25s;
+}
+
+.social-tile:hover::after {
+  background: rgba(222, 62, 121, .16);
+}
+
+.social-cta {
+  margin-top: 16px;
+}
+
+@media(max-width:900px) {
+  .social-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+}
+
+@media(max-width:520px) {
+  .social {
+    padding-top: 38px;
+  }
+
+  .social-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 7px;
+  }
+
+  .social-tile {
+    border-radius: 11px;
+  }
+
+}
+
+@media(prefers-reduced-motion:reduce) {
+  .social-tile img {
+    transition: none;
+  }
+
+  .social-tile:hover img {
+    transform: none;
+  }
+
+}

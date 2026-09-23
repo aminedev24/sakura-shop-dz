@@ -1,0 +1,511 @@
+/* HEADER
+   Header bar, main nav, icon actions, language switch and the mobile drawer.
+   Loaded from app/styles.css — order matters. */
+.hdr {
+  background: #fff;
+  position: sticky;
+  top: 0;
+  z-index: 45;
+  border-bottom: 1px solid var(--line);
+}
+
+.hdr-in {
+  display: flex;
+  align-items: center;
+  gap: 26px;
+  height: 78px;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  flex: none;
+}
+
+.brand svg.mark {
+  width: 38px;
+  height: 38px;
+  flex: none;
+}
+
+.brand b {
+  display: block;
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: -.02em;
+  line-height: 1.1;
+  color: var(--ink);
+}
+
+.brand small {
+  display: block;
+  font-size: 8.5px;
+  letter-spacing: .24em;
+  color: var(--muted);
+  font-weight: 600;
+}
+
+.mainnav {
+  display: flex;
+  align-items: center;
+  gap: 22px;
+  margin-inline-start: 14px;
+  flex-wrap: nowrap;
+  overflow: visible;
+}
+
+.mainnav a {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--ink);
+  padding: 26px 0;
+  border-bottom: 2px solid transparent;
+  white-space: nowrap;
+  transition: .18s;
+}
+
+.mainnav a:hover {
+  color: var(--accent);
+}
+
+.mainnav a[aria-current="page"] {
+  color: var(--accent);
+  border-bottom-color: var(--accent);
+  font-weight: 600;
+}
+
+.mainnav a.dim {
+  color: var(--muted);
+}
+
+.hdr-actions {
+  margin-inline-start: auto;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex: none;
+}
+
+.iconbtn {
+  position: relative;
+  width: 40px;
+  height: 40px;
+  border: 0;
+  background: none;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: var(--ink);
+  transition: .18s;
+}
+
+.iconbtn:hover {
+  background: var(--accent-soft);
+  color: var(--accent);
+}
+
+.iconbtn svg {
+  width: 20px;
+  height: 20px;
+}
+
+.iconbtn .badge {
+  position: absolute;
+  top: 2px;
+  right: 2px;
+  min-width: 16px;
+  height: 16px;
+  padding: 0 4px;
+  border-radius: 99px;
+  background: var(--accent);
+  color: #fff;
+  font-size: 10px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hdr-search {
+  flex: 1;
+  max-width: 420px;
+  display: none;
+}
+
+@media(max-width:1180px) {
+  .mainnav {
+    display: none;
+  }
+
+}
+
+.hdr-searchbar {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding-inline: 20px 6px;
+  height: 46px;
+  max-width: 560px;
+  margin-inline-start: 14px;
+}
+
+.hdr-searchbar input {
+  flex: 1;
+  min-width: 0;
+  border: 0;
+  background: none;
+  font-family: inherit;
+  font-size: 14px;
+  color: var(--ink);
+}
+
+.hdr-searchbar input:focus {
+  outline: none;
+}
+
+.hdr-searchbar button {
+  width: 34px;
+  height: 34px;
+  border: 0;
+  border-radius: 50%;
+  background: none;
+  color: var(--muted);
+  font-size: 20px;
+  line-height: 1;
+  cursor: pointer;
+  flex: none;
+}
+
+.hdr-searchbar button:hover {
+  background: #fff;
+  color: var(--accent);
+}
+
+.langbtn {
+  border: 1px solid var(--line);
+  background: #fff;
+  color: var(--ink);
+  border-radius: 999px;
+  padding: 7px 14px;
+  font-size: 12.5px;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: inherit;
+  white-space: nowrap;
+  margin-inline-end: 4px;
+  transition: .18s;
+}
+
+.langbtn:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+[dir="rtl"] .iconbtn .badge {
+  right: auto;
+  left: 2px;
+}
+
+.hd-slim .langbtn {
+  order: 5;
+  flex: none;
+}
+
+.burger {
+  display: none;
+}
+
+@media(max-width:1180px) {
+  .burger {
+    display: flex;
+  }
+
+}
+
+.drawer-scrim {
+  position: fixed;
+  inset: 0;
+  background: rgba(31, 20, 32, .45);
+  backdrop-filter: blur(2px);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .22s;
+  z-index: 59;
+}
+
+.drawer-scrim.on {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.navdrawer {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  inset-inline-start: 0;
+  width: min(320px, 86vw);
+  z-index: 60;
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 20px 22px;
+  transform: translateX(-102%);
+  transition: transform .28s cubic-bezier(.22, 1, .36, 1);
+  box-shadow: 0 0 60px rgba(31, 20, 32, .18);
+}
+
+[dir="rtl"] .navdrawer {
+  transform: translateX(102%);
+}
+
+.navdrawer.on {
+  transform: none;
+}
+
+.navdrawer-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--line);
+  margin-bottom: 10px;
+}
+
+.navdrawer-x {
+  width: 34px;
+  height: 34px;
+  border: 0;
+  background: none;
+  border-radius: 50%;
+  font-size: 24px;
+  line-height: 1;
+  color: var(--muted);
+  cursor: pointer;
+  flex: none;
+}
+
+.navdrawer-x:hover {
+  background: var(--accent-soft);
+  color: var(--accent);
+}
+
+.navdrawer-links {
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+}
+
+.navdrawer-links a {
+  padding: 13px 10px;
+  border-radius: 12px;
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.navdrawer-links a:hover {
+  background: var(--accent-soft);
+  color: var(--accent);
+}
+
+.navdrawer-foot {
+  margin-top: auto;
+  padding-top: 16px;
+  border-top: 1px solid var(--line);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  align-items: flex-start;
+}
+
+.navdrawer-tel {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--ink);
+}
+
+.navdrawer-tel svg {
+  width: 19px;
+  height: 19px;
+  color: var(--accent);
+  flex: none;
+}
+
+.navdrawer-tel b {
+  display: block;
+  font-size: 14.5px;
+}
+
+.navdrawer-tel span span {
+  display: block;
+  font-size: 11px;
+  color: var(--muted);
+}
+
+@media(max-width:620px) {
+  .navdrawer {
+    padding-bottom: 86px;
+  }
+
+}
+
+.acct-admin {
+  display: block;
+  margin-top: 12px;
+  padding: 10px 12px;
+  border-radius: 12px;
+  background: var(--accent-soft);
+  color: var(--accent);
+  font-size: 13px;
+  font-weight: 700;
+  text-align: center;
+}
+
+.acct-admin:hover {
+  background: var(--accent);
+  color: #fff;
+}
+
+@media(max-width:620px) {
+  .hdr-in {
+    height: 62px;
+    gap: 8px;
+  }
+
+  .hdr-actions {
+    gap: 2px;
+  }
+
+  .hdr-actions > .langbtn {
+    display: none;
+  }
+
+  .hdr-actions > .ib-wish {
+    display: none;
+  }
+
+  .iconbtn {
+    width: 36px;
+    height: 36px;
+  }
+
+  .iconbtn svg {
+    width: 19px;
+    height: 19px;
+  }
+
+  .brand svg.mark {
+    width: 31px;
+    height: 31px;
+  }
+
+  .brand b {
+    font-size: 17.5px;
+  }
+
+  .brand small {
+    font-size: 7.5px;
+    letter-spacing: .2em;
+  }
+
+  .hdr-searchbar {
+    height: 40px;
+    padding-inline: 14px 4px;
+    margin-inline-start: 8px;
+  }
+
+}
+
+@media(max-width:360px) {
+  .hdr-actions > .ib-search {
+    display: none;
+  }
+
+  .brand small {
+    display: none;
+  }
+
+}
+
+.lang-short {
+  display: none;
+}
+
+@media(max-width:620px) {
+  .hdr-actions > .langbtn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 36px;
+    height: 36px;
+    padding: 0 10px;
+    font-size: 13px;
+    font-weight: 700;
+  }
+
+  .lang-full {
+    display: none;
+  }
+
+  .lang-short {
+    display: inline;
+  }
+
+}
+
+.hdr-actions .wish-wrap {
+  position: relative;
+}
+
+.hdr-actions .wishpanel {
+  position: absolute;
+  top: calc(100% + 12px);
+  inset-inline-end: 0;
+  width: 300px;
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: var(--r-lg);
+  box-shadow: 0 18px 44px rgba(31, 20, 32, .14);
+  padding: 16px;
+  z-index: 50;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(-6px);
+  transition: .18s;
+}
+
+.hdr-actions .wishpanel.on {
+  opacity: 1;
+  pointer-events: auto;
+  transform: none;
+}
+
+.hdr-actions .wishpanel h4 {
+  margin: 0 0 10px;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: .07em;
+  color: var(--muted);
+  font-weight: 700;
+}
+
+@media(max-width:620px) {
+  .hdr-actions .wishpanel {
+    position: fixed;
+    inset-inline: 10px;
+    top: auto;
+    bottom: 76px;
+    width: auto;
+  }
+
+}
