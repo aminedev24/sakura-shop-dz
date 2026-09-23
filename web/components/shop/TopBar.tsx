@@ -24,8 +24,7 @@ export default function TopBar() {
         </div>
         <div className="topbar-soc">
           <span>{t.follow}</span>
-          <a href="https://www.instagram.com/" target="_blank" rel="noopener" aria-label="Instagram"><IInstagram /></a>
-          <a href="https://www.tiktok.com/" target="_blank" rel="noopener" aria-label="TikTok"><ITiktok /></a>
+          <a href="https://www.instagram.com/sakurashop.dz/" target="_blank" rel="noopener" aria-label="Instagram"><IInstagram /></a>
           <a href="https://www.facebook.com/sakurashop.dz/" target="_blank" rel="noopener" aria-label="Facebook"><IFacebook /></a>
         </div>
       </div>

@@ -3,7 +3,6 @@
 import { useState } from 'react';
 import { useReveal } from '@/lib/useReveal';
 import { useShop } from '@/lib/shop-context';
-import { Product } from '@/lib/products';
 import TopBar from './TopBar';
 import SiteHeader from '../SiteHeader';
 import Footer from '../Footer';
@@ -15,12 +14,10 @@ import DeliveryCalculator from './DeliveryCalculator';
 import SizeGuide from './SizeGuide';
 import Fab from './Fab';
 import ShopMobileNav from './ShopMobileNav';
-import AddToCartModal from './AddToCartModal';
 
 export default function Storefront() {
-  const { query } = useShop();
+  const { query, openProduct } = useShop();
   const [cat, setCat] = useState('all');
-  const [modal, setModal] = useState<Product | null>(null);
   useReveal();
 
   return (
@@ -31,17 +28,20 @@ export default function Storefront() {
         <Hero />
         <div className="wrap">
           <TrustStrip />
-          <ProductGrid query={query} cat={cat} onCat={setCat} onOpen={setModal} />
+          <ProductGrid query={query} cat={cat} onCat={setCat} onOpen={openProduct} />
+        </div>
+        {/* sits between the products and the delivery block rather than at the
+            very bottom; it manages its own width, so it is outside .wrap */}
+        <PromoBanner />
+        <div className="wrap">
           <DeliveryCalculator />
           <SizeGuide />
         </div>
-        <PromoBanner />
       </main>
       <Fab />
       <ShopMobileNav onCart={() => {
         document.querySelector<HTMLButtonElement>('.bagwrap .iconbtn')?.click();
       }} />
-      <AddToCartModal product={modal} onClose={() => setModal(null)} />
       <Footer />
     </>
   );

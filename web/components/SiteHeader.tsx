@@ -7,6 +7,7 @@ import NavDrawer from './shop/NavDrawer';
 import CartPanel from './shop/CartPanel';
 import AccountPanel from './shop/AccountPanel';
 import AuthModal from './shop/AuthModal';
+import WishlistPanel from './shop/WishlistPanel';
 import { useShop } from '@/lib/shop-context';
 import { useWishlist } from '@/lib/useWishlist';
 import { useAuth } from '@/lib/useAuth';
@@ -27,6 +28,7 @@ export default function SiteHeader() {
   const [bagOpen, setBagOpen] = useState(false);
   const [acctOpen, setAcctOpen] = useState(false);
   const [authOpen, setAuthOpen] = useState(false);
+  const [wishOpen, setWishOpen] = useState(false);
 
   const NAV: ({ label: string } & ({ anchor: string } | { page: string }))[] = [
     { label: t.navHome, page: '/' },
@@ -84,17 +86,23 @@ export default function SiteHeader() {
             <ISearch />
           </button>
 
-          <button className="iconbtn ib-wish" type="button" aria-label={t.favourites}>
-            <IHeart />
-            {wish.ids.length > 0 && <span className="badge">{wish.ids.length}</span>}
-          </button>
+          <div className="wish-wrap">
+            <button className="iconbtn ib-wish" type="button" aria-haspopup="true"
+                    aria-expanded={wishOpen} aria-label={t.favourites}
+                    onClick={() => { setWishOpen((v) => !v); setBagOpen(false); setAcctOpen(false); }}>
+              <IHeart />
+              {wish.ids.length > 0 && <span className="badge">{wish.ids.length}</span>}
+            </button>
+            <WishlistPanel open={wishOpen} ids={wish.ids} onRemove={wish.toggle}
+                           onClose={() => setWishOpen(false)} />
+          </div>
 
           <div className="acctwrap">
             <button className="iconbtn" type="button" aria-haspopup="true" aria-expanded={acctOpen}
                     aria-label={auth.user ? auth.user.name.split(' ')[0] : t.account}
                     onClick={() => {
                       if (!auth.user) { setAuthOpen(true); return; }
-                      setAcctOpen((v) => !v); setBagOpen(false);
+                      setAcctOpen((v) => !v); setBagOpen(false); setWishOpen(false);
                     }}>
               <IUser />
             </button>
@@ -109,7 +117,7 @@ export default function SiteHeader() {
           <div className="bagwrap">
             <button className="iconbtn" type="button" aria-haspopup="true" aria-expanded={bagOpen}
                     aria-label={t.cart}
-                    onClick={() => { setBagOpen((v) => !v); setAcctOpen(false); }}>
+                    onClick={() => { setBagOpen((v) => !v); setAcctOpen(false); setWishOpen(false); }}>
               <IBag />
               <span className="badge">{count}</span>
             </button>

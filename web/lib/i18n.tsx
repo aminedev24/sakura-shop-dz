@@ -115,6 +115,10 @@ const STRINGS = {
     nfText: 'Cette page n’existe pas ou a été déplacée. Retournez à la boutique pour retrouver nos modèles.',
     nfCta: 'Retour à la boutique',
     adminPanel: 'Administration',
+    wishTitle: 'Mes favoris',
+    wishEmpty: 'Aucun favori pour l’instant. Touchez le cœur d’un modèle pour l’ajouter.',
+    wishRemove: 'Retirer des favoris',
+    wishSee: 'Voir la boutique',
   },
   ar: {
     dir: 'rtl', langLabel: 'Français', langShort: 'FR', langSwitchTo: 'التبديل إلى الفرنسية', currency: 'دج',
@@ -212,6 +216,10 @@ const STRINGS = {
     nfText: 'هذه الصفحة غير موجودة أو تم نقلها. عودي إلى المتجر لتصفّح موديلاتنا.',
     nfCta: 'العودة إلى المتجر',
     adminPanel: 'لوحة التحكم',
+    wishTitle: 'مفضّلاتي',
+    wishEmpty: 'لا توجد مفضّلات بعد. اضغطي على القلب في أي موديل لإضافته.',
+    wishRemove: 'إزالة من المفضّلة',
+    wishSee: 'تصفّح المتجر',
   },
 } as const;
 

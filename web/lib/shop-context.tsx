@@ -28,6 +28,11 @@ type Shop = {
    *  even though they no longer share a parent component */
   query: string;
   setQuery: (v: string) => void;
+  /** product shown in the add-to-cart modal. Here rather than in Storefront so
+   *  the favourites panel can open it from the header on any page. */
+  product: Product | null;
+  openProduct: (p: Product) => void;
+  closeProduct: () => void;
 };
 
 const Ctx = createContext<Shop | null>(null);
@@ -47,6 +52,7 @@ export function ShopProvider({ children }: { children: React.ReactNode }) {
   const [lines, setLines] = useState<Line[]>([]);
   const [toast, setToast] = useState<ToastMsg>(null);
   const [query, setQuery] = useState('');
+  const [product, setProduct] = useState<Product | null>(null);
   const timer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   // localStorage is unavailable while the page is prerendered
@@ -102,7 +108,8 @@ export function ShopProvider({ children }: { children: React.ReactNode }) {
     products: catalog.products, byId, demo: catalog.demo,
     loading: catalog.loading, failed: catalog.failed,
     lines, add, remove, update, clear, count, subtotal, toast, showToast, query, setQuery,
-  }), [catalog, byId, lines, add, remove, update, clear, count, subtotal, toast, showToast, query]);
+    product, openProduct: setProduct, closeProduct: () => setProduct(null),
+  }), [catalog, byId, lines, add, remove, update, clear, count, subtotal, toast, showToast, query, product]);
 
   return <Ctx.Provider value={value}>{children}</Ctx.Provider>;
 }

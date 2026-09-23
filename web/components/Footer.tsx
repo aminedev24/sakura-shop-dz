@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { useLang } from '@/lib/i18n';
-import { Mark, IInstagram, ITiktok, IFacebook, IYoutube, IArrow } from './icons2';
+import { Mark, IInstagram, ITiktok, IFacebook, IYoutube } from './icons2';
 
 export default function Footer() {
   const { t } = useLang();
@@ -20,20 +20,11 @@ export default function Footer() {
         <div className="ftr-soc">
           <h5>{t.follow}</h5>
           <div className="ftr-soc-row">
-            <a href="https://www.instagram.com/" target="_blank" rel="noopener" aria-label="Instagram"><IInstagram /></a>
-            <a href="https://www.tiktok.com/" target="_blank" rel="noopener" aria-label="TikTok"><ITiktok /></a>
+            <a href="https://www.instagram.com/sakurashop.dz/" target="_blank" rel="noopener" aria-label="Instagram"><IInstagram /></a>
             <a href="https://www.facebook.com/sakurashop.dz/" target="_blank" rel="noopener" aria-label="Facebook"><IFacebook /></a>
-            <a href="https://www.youtube.com/" target="_blank" rel="noopener" aria-label="YouTube"><IYoutube /></a>
           </div>
         </div>
 
-        <div>
-          <form className="news" onSubmit={(e) => e.preventDefault()}>
-            <input type="email" placeholder={t.newsPh} aria-label={t.newsPh} />
-            <button type="submit" aria-label={t.newsSubmit}><IArrow /></button>
-          </form>
-          <p className="news-note">{t.newsNote}</p>
-        </div>
 
         <div className="ftr-thanks" aria-hidden="true">
           <Mark className="" />

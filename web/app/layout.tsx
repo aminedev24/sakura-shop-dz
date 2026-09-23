@@ -4,6 +4,7 @@ import './redesign.css';
 import { LangProvider } from '@/lib/i18n';
 import { ShopProvider } from '@/lib/shop-context';
 import Toast from '@/components/shop/Toast';
+import GlobalProductModal from '@/components/shop/GlobalProductModal';
 
 export const metadata: Metadata = {
   title: { default: 'Sakura Shop', template: '%s — Sakura Shop' },
@@ -37,6 +38,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <LangProvider>
           <ShopProvider>
             {children}
+            <GlobalProductModal />
             <Toast />
           </ShopProvider>
         </LangProvider>
