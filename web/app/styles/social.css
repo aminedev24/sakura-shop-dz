@@ -103,34 +103,26 @@
 
 }
 
-/* two columns: the real Facebook timeline beside our own photography */
-.social-split {
-  display: grid;
-  grid-template-columns: 380px 1fr;
-  gap: 22px;
-  width: 100%;
-  margin-top: 14px;
-  align-items: start;
-  text-align: start;
-}
-
+/* the feed sits below the full-width strip, centred */
 .social-feed {
   display: flex;
   flex-direction: column;
+  align-items: center;
   gap: 8px;
+  margin-top: 22px;
 }
 
 .social-feed iframe {
-  width: 380px;
+  width: 400px;
   max-width: 100%;
-  height: 500px;
+  height: 460px;
   border: 1px solid var(--line);
   border-radius: 14px;
   background: var(--surface);
   overflow: hidden;
 }
 
-/* shown underneath, because the frame is blocked by some ad blockers */
+/* a real fallback: some ad blockers drop third party frames entirely */
 .social-fallback {
   font-size: 11.5px;
   color: var(--muted);
@@ -139,23 +131,4 @@
 
 .social-fallback:hover {
   color: var(--accent);
-}
-
-/* the wall sits beside the feed now, so three columns rather than six */
-.social-split .social-grid {
-  grid-template-columns: repeat(3, 1fr);
-  margin-top: 0;
-}
-
-@media(max-width:900px) {
-  .social-split {
-    grid-template-columns: 1fr;
-    justify-items: center;
-  }
-
-  .social-feed {
-    width: 100%;
-    max-width: 380px;
-    align-items: center;
-  }
 }
