@@ -3,6 +3,7 @@
 import { useLang } from '@/lib/i18n';
 
 const PAGE = 'https://www.facebook.com/sakurashop.dz/';
+
 /** The iframe build of the Facebook Page plugin. Unlike the JS SDK version it
  *  needs no script, so it survives a static export. Some ad blockers drop third
  *  party frames, which is why the link underneath is a real fallback. */
@@ -12,20 +13,21 @@ const EMBED =
   '&tabs=timeline&width=440&height=460&small_header=true' +
   '&adapt_container_width=true&hide_cover=false&show_facepile=true';
 
-const TILES = ['p17', 'p12', 'p10', 'p5', 'p20', 'p13'];
+const TILES = ['p12', 'p10', 'p5', 'p20', 'p13'];
 
 export default function SocialWall() {
   const { t } = useLang();
+
   return (
     <section className="wrap social">
       <span className="kicker">{t.socKicker}</span>
       <h2>{t.socHandle}</h2>
       <p>{t.socText}</p>
 
-      {/* full-width strip, as before — the feed sits under it */}
+      {/* full-bleed strip: one row, however many tiles TILES lists */}
       <div className="social-grid">
-        {TILES.map((img, i) => (
-          <a className="social-tile" key={`${img}-${i}`} href={PAGE} target="_blank" rel="noopener">
+        {TILES.map((img) => (
+          <a className="social-tile" key={img} href={PAGE} target="_blank" rel="noopener">
             <img src={`/uploads/products/${img}.jpg`} alt="" loading="lazy" />
             <span className="heart" aria-hidden="true">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6"
@@ -47,8 +49,8 @@ export default function SocialWall() {
             <span>facebook.com</span>
           </div>
           <iframe
-          src={EMBED}
-          title="Facebook"
+            src={EMBED}
+            title="Facebook"
             width={440}
             height={460}
             loading="lazy"
@@ -56,6 +58,10 @@ export default function SocialWall() {
             allow="clipboard-write; encrypted-media; picture-in-picture; web-share"
           />
         </div>
+
+        <a className="btn2 ghost social-cta" href={PAGE} target="_blank" rel="noopener">
+          {t.socCta}
+        </a>
         <a className="social-fallback" href={PAGE} target="_blank" rel="noopener">
           {t.socFallback}
         </a>
