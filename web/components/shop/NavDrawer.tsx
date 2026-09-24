@@ -54,7 +54,7 @@ export default function NavDrawer({
           {nav.map((n) =>
             'page' in n
               ? <Link key={n.label} href={n.page} onClick={onClose}>{n.label}</Link>
-              : <a key={n.label} href={n.anchor} onClick={onClose}>{n.label}</a>,
+              : <Link key={n.label} href={n.anchor} onClick={onClose}>{n.label}</Link>,
           )}
         </nav>
 

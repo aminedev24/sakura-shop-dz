@@ -69,7 +69,7 @@ export default function SiteHeader() {
             {NAV.map((n) =>
               'page' in n
                 ? <Link key={n.label} href={n.page}>{n.label}</Link>
-                : <a key={n.label} href={n.anchor}>{n.label}</a>,
+                : <Link key={n.label} href={n.anchor}>{n.label}</Link>,
             )}
           </nav>
         )}

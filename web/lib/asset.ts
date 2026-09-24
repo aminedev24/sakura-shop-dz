@@ -14,3 +14,7 @@ export const CONTENT = process.env.NEXT_PUBLIC_CONTENT_BASE ?? BASE;
 
 export const asset = (path: string) =>
   CONTENT + (path.startsWith('/') ? path : '/' + path);
+
+/** An in-app route. next/link applies basePath on its own, so this is only for
+ *  places that navigate imperatively or build an href by hand. */
+export const route = (path: string) => BASE + (path.startsWith('/') ? path : '/' + path);

@@ -6,7 +6,7 @@ import { Product, discount, stars } from '@/lib/products';
 import { useLang, useMoney } from '@/lib/i18n';
 import { useShop } from '@/lib/shop-context';
 import { IHeart, IHeartFill } from '../icons2';
-import { asset } from '@/lib/asset';
+import { asset, route } from '@/lib/asset';
 
 export default function ProductCard({
   p, wished, onWish,
@@ -36,7 +36,7 @@ export default function ProductCard({
     <article className="pcard" data-c={p.c} data-off={off}>
       <div className="pcard-ph" onClick={(e) => {
         if (!(e.target as HTMLElement).closest('button')) {
-          window.location.href = `/produit/?id=${p.id}`;
+          window.location.href = route(`/produit/?id=${p.id}`);
         }
       }}>
         <img src={asset(p.img)} alt={p.n} loading="lazy" />
