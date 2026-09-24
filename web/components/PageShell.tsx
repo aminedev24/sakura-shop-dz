@@ -4,7 +4,6 @@ import Link from 'next/link';
 import { useLang } from '@/lib/i18n';
 import TopBar from './shop/TopBar';
 import SiteHeader from './SiteHeader';
-import MobileNav from './MobileNav';
 import Footer from './Footer';
 
 /** Chrome shared by the content pages. The storefront home page gets its own
@@ -29,7 +28,6 @@ export default function PageShell({
         </nav>
         {children}
       </main>
-      <MobileNav />
       <Footer />
     </>
   );
