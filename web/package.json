@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "preview": "bash preview.sh",
-    "build:pages": "NEXT_PUBLIC_BASE_PATH=/sakura-shop-dz/demo NEXT_PUBLIC_CONTENT_BASE=/sakura-shop-dz next build && rm -rf ../demo && mv out ../demo && touch ../demo/.nojekyll && rm -f ../demo/README.md"
+    "build:pages": "NEXT_PUBLIC_BASE_PATH=/sakura-shop-dz/demo NEXT_PUBLIC_CONTENT_BASE=/sakura-shop-dz next build && rm -rf ../demo && mv out ../demo && rm -f ../demo/README.md && touch ../.nojekyll"
   },
   "dependencies": {
     "next": "^15.5.4",
