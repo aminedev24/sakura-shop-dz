@@ -4161,12 +4161,18 @@ footer li a:hover {
 
 }
 
-[dir="rtl"] .hero3-photo {
-  inset: 0 42% 0 0;
-}
+/* Desktop only. Below 901px the card stacks and the photo becomes a relative,
+   full-width block — leaving these unscoped re-applied the 42% inset there and
+   pushed the photograph off to one side, because [dir="rtl"] .hero3-photo
+   outranks the .hero3-photo rule inside the media query. */
+@media(min-width:901px) {
+  [dir="rtl"] .hero3-photo {
+    inset: 0 42% 0 0;
+  }
 
-[dir="rtl"] .hero3-card::after {
-  background: linear-gradient(265deg,#FFEDF3 0%,#FFEDF3 34%,rgba(255,237,243,.92) 46%,rgba(255,237,243,.35) 58%,rgba(255,237,243,0) 70%);
+  [dir="rtl"] .hero3-card::after {
+    background: linear-gradient(265deg,#FFEDF3 0%,#FFEDF3 34%,rgba(255,237,243,.92) 46%,rgba(255,237,243,.35) 58%,rgba(255,237,243,0) 70%);
+  }
 }
 
 [dir="rtl"] .hero3-badge {
@@ -4439,7 +4445,6 @@ footer li a:hover {
   align-items: flex-start;
   gap: 13px;
   justify-content: center;
-  background: #fff;
 }
 
 .story-copy h2 {
