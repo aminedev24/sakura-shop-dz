@@ -43,7 +43,7 @@ export default function SiteHeader() {
 
   return (
     <header className="hdr">
-      <div className="wrap hdr-in">
+      <div className={searchOpen ? 'wrap hdr-in searching' : 'wrap hdr-in'}>
         <button className="iconbtn burger" type="button" aria-label={t.openMenu}
                 aria-expanded={menuOpen} onClick={() => setMenuOpen(true)}>
           <IMenu />
