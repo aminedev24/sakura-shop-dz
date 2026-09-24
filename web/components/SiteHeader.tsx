@@ -4,6 +4,7 @@ import { useState } from 'react';
 import Link from 'next/link';
 import { Mark, ISearch, IHeart, IUser, IBag, IMenu } from './icons2';
 import NavDrawer from './shop/NavDrawer';
+import ShopMobileNav from './shop/ShopMobileNav';
 import CartPanel from './shop/CartPanel';
 import AccountPanel from './shop/AccountPanel';
 import AuthModal from './shop/AuthModal';
@@ -125,6 +126,8 @@ export default function SiteHeader() {
           </div>
         </div>
       </div>
+
+      <ShopMobileNav onCart={() => { setBagOpen((v) => !v); setAcctOpen(false); setWishOpen(false); }} />
 
       <NavDrawer open={menuOpen} onClose={() => setMenuOpen(false)} nav={NAV} />
       <AuthModal

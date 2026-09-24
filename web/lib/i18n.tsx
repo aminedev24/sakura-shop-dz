@@ -10,6 +10,7 @@ const STRINGS = {
     // top bar
     tbDelivery: 'Livraison 58 wilayas', tbCod: 'Paiement à la livraison',
     tbFree: 'Livraison offerte dès 12 000 DA', follow: 'Suivez-nous',
+    ftrContact: 'Contact',
     // nav
     navHome: 'Accueil', navShop: 'Boutique', navDelivery: 'Livraison',
     navSizes: 'Guide des tailles', navWhy: 'Pourquoi nous', navAbout: 'À propos',
@@ -185,6 +186,7 @@ const STRINGS = {
     dir: 'rtl', langLabel: 'Français', langShort: 'FR', langSwitchTo: 'التبديل إلى الفرنسية', currency: 'دج',
     tbDelivery: 'التوصيل إلى 58 ولاية', tbCod: 'الدفع عند الاستلام',
     tbFree: 'توصيل مجاني ابتداءً من \u206612 000\u2069 دج', follow: 'تابعونا',
+    ftrContact: 'اتصلي بنا',
     navHome: 'الرئيسية', navShop: 'المتجر', navDelivery: 'التوصيل',
     navSizes: 'دليل المقاسات', navWhy: 'لماذا نحن', navAbout: 'من نحن',
     navTerms: 'الشروط',

@@ -161,3 +161,36 @@
   }
 
 }
+
+/* shop address and contact details */
+.ftr-contact h5 {
+  margin: 0 0 9px;
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: .09em;
+  text-transform: uppercase;
+  color: var(--footer-text);
+  opacity: .62;
+}
+
+.ftr-contact address {
+  margin: 0 0 7px;
+  font-style: normal;
+  font-size: 12.5px;
+  line-height: 1.6;
+  color: var(--footer-text);
+  max-width: 30ch;
+}
+
+.ftr-contact a {
+  display: block;
+  font-size: 12.5px;
+  line-height: 1.7;
+  color: var(--footer-text);
+  opacity: .85;
+}
+
+.ftr-contact a:hover {
+  opacity: 1;
+  color: #fff;
+}

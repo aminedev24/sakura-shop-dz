@@ -4,6 +4,7 @@ import { useEffect } from 'react';
 import Link from 'next/link';
 import { Mark, IPhone } from '../icons2';
 import { useLang } from '@/lib/i18n';
+import { SHOP } from '@/lib/shop';
 
 export type NavEntry = { label: string } & ({ anchor: string } | { page: string });
 
@@ -59,9 +60,9 @@ export default function NavDrawer({
         </nav>
 
         <div className="navdrawer-foot">
-          <a className="navdrawer-tel" href="tel:+213560000000">
+          <a className="navdrawer-tel" href={`tel:${SHOP.phoneTel}`}>
             <IPhone />
-            <span><b>05 60 00 00 00</b><span>{t.callUs}</span></span>
+            <span><b>{SHOP.phoneDisplay}</b><span>{t.callUs}</span></span>
           </a>
         </div>
       </aside>

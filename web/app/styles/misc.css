@@ -89,3 +89,12 @@ html.has-js .reveal.vis {
   opacity: 1;
   transform: none;
 }
+
+/* Content gutters. 20px each side is right on a desktop but costs over a tenth
+   of a 390px screen, and the editorial and social bands already drop to 14px
+   there — so the page was not even consistent with itself. */
+@media(max-width:620px) {
+  .wrap {
+    padding-inline: 14px;
+  }
+}

@@ -389,11 +389,10 @@
     gap: 2px;
   }
 
-  .hdr-actions > .langbtn {
-    display: none;
-  }
-
-  .hdr-actions > .ib-wish {
+  /* the button sits inside .wish-wrap since the favourites panel was added, so
+     a direct-child selector on .ib-wish silently stopped matching and the cart
+     was pushed off the right edge */
+  .hdr-actions > .wish-wrap {
     display: none;
   }
 

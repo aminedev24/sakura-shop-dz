@@ -88,8 +88,8 @@ const TERMS: Record<Lang, TermsContent> = {
       {
         h: 'Identification du vendeur',
         p: [
-          'Le site Sakura Shop est exploité par [raison sociale à compléter], dont le siège est situé à [adresse physique à compléter].',
-          'Pour toute question ou demande concernant une commande, vous pouvez nous contacter au 05 60 00 00 00 ou par e-mail à contact@sakurashop.dz.',
+          'Le site Sakura Shop est exploité sous le nom commercial Sakura Shop, établi Rue Slimani Abed (près de bâtiment 11ème), Oued Rhiou, Algérie.',
+          'Pour toute question ou demande concernant une commande, vous pouvez nous contacter au 0554 33 23 42 ou par e-mail à contact@sakurashop.dz.',
         ],
       },
 
@@ -177,7 +177,7 @@ const TERMS: Record<Lang, TermsContent> = {
       {
         h: 'Réclamations et service client',
         p: [
-          'Toute réclamation relative à une commande, à un produit ou à une livraison peut être adressée à notre service client par téléphone au 05 60 00 00 00, par WhatsApp ou par e-mail à contact@sakurashop.dz.',
+          'Toute réclamation relative à une commande, à un produit ou à une livraison peut être adressée à notre service client par téléphone au 0554 33 23 42, par WhatsApp ou par e-mail à contact@sakurashop.dz.',
           'Afin de nous permettre de traiter rapidement votre demande, nous vous invitons à communiquer votre nom, votre numéro de téléphone ainsi que, lorsque cela est disponible, la référence de votre commande.',
           'Notre équipe examine chaque réclamation et vous indique les démarches à suivre selon la nature du problème.',
         ],
@@ -223,7 +223,7 @@ const TERMS: Record<Lang, TermsContent> = {
       {
         h: 'Contact',
         p: [
-          'Pour toute question relative à ces conditions ou à une commande : 05 60 00 00 00 ou contact@sakurashop.dz.',
+          'Pour toute question relative à ces conditions ou à une commande : 0554 33 23 42 ou contact@sakurashop.dz.',
         ],
       },
     ],
@@ -238,8 +238,8 @@ const TERMS: Record<Lang, TermsContent> = {
       {
         h: 'بيانات البائع',
         p: [
-          'يُدار موقع Sakura Shop من طرف [اسم الشركة أو المؤسسة يُستكمل لاحقًا]، ويقع مقرّه في [العنوان الكامل يُستكمل لاحقًا].',
-          'لأي سؤال أو طلب يتعلق بالطلبية، يمكنك التواصل معنا على الرقم 05 60 00 00 00 أو عبر البريد الإلكتروني contact@sakurashop.dz.',
+          'يُدار موقع Sakura Shop تحت الاسم التجاري Sakura Shop، ومقرّه بشارع سليماني عبد (قرب العمارة 11)، وادي رهيو، الجزائر.',
+          'لأي سؤال أو طلب يتعلق بالطلبية، يمكنك التواصل معنا على الرقم 0554 33 23 42 أو عبر البريد الإلكتروني contact@sakurashop.dz.',
         ],
       },
 
@@ -327,7 +327,7 @@ const TERMS: Record<Lang, TermsContent> = {
       {
         h: 'الشكاوى وخدمة العملاء',
         p: [
-          'يمكن تقديم أي شكوى تتعلق بطلب أو منتج أو توصيل إلى خدمة العملاء عبر الهاتف على الرقم 05 60 00 00 00 أو عبر واتساب أو البريد الإلكتروني contact@sakurashop.dz.',
+          'يمكن تقديم أي شكوى تتعلق بطلب أو منتج أو توصيل إلى خدمة العملاء عبر الهاتف على الرقم 0554 33 23 42 أو عبر واتساب أو البريد الإلكتروني contact@sakurashop.dz.',
           'لتسهيل معالجة طلبك بسرعة، نرجو تزويدنا باسمك ورقم هاتفك، وكذلك رقم الطلب إن كان متوفرًا.',
           'يقوم فريقنا بدراسة كل شكوى وإبلاغك بالإجراءات المناسبة حسب طبيعة المشكلة.',
         ],
@@ -373,7 +373,7 @@ const TERMS: Record<Lang, TermsContent> = {
       {
         h: 'الاتصال',
         p: [
-          'لأي سؤال يتعلق بهذه الشروط أو بطلب ما: 05 60 00 00 00 أو contact@sakurashop.dz.',
+          'لأي سؤال يتعلق بهذه الشروط أو بطلب ما: 0554 33 23 42 أو contact@sakurashop.dz.',
         ],
       },
     ],

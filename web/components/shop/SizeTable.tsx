@@ -1,6 +1,7 @@
 'use client';
 
 import { useLang } from '@/lib/i18n';
+import { waLink } from '@/lib/shop';
 
 /** Body measurements in centimetres, supplied by the shop.
  *
@@ -78,7 +79,7 @@ export default function SizeTable({
       )}
 
       <p className="sizetable-note">{t.sgNote}</p>
-      <a className="sizetable-ask" href="https://wa.me/213560000000" target="_blank" rel="noopener">
+      <a className="sizetable-ask" href={waLink()} target="_blank" rel="noopener">
         {t.sgAsk}
       </a>
     </div>

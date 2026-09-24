@@ -15,7 +15,6 @@ import SocialWall from './SocialWall';
 import DeliveryCalculator from './DeliveryCalculator';
 import SizeGuide from './SizeGuide';
 import Fab from './Fab';
-import ShopMobileNav from './ShopMobileNav';
 
 export default function Storefront() {
   const { query } = useShop();
@@ -44,9 +43,6 @@ export default function Storefront() {
         <SocialWall />
       </main>
       <Fab />
-      <ShopMobileNav onCart={() => {
-        document.querySelector<HTMLButtonElement>('.bagwrap .iconbtn')?.click();
-      }} />
       <Footer />
     </>
   );

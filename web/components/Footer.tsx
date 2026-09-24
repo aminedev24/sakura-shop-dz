@@ -2,10 +2,11 @@
 
 import Link from 'next/link';
 import { useLang } from '@/lib/i18n';
+import { SHOP } from '@/lib/shop';
 import { Mark, IInstagram, ITiktok, IFacebook, IYoutube } from './icons2';
 
 export default function Footer() {
-  const { t } = useLang();
+  const { t, lang } = useLang();
   return (
     <footer className="ftr">
       <div className="wrap ftr-in">
@@ -15,6 +16,15 @@ export default function Footer() {
             <b>Sakura Shop</b>
             <small>{t.tagline}</small>
           </span>
+        </div>
+
+        <div className="ftr-contact">
+          <h5>{t.ftrContact}</h5>
+          <address>
+            {lang === 'ar' ? SHOP.address.ar : SHOP.address.fr}
+          </address>
+          <a href={`tel:${SHOP.phoneTel}`}>{SHOP.phoneDisplay}</a>
+          <a href={`mailto:${SHOP.email}`}>{SHOP.email}</a>
         </div>
 
         <div className="ftr-soc">

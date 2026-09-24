@@ -4,7 +4,8 @@ import { useMemo, useState } from 'react';
 import { WILAYAS } from '@/lib/wilayas';
 import { DAIRA } from '@/lib/daira';
 import { useLang, useMoney } from '@/lib/i18n';
-import { FREE_SHIPPING_FROM, SHOP_WHATSAPP, useShop } from '@/lib/shop-context';
+import { FREE_SHIPPING_FROM, useShop } from '@/lib/shop-context';
+import { waLink } from '@/lib/shop';
 import { asset } from '@/lib/asset';
 
 export default function CartPanel({ open, onClose }: { open: boolean; onClose: () => void }) {
@@ -71,7 +72,7 @@ export default function CartPanel({ open, onClose }: { open: boolean; onClose: (
         t.phone + ' : ' + tel.trim(),
       ].join('\n');
 
-      window.open(`https://wa.me/${SHOP_WHATSAPP}?text=${encodeURIComponent(msg)}`, '_blank');
+      window.open(waLink(msg), '_blank');
       showToast(t.tOrderT, `#${order.id} · ${money(order.total)}`);
       clear();
       setName(''); setTel(''); setAddr('');

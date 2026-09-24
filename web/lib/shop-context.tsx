@@ -3,7 +3,7 @@
 import { createContext, useCallback, useContext, useEffect, useMemo, useRef, useState } from 'react';
 import { Product, useProducts } from './products';
 
-export const SHOP_WHATSAPP = '213560000000'; // placeholder — replace before launch
+export { SHOP } from './shop';
 export const FREE_SHIPPING_FROM = 12000;
 
 export type Line = { id: number; size: string; qty: number };

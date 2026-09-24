@@ -3,6 +3,7 @@
 import PageShell from '@/components/PageShell';
 import { useLang } from '@/lib/i18n';
 import { aboutContent } from '@/lib/pages';
+import { SHOP } from '@/lib/shop';
 
 export default function About() {
   const { lang } = useLang();
@@ -32,7 +33,7 @@ export default function About() {
       <h2>{c.contact.h}</h2>
       <p>
         {c.contact.p1a}
-        <a href="tel:+213560000000">05 60 00 00 00</a>
+        <a href={`tel:${SHOP.phoneTel}`}>{SHOP.phoneDisplay}</a>
         {c.contact.p1b}
         <a href="mailto:contact@sakurashop.dz">contact@sakurashop.dz</a>
         {c.contact.p1c}
