@@ -4,6 +4,11 @@ import { PHASE_PRODUCTION_BUILD } from 'next/constants.js';
 // Start it with:  php -S localhost:8000 -t /home/abdou/sakura-shop
 const PHP_ORIGIN = process.env.PHP_ORIGIN ?? 'http://localhost:8000';
 
+// GitHub Pages serves the repo from /sakura-shop-dz/, so that build sets
+// NEXT_PUBLIC_BASE_PATH and every absolute path shifts under it. Empty for the
+// real host, which serves from its own domain root.
+const BASE_PATH = process.env.NEXT_PUBLIC_BASE_PATH ?? '';
+
 /** Next passes the phase in, which is reliable. process.env.NODE_ENV is not:
  *  it is not guaranteed to be set when this module is evaluated, so a build
  *  could fall through to the development branch and write into .next, wiping
@@ -37,6 +42,8 @@ export default function config(phase) {
     // the Pages Router _document from the default .next regardless, so the
     // export fails on /404 with "Cannot find module for page: /_document".
     // Avoid the collision by not building while a dev server is running.
+
+    ...(BASE_PATH ? { basePath: BASE_PATH, assetPrefix: BASE_PATH } : {}),
 
     // Apache serves /about/ as /about/index.html
     trailingSlash: true,

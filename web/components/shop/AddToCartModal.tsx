@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { Product } from '@/lib/products';
 import { useLang, useMoney } from '@/lib/i18n';
 import { useShop } from '@/lib/shop-context';
+import { asset } from '@/lib/asset';
 
 export default function AddToCartModal({
   product,
@@ -51,7 +52,7 @@ export default function AddToCartModal({
               <button className="mx" type="button" aria-label={t.close} onClick={onClose}>×</button>
             </div>
             <div className="mb">
-              <div className="mimg"><img src={`/${product.img}`} alt={product.n} /></div>
+              <div className="mimg"><img src={asset(product.img)} alt={product.n} /></div>
               <div>
                 <div className="mprice">
                   <span className="now">{money(product.p)}</span>

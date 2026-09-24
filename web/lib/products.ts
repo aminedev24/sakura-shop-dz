@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import { asset } from './asset';
 
 export type Product = {
   id: number;
@@ -38,11 +39,11 @@ export function useProducts(): Catalog {
       if (!r.ok) throw new Error(String(r.status));
       return r.json();
     };
-    fetch('/api/products.php')
+    fetch(asset('/api/products.php'))
       .then(ok)
       .then((d) => live && setState({ products: d.products ?? [], demo: false, loading: false, failed: false }))
       .catch(() =>
-        fetch('/data/products-sample.json')
+        fetch(asset('/data/products-sample.json'))
           .then(ok)
           .then((d) => live && setState({ products: d.products ?? [], demo: true, loading: false, failed: false }))
           .catch(() => live && setState({ products: [], demo: false, loading: false, failed: true })),

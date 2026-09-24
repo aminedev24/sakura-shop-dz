@@ -1,6 +1,7 @@
 'use client';
 
 import { useLang } from '@/lib/i18n';
+import { asset } from '@/lib/asset';
 
 export default function StorySection() {
   const { t } = useLang();
@@ -10,7 +11,7 @@ export default function StorySection() {
     <section className="wrap story" id="story">
       <div className="story-box">
         <div className="story-image">
-          <img src="/uploads/products/p20.jpg" alt="" />
+          <img src={asset("uploads/products/p20.jpg")} alt="" />
         </div>
         <div className="story-copy">
           <span className="kicker">{t.stKicker}</span>

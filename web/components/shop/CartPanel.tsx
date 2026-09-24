@@ -5,6 +5,7 @@ import { WILAYAS } from '@/lib/wilayas';
 import { DAIRA } from '@/lib/daira';
 import { useLang, useMoney } from '@/lib/i18n';
 import { FREE_SHIPPING_FROM, SHOP_WHATSAPP, useShop } from '@/lib/shop-context';
+import { asset } from '@/lib/asset';
 
 export default function CartPanel({ open, onClose }: { open: boolean; onClose: () => void }) {
   const { lines, byId, remove, update, clear, subtotal, demo, showToast } = useShop();
@@ -37,7 +38,7 @@ export default function CartPanel({ open, onClose }: { open: boolean; onClose: (
 
     setSending(true);
     try {
-      const r = await fetch('/api/orders.php', {
+      const r = await fetch(asset('/api/orders.php'), {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -95,7 +96,7 @@ export default function CartPanel({ open, onClose }: { open: boolean; onClose: (
               if (!p) return null;
               return (
                 <li className="bp-row" key={`${o.id}-${o.size}`}>
-                  <img src={`/${p.img}`} alt={p.n}
+                  <img src={asset(p.img)} alt={p.n}
                        style={{ width: 46, height: 46, borderRadius: 'var(--r-sm)', objectFit: 'cover', flex: 'none' }} />
                   <div style={{ flex: 1, minWidth: 0 }}>
                     <div className="bp-name">{p.n}</div>

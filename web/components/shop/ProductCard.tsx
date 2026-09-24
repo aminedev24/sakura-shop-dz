@@ -6,6 +6,7 @@ import { Product, discount, stars } from '@/lib/products';
 import { useLang, useMoney } from '@/lib/i18n';
 import { useShop } from '@/lib/shop-context';
 import { IHeart, IHeartFill } from '../icons2';
+import { asset } from '@/lib/asset';
 
 export default function ProductCard({
   p, wished, onWish,
@@ -38,7 +39,7 @@ export default function ProductCard({
           window.location.href = `/produit/?id=${p.id}`;
         }
       }}>
-        <img src={`/${p.img}`} alt={p.n} loading="lazy" />
+        <img src={asset(p.img)} alt={p.n} loading="lazy" />
         {off > 0 ? <span className="pcard-off">-{off}%</span>
           : p.tag === 'new' ? <span className="pcard-tag">Nouveau</span>
           : p.tag === 'low' ? <span className="pcard-tag">Stock limité</span> : null}

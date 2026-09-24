@@ -1,0 +1,22 @@
+1:"$Sreact.fragment"
+2:I[5571,["231","static/chunks/231-e3f6f90ad5530fd8.js","177","static/chunks/app/layout-0482885489aa8c29.js"],"LangProvider"]
+3:I[9837,["231","static/chunks/231-e3f6f90ad5530fd8.js","177","static/chunks/app/layout-0482885489aa8c29.js"],"ShopProvider"]
+4:I[9766,[],""]
+5:I[8924,[],""]
+6:I[3293,["619","static/chunks/619-ba102abea3e3d0e4.js","231","static/chunks/231-e3f6f90ad5530fd8.js","187","static/chunks/187-2befd712ef7e983b.js","345","static/chunks/app/not-found-8e1ea0faa1f80347.js"],"default"]
+7:I[56,["231","static/chunks/231-e3f6f90ad5530fd8.js","177","static/chunks/app/layout-0482885489aa8c29.js"],"default"]
+8:I[1510,["231","static/chunks/231-e3f6f90ad5530fd8.js","177","static/chunks/app/layout-0482885489aa8c29.js"],"default"]
+9:I[512,["619","static/chunks/619-ba102abea3e3d0e4.js","231","static/chunks/231-e3f6f90ad5530fd8.js","187","static/chunks/187-2befd712ef7e983b.js","974","static/chunks/app/page-6ace158cf8dd437a.js"],"default"]
+a:I[4431,[],"OutletBoundary"]
+c:I[5278,[],"AsyncMetadataOutlet"]
+e:I[4431,[],"ViewportBoundary"]
+10:I[4431,[],"MetadataBoundary"]
+11:"$Sreact.suspense"
+13:I[7150,[],""]
+:HL["/sakura-shop-dz/demo/_next/static/css/c3e8cc21b64e5bcc.css","style"]
+:HL["/sakura-shop-dz/demo/_next/static/css/7b05a181944119f7.css","style"]
+0:{"P":null,"b":"cOOFNknUkRvBjrjlJxj4m","p":"/sakura-shop-dz/demo","c":["",""],"i":false,"f":[[["",{"children":["__PAGE__",{}]},"$undefined","$undefined",true],["",["$","$1","c",{"children":[[["$","link","0",{"rel":"stylesheet","href":"/sakura-shop-dz/demo/_next/static/css/c3e8cc21b64e5bcc.css","precedence":"next","crossOrigin":"$undefined","nonce":"$undefined"}],["$","link","1",{"rel":"stylesheet","href":"/sakura-shop-dz/demo/_next/static/css/7b05a181944119f7.css","precedence":"next","crossOrigin":"$undefined","nonce":"$undefined"}]],["$","html",null,{"lang":"fr","suppressHydrationWarning":true,"children":[["$","head",null,{"children":[["$","script",null,{"dangerouslySetInnerHTML":{"__html":"document.documentElement.classList.add('has-js')"}}],["$","link",null,{"rel":"preconnect","href":"https://fonts.googleapis.com"}],["$","link",null,{"rel":"preconnect","href":"https://fonts.gstatic.com","crossOrigin":""}],["$","link",null,{"href":"https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Cairo:wght@400;600;700&display=swap","rel":"stylesheet"}]]}],["$","body",null,{"children":["$","$L2",null,{"children":["$","$L3",null,{"children":[["$","$L4",null,{"parallelRouterKey":"children","error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L5",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":[["$","$L6",null,{}],[]],"forbidden":"$undefined","unauthorized":"$undefined"}],["$","$L7",null,{}],["$","$L8",null,{}]]}]}]}]]}]]}],{"children":["__PAGE__",["$","$1","c",{"children":[["$","$L9",null,{}],null,["$","$La",null,{"children":["$Lb",["$","$Lc",null,{"promise":"$@d"}]]}]]}],{},null,false]},null,false],["$","$1","h",{"children":[null,[["$","$Le",null,{"children":"$Lf"}],null],["$","$L10",null,{"children":["$","div",null,{"hidden":true,"children":["$","$11",null,{"fallback":null,"children":"$L12"}]}]}]]}],false]],"m":"$undefined","G":["$13",[]],"s":false,"S":true}
+f:[["$","meta","0",{"charSet":"utf-8"}],["$","meta","1",{"name":"viewport","content":"width=device-width, initial-scale=1"}]]
+b:null
+d:{"metadata":[["$","title","0",{"children":"Sakura Shop"}],["$","meta","1",{"name":"description","content":"Pyjamas et vêtements d'intérieur, livrés dans les 58 wilayas d'Algérie."}]],"error":null,"digest":"$undefined"}
+12:"$d:metadata"

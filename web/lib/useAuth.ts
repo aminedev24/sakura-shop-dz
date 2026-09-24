@@ -1,6 +1,7 @@
 'use client';
 
 import { useCallback, useEffect, useState } from 'react';
+import { asset } from './asset';
 
 export type User = { id: number; name: string; email: string; phone?: string;
   /** 'customer' | 'admin' — api/login.php and api/me.php both return it */
@@ -21,7 +22,7 @@ export function useAuth() {
   // restore the PHP session on load, exactly as api/me.php did
   useEffect(() => {
     let live = true;
-    fetch('/api/me.php')
+    fetch(asset('/api/me.php'))
       .then((r) => r.json())
       .then((d) => { if (live) { setUser(d.user ?? null); setReady(true); } })
       .catch(() => live && setReady(true));
@@ -44,7 +45,7 @@ export function useAuth() {
   }, []);
 
   const logout = useCallback(async () => {
-    await fetch('/api/logout.php', { method: 'POST' });
+    await fetch(asset('/api/logout.php'), { method: 'POST' });
     setUser(null);
   }, []);
 
@@ -52,7 +53,7 @@ export function useAuth() {
 }
 
 export async function fetchOrders(): Promise<Order[]> {
-  const r = await fetch('/api/orders.php');
+  const r = await fetch(asset('/api/orders.php'));
   const d = await r.json();
   return d.orders ?? [];
 }

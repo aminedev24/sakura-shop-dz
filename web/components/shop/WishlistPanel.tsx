@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import { useShop } from '@/lib/shop-context';
 import { useLang, useMoney } from '@/lib/i18n';
+import { asset } from '@/lib/asset';
 
 export default function WishlistPanel({
   open,
@@ -33,7 +34,7 @@ export default function WishlistPanel({
           <ul className="wp-list">
             {items.map((p) => (
               <li className="wp-row" key={p!.id}>
-                <img src={`/${p!.img}`} alt="" className="wp-thumb" />
+                <img src={asset(p!.img)} alt="" className="wp-thumb" />
                 <div className="wp-info">
                   <div className="wp-name">{p!.n}</div>
                   <div className="wp-price">{money(p!.p)}</div>

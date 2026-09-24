@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react';
 import { Order, User, fetchOrders } from '@/lib/useAuth';
 import { useLang, useMoney } from '@/lib/i18n';
+import { asset } from '@/lib/asset';
 
 export default function AccountPanel({
   open,
@@ -61,7 +62,7 @@ export default function AccountPanel({
                     {o.items.map((it, i) => (
                       <div key={i} style={{ display: 'flex', alignItems: 'center', gap: 6, marginBottom: 3 }}>
                         {it.image_path && (
-                          <img src={`/${it.image_path}`} alt=""
+                          <img src={asset(it.image_path)} alt=""
                                style={{ width: 28, height: 28, borderRadius: 'var(--r-xs)', objectFit: 'cover', flex: 'none' }} />
                         )}
                         <span>{it.qty}× {it.product_name} ({it.size})</span>

@@ -10,6 +10,7 @@ import { IArrow, ITruck, ICard, IPin, IHeart } from '@/components/icons2';
 import { useShop } from '@/lib/shop-context';
 import { useWishlist } from '@/lib/useWishlist';
 import { useLang, useMoney } from '@/lib/i18n';
+import { asset } from '@/lib/asset';
 
 /** The catalogue is fetched at runtime from api/products.php, so a product
  *  added in the admin appears in the grid straight away. Static per-product
@@ -66,7 +67,7 @@ function Details() {
     <div className="pd">
       <div className="pd-main">
         <div className="pd-photo">
-          <img src={`/${product.img}`} alt={product.n} />
+          <img src={asset(product.img)} alt={product.n} />
           {off > 0 && <span className="pcard-off">-{off}%</span>}
           <button
             type="button"
