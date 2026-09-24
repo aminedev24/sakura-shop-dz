@@ -516,20 +516,30 @@
 }
 
 /* Search on narrow screens.
-   Above 1180px the field simply takes the nav's slot and nothing moves. Below
-   that the nav is hidden, so the field is inserted into an already-full row and
-   forces it wider than the viewport — the brand slid off the left edge and the
-   icons off the right. There, the field takes the whole row instead and its own
-   close button is the way back. */
+   Above 1180px the field takes the nav's slot and nothing moves. Below that the
+   nav is hidden, so putting the field in the same row forces it wider than the
+   viewport. Instead the row wraps and the field drops onto a line of its own
+   underneath, leaving the logo and the icons in place. */
 @media(max-width:1180px) {
-  .hdr-in.searching .burger,
-  .hdr-in.searching .brand,
-  .hdr-in.searching .hdr-actions {
-    display: none;
+  .hdr-in.searching {
+    flex-wrap: wrap;
+    height: auto;
+    padding-block: 11px;
+    row-gap: 10px;
   }
 
   .hdr-in.searching .hdr-searchbar {
+    order: 10;
+    flex: 1 0 100%;
     margin-inline: 0;
     max-width: none;
+    height: 42px;
+  }
+
+  /* the row is already tight at 390px, so without freeing the burger the icon
+     cluster wraps onto a line of its own and the header becomes three rows.
+     The drawer is not what someone reaches for mid-search. */
+  .hdr-in.searching .burger {
+    display: none;
   }
 }
