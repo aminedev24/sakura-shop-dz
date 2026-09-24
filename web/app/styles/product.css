@@ -164,11 +164,72 @@
   gap: 12px;
 }
 
-.pd-sizes-head a {
+/* a button, not a link: the measurements open here rather than sending a buyer
+   mid-purchase back to the homepage and losing their size and quantity */
+.pd-guide-toggle {
+  border: 0;
+  background: none;
+  padding: 0;
+  font-family: inherit;
   font-size: 11.5px;
   font-weight: 600;
   color: var(--accent);
   text-decoration: underline;
+  cursor: pointer;
+}
+
+.pd-guide-toggle:hover {
+  color: var(--accent-dk);
+}
+
+.pd-guide {
+  margin-top: 12px;
+  padding: 14px 16px;
+  border: 1px solid var(--line);
+  border-radius: var(--r-card);
+  background: var(--surface);
+}
+
+.pd-guide > p {
+  margin: 0 0 10px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .07em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.pd-guide table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 12.5px;
+  font-variant-numeric: tabular-nums;
+}
+
+.pd-guide th,
+.pd-guide td {
+  padding: 7px 9px;
+  text-align: start;
+  border-bottom: 1px solid var(--line);
+}
+
+.pd-guide th {
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: .05em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.pd-guide tbody tr:last-child td {
+  border-bottom: 0;
+}
+
+/* the row for the size the buyer has chosen */
+.pd-guide tbody tr.on td {
+  background: var(--accent-soft);
+  color: var(--accent-dk);
+  font-weight: 700;
 }
 
 .pd-size-row {
@@ -341,4 +402,85 @@
     position: sticky;
     top: 96px;
   }
+}
+
+/* ---- shared size table ---- */
+.sizetable table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+  font-variant-numeric: tabular-nums;
+}
+
+.sizetable th,
+.sizetable td {
+  padding: 8px 10px;
+  text-align: start;
+  border-bottom: 1px solid var(--line);
+  white-space: nowrap;
+}
+
+.sizetable th {
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: .05em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.sizetable tbody tr:last-child td {
+  border-bottom: 0;
+}
+
+.sizetable tbody tr.on td {
+  background: var(--accent-soft);
+  color: var(--accent-dk);
+  font-weight: 700;
+}
+
+.sizetable-how {
+  margin-top: 16px;
+}
+
+.sizetable-how h4 {
+  margin: 0 0 7px;
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: .07em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.sizetable-how ul {
+  margin: 0;
+  padding-inline-start: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.sizetable-how li {
+  font-size: 12.5px;
+  line-height: 1.55;
+  color: var(--muted);
+}
+
+.sizetable-note {
+  margin: 14px 0 0;
+  font-size: 11.5px;
+  line-height: 1.55;
+  color: var(--muted);
+}
+
+.sizetable-ask {
+  display: inline-block;
+  margin-top: 6px;
+  font-size: 11.5px;
+  font-weight: 600;
+  color: var(--accent);
+  text-decoration: underline;
+}
+
+.sizetable-ask:hover {
+  color: var(--accent-dk);
 }

@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
 import PageShell from '@/components/PageShell';
 import ProductCard from '@/components/shop/ProductCard';
+import SizeTable from '@/components/shop/SizeTable';
 import { IArrow, ITruck, ICard, IPin, IHeart } from '@/components/icons2';
 import { useShop } from '@/lib/shop-context';
 import { useWishlist } from '@/lib/useWishlist';
@@ -25,6 +26,7 @@ function Details() {
   const product = byId(id);
   const [size, setSize] = useState('');
   const [qty, setQty] = useState(1);
+  const [guide, setGuide] = useState(false);
 
   // a different product means the chosen size no longer applies
   useEffect(() => { setSize(''); setQty(1); }, [id]);
@@ -104,7 +106,10 @@ function Details() {
           <div className="pd-sizes">
             <div className="pd-sizes-head">
               <h2>{t.pdSizes}</h2>
-              <Link href="/#guide">{t.pdSizeGuide}</Link>
+              <button type="button" className="pd-guide-toggle"
+                      aria-expanded={guide} onClick={() => setGuide((v) => !v)}>
+                {guide ? t.pdSizeGuideHide : t.pdSizeGuide}
+              </button>
             </div>
             <div className="pd-size-row">
               {product.sz.map((sz) => {
@@ -124,6 +129,12 @@ function Details() {
                 );
               })}
             </div>
+            {guide && (
+              <div className="pd-guide">
+                <p>{t.sgTitle}</p>
+                <SizeTable highlight={size} compact />
+              </div>
+            )}
           </div>
 
           <div className="pd-buy">
