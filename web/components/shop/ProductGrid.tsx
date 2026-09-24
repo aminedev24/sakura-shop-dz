@@ -14,12 +14,10 @@ export default function ProductGrid({
   query,
   cat,
   onCat,
-  onOpen,
 }: {
   query: string;
   cat: string;
   onCat: (s: string) => void;
-  onOpen: (p: Product) => void;
 }) {
   const { products, demo, loading, failed } = useShop();
   const { t } = useLang();
@@ -97,7 +95,7 @@ export default function ProductGrid({
 
       <div className="grid3" id="grid">
         {visible.map((p) => (
-          <ProductCard key={p.id} p={p} wished={wish.has(p.id)} onWish={wish.toggle} onOpen={onOpen} />
+          <ProductCard key={p.id} p={p} wished={wish.has(p.id)} onWish={wish.toggle} />
         ))}
         {!loading && !visible.length && (
           <p className="noresult">

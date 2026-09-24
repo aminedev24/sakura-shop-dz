@@ -1,18 +1,18 @@
 'use client';
 
 import { useState } from 'react';
+import Link from 'next/link';
 import { Product, discount, stars } from '@/lib/products';
 import { useLang, useMoney } from '@/lib/i18n';
 import { useShop } from '@/lib/shop-context';
 import { IHeart, IHeartFill } from '../icons2';
 
 export default function ProductCard({
-  p, wished, onWish, onOpen,
+  p, wished, onWish,
 }: {
   p: Product;
   wished: boolean;
   onWish: (id: number) => void;
-  onOpen: (p: Product) => void;
 }) {
   const { add, showToast } = useShop();
   const { t } = useLang();
@@ -34,7 +34,9 @@ export default function ProductCard({
   return (
     <article className="pcard" data-c={p.c} data-off={off}>
       <div className="pcard-ph" onClick={(e) => {
-        if (!(e.target as HTMLElement).closest('button')) onOpen(p);
+        if (!(e.target as HTMLElement).closest('button')) {
+          window.location.href = `/produit/?id=${p.id}`;
+        }
       }}>
         <img src={`/${p.img}`} alt={p.n} loading="lazy" />
         {off > 0 ? <span className="pcard-off">-{off}%</span>
@@ -56,7 +58,7 @@ export default function ProductCard({
           <span className="pcard-cat">{p.m.split('·')[0].trim()}</span>
           <span className="pcard-stars">{stars(p.r)}</span>
         </div>
-        <h3>{p.n}</h3>
+        <h3><Link href={`/produit/?id=${p.id}`}>{p.n}</Link></h3>
         <div className="pcard-price">
           <span className="pcard-now">{money(p.p)}</span>
           {p.o > p.p && <span className="pcard-was">{money(p.o)}</span>}

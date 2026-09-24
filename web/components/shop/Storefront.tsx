@@ -18,7 +18,7 @@ import Fab from './Fab';
 import ShopMobileNav from './ShopMobileNav';
 
 export default function Storefront() {
-  const { query, openProduct } = useShop();
+  const { query } = useShop();
   const [cat, setCat] = useState('all');
   useReveal();
 
@@ -30,7 +30,7 @@ export default function Storefront() {
         <Hero />
         <div className="wrap">
           <TrustStrip />
-          <ProductGrid query={query} cat={cat} onCat={setCat} onOpen={openProduct} />
+          <ProductGrid query={query} cat={cat} onCat={setCat} />
         </div>
         {/* sits between the products and the delivery block rather than at the
             very bottom; it manages its own width, so it is outside .wrap */}
