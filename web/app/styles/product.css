@@ -485,11 +485,6 @@
   color: var(--accent-dk);
 }
 
-/* rows for sizes the shop does not currently carry */
-.sizetable tbody tr.off td {
-  color: #B9A8B2;
-}
-
 .sizetable-stocked {
   margin: 12px 0 0;
   font-size: 11.5px;

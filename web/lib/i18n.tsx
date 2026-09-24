@@ -59,7 +59,10 @@ const STRINGS = {
     dKicker: '🚚 Livraison simple & transparente', dTitle: 'Combien coûte la livraison chez vous ?',
     dWilaya: 'Votre wilaya', dMode: 'Mode de livraison',
     dOffice: 'Au bureau', dHome: 'À domicile', dEta: 'Délai estimé',
-    d24: '24 h', d2448: '24 – 48 h', d4872: '48 – 72 h', d35j: '3 – 5 jours', d57j: '5 – 7 jours',
+    d2448: '\u206624 – 48\u2069 h', d2472: '\u206624 – 72\u2069 h', d4896: '\u206648 – 96\u2069 h',
+    dNone: 'Non desservie par le transporteur',
+    dDeskNone: 'Pas de point de retrait dans cette wilaya',
+    dHomeNone: 'Pas de livraison à domicile dans cette wilaya',
     // sizes
     sgIntl: 'International',
     sgFr: 'Taille française',
@@ -92,6 +95,7 @@ const STRINGS = {
     tDemoT: 'Mode démo', tDemoS: 'Impossible d’envoyer une commande sans serveur backend',
     tNameT: 'Nom requis', tNameS: 'Indiquez votre nom complet',
     tPhoneT: 'Téléphone invalide', tPhoneS: 'Vérifiez votre numéro',
+    tNoShipT: 'Livraison indisponible',
     tDairaT: 'Daïra requise', tDairaS: 'Choisissez votre daïra avant de confirmer',
     tAddrT: 'Adresse requise', tAddrS: 'Indiquez votre adresse de livraison',
     tOrderT: 'Commande enregistrée', tErr: 'Erreur',
@@ -228,7 +232,10 @@ const STRINGS = {
     dKicker: '🚚 توصيل بسيط وواضح', dTitle: 'كم تكلفة التوصيل إليك؟',
     dWilaya: 'ولايتك', dMode: 'طريقة التوصيل',
     dOffice: 'إلى المكتب', dHome: 'إلى المنزل', dEta: 'المدة المقدّرة',
-    d24: '24 ساعة', d2448: '\u206624 – 48\u2069 ساعة', d4872: '\u206648 – 72\u2069 ساعة', d35j: '\u20663 – 5\u2069 أيام', d57j: '\u20665 – 7\u2069 أيام',
+    d2448: '\u206624 – 48\u2069 ساعة', d2472: '\u206624 – 72\u2069 ساعة', d4896: '\u206648 – 96\u2069 ساعة',
+    dNone: 'غير مغطّاة من طرف الناقل',
+    dDeskNone: 'لا يوجد مكتب استلام في هذه الولاية',
+    dHomeNone: 'لا يوجد توصيل إلى المنزل في هذه الولاية',
     sgIntl: 'دولي',
     sgFr: 'المقاس الفرنسي',
     sgHow: 'كيف تقيسين',
@@ -257,6 +264,7 @@ const STRINGS = {
     tDemoT: 'وضع تجريبي', tDemoS: 'لا يمكن إرسال طلب بدون خادم',
     tNameT: 'الاسم مطلوب', tNameS: 'أدخلي اسمك الكامل',
     tPhoneT: 'رقم غير صالح', tPhoneS: 'تحقّقي من رقمك',
+    tNoShipT: 'التوصيل غير متاح',
     tDairaT: 'الدائرة مطلوبة', tDairaS: 'اختاري دائرتك قبل التأكيد',
     tAddrT: 'العنوان مطلوب', tAddrS: 'أدخلي عنوان التوصيل',
     tOrderT: 'تم تسجيل الطلب', tErr: 'خطأ',
@@ -412,14 +420,14 @@ export function bidi(text: string, lang: Lang) {
   return lang === 'ar' ? `\u2066${text}\u2069` : text;
 }
 
-/** Delivery estimate buckets, translated. */
+/** The carrier's delivery windows, translated. `null` is a wilaya it does not
+ *  serve at all. */
 export function useDelay() {
   const { t } = useLang();
-  return useCallback((h: number) => {
-    if (h <= 24) return t.d24;
-    if (h <= 48) return t.d2448;
-    if (h <= 72) return t.d4872;
-    if (h <= 120) return t.d35j;
-    return t.d57j;
+  return useCallback((d: '24-48' | '24-72' | '48-96' | null) => {
+    if (d === '24-48') return t.d2448;
+    if (d === '24-72') return t.d2472;
+    if (d === '48-96') return t.d4896;
+    return t.dNone;
   }, [t]);
 }

@@ -1,0 +1,413 @@
+{
+  "_comment": "Canonical delivery rates. Read by config/shipping.php and imported by web/lib/wilayas.ts so the browser and the server cannot disagree. null means the carrier does not serve that wilaya by that method.",
+  "_source": "Carrier tariff sheet, 2025",
+  "freeFrom": 12000,
+  "wilayas": [
+    {
+      "code": 1,
+      "name": "Adrar",
+      "bureau": 900,
+      "domicile": 1200,
+      "delay": "48-96"
+    },
+    {
+      "code": 2,
+      "name": "Chlef",
+      "bureau": 450,
+      "domicile": 750,
+      "delay": "24-48"
+    },
+    {
+      "code": 3,
+      "name": "Laghouat",
+      "bureau": 550,
+      "domicile": 900,
+      "delay": "24-48"
+    },
+    {
+      "code": 4,
+      "name": "Oum El Bouaghi",
+      "bureau": 400,
+      "domicile": 700,
+      "delay": "24-48"
+    },
+    {
+      "code": 5,
+      "name": "Batna",
+      "bureau": 400,
+      "domicile": 700,
+      "delay": "24-48"
+    },
+    {
+      "code": 6,
+      "name": "Béjaïa",
+      "bureau": 400,
+      "domicile": 700,
+      "delay": "24-48"
+    },
+    {
+      "code": 7,
+      "name": "Biskra",
+      "bureau": 550,
+      "domicile": 850,
+      "delay": "24-48"
+    },
+    {
+      "code": 8,
+      "name": "Béchar",
+      "bureau": 900,
+      "domicile": 1200,
+      "delay": "48-96"
+    },
+    {
+      "code": 9,
+      "name": "Blida",
+      "bureau": 400,
+      "domicile": 700,
+      "delay": "24-48"
+    },
+    {
+      "code": 10,
+      "name": "Bouira",
+      "bureau": 400,
+      "domicile": 700,
+      "delay": "24-48"
+    },
+    {
+      "code": 11,
+      "name": "Tamanrasset",
+      "bureau": 1100,
+      "domicile": 1600,
+      "delay": "48-96"
+    },
+    {
+      "code": 12,
+      "name": "Tébessa",
+      "bureau": 500,
+      "domicile": 800,
+      "delay": "24-48"
+    },
+    {
+      "code": 13,
+      "name": "Tlemcen",
+      "bureau": 450,
+      "domicile": 750,
+      "delay": "24-48"
+    },
+    {
+      "code": 14,
+      "name": "Tiaret",
+      "bureau": 450,
+      "domicile": 750,
+      "delay": "24-48"
+    },
+    {
+      "code": 15,
+      "name": "Tizi Ouzou",
+      "bureau": 450,
+      "domicile": 750,
+      "delay": "24-48"
+    },
+    {
+      "code": 16,
+      "name": "Alger",
+      "bureau": 400,
+      "domicile": 700,
+      "delay": "24-48"
+    },
+    {
+      "code": 17,
+      "name": "Djelfa",
+      "bureau": 500,
+      "domicile": 800,
+      "delay": "24-48"
+    },
+    {
+      "code": 18,
+      "name": "Jijel",
+      "bureau": 400,
+      "domicile": 700,
+      "delay": "24-48"
+    },
+    {
+      "code": 19,
+      "name": "Sétif",
+      "bureau": 400,
+      "domicile": 700,
+      "delay": "24-48"
+    },
+    {
+      "code": 20,
+      "name": "Saïda",
+      "bureau": 500,
+      "domicile": 800,
+      "delay": "24-48"
+    },
+    {
+      "code": 21,
+      "name": "Skikda",
+      "bureau": 400,
+      "domicile": 700,
+      "delay": "24-48"
+    },
+    {
+      "code": 22,
+      "name": "Sidi Bel Abbès",
+      "bureau": 450,
+      "domicile": 750,
+      "delay": "24-48"
+    },
+    {
+      "code": 23,
+      "name": "Annaba",
+      "bureau": 400,
+      "domicile": 700,
+      "delay": "24-48"
+    },
+    {
+      "code": 24,
+      "name": "Guelma",
+      "bureau": 450,
+      "domicile": 750,
+      "delay": "24-48"
+    },
+    {
+      "code": 25,
+      "name": "Constantine",
+      "bureau": 400,
+      "domicile": 500,
+      "delay": "24-48"
+    },
+    {
+      "code": 26,
+      "name": "Médéa",
+      "bureau": 450,
+      "domicile": 750,
+      "delay": "24-48"
+    },
+    {
+      "code": 27,
+      "name": "Mostaganem",
+      "bureau": 450,
+      "domicile": 750,
+      "delay": "24-48"
+    },
+    {
+      "code": 28,
+      "name": "M'Sila",
+      "bureau": 450,
+      "domicile": 750,
+      "delay": "24-48"
+    },
+    {
+      "code": 29,
+      "name": "Mascara",
+      "bureau": 500,
+      "domicile": 800,
+      "delay": "24-48"
+    },
+    {
+      "code": 30,
+      "name": "Ouargla",
+      "bureau": 700,
+      "domicile": 1000,
+      "delay": "24-72"
+    },
+    {
+      "code": 31,
+      "name": "Oran",
+      "bureau": 450,
+      "domicile": 750,
+      "delay": "24-48"
+    },
+    {
+      "code": 32,
+      "name": "El Bayadh",
+      "bureau": 700,
+      "domicile": 1000,
+      "delay": "24-72"
+    },
+    {
+      "code": 33,
+      "name": "Illizi",
+      "bureau": null,
+      "domicile": null,
+      "delay": null
+    },
+    {
+      "code": 34,
+      "name": "Bordj Bou Arreridj",
+      "bureau": 400,
+      "domicile": 700,
+      "delay": "24-48"
+    },
+    {
+      "code": 35,
+      "name": "Boumerdès",
+      "bureau": 400,
+      "domicile": 700,
+      "delay": "24-48"
+    },
+    {
+      "code": 36,
+      "name": "El Tarf",
+      "bureau": 550,
+      "domicile": 850,
+      "delay": "24-48"
+    },
+    {
+      "code": 37,
+      "name": "Tindouf",
+      "bureau": null,
+      "domicile": null,
+      "delay": null
+    },
+    {
+      "code": 38,
+      "name": "Tissemsilt",
+      "bureau": 450,
+      "domicile": 750,
+      "delay": "24-48"
+    },
+    {
+      "code": 39,
+      "name": "El Oued",
+      "bureau": 700,
+      "domicile": 1000,
+      "delay": "24-72"
+    },
+    {
+      "code": 40,
+      "name": "Khenchela",
+      "bureau": 450,
+      "domicile": 750,
+      "delay": "24-48"
+    },
+    {
+      "code": 41,
+      "name": "Souk Ahras",
+      "bureau": 450,
+      "domicile": 750,
+      "delay": "24-48"
+    },
+    {
+      "code": 42,
+      "name": "Tipaza",
+      "bureau": 400,
+      "domicile": 700,
+      "delay": "24-48"
+    },
+    {
+      "code": 43,
+      "name": "Mila",
+      "bureau": 400,
+      "domicile": 700,
+      "delay": "24-48"
+    },
+    {
+      "code": 44,
+      "name": "Aïn Defla",
+      "bureau": 450,
+      "domicile": 750,
+      "delay": "24-48"
+    },
+    {
+      "code": 45,
+      "name": "Naâma",
+      "bureau": 700,
+      "domicile": 1000,
+      "delay": "24-72"
+    },
+    {
+      "code": 46,
+      "name": "Aïn Témouchent",
+      "bureau": 500,
+      "domicile": 800,
+      "delay": "24-48"
+    },
+    {
+      "code": 47,
+      "name": "Ghardaïa",
+      "bureau": 700,
+      "domicile": 1000,
+      "delay": "24-72"
+    },
+    {
+      "code": 48,
+      "name": "Relizane",
+      "bureau": 450,
+      "domicile": 750,
+      "delay": "24-48"
+    },
+    {
+      "code": 49,
+      "name": "Timimoun",
+      "bureau": null,
+      "domicile": 1200,
+      "delay": "48-96"
+    },
+    {
+      "code": 50,
+      "name": "Bordj Badji Mokhtar",
+      "bureau": null,
+      "domicile": null,
+      "delay": null
+    },
+    {
+      "code": 51,
+      "name": "Ouled Djellal",
+      "bureau": null,
+      "domicile": 900,
+      "delay": "24-72"
+    },
+    {
+      "code": 52,
+      "name": "Béni Abbès",
+      "bureau": null,
+      "domicile": 1200,
+      "delay": "48-96"
+    },
+    {
+      "code": 53,
+      "name": "In Salah",
+      "bureau": null,
+      "domicile": 1400,
+      "delay": "48-96"
+    },
+    {
+      "code": 54,
+      "name": "In Guezzam",
+      "bureau": null,
+      "domicile": 1800,
+      "delay": "48-96"
+    },
+    {
+      "code": 55,
+      "name": "Touggourt",
+      "bureau": null,
+      "domicile": 1100,
+      "delay": "24-72"
+    },
+    {
+      "code": 56,
+      "name": "Djanet",
+      "bureau": null,
+      "domicile": null,
+      "delay": null
+    },
+    {
+      "code": 57,
+      "name": "El M'Ghair",
+      "bureau": null,
+      "domicile": 1000,
+      "delay": "24-72"
+    },
+    {
+      "code": 58,
+      "name": "El Meniaa",
+      "bureau": null,
+      "domicile": 1100,
+      "delay": "24-72"
+    }
+  ]
+}

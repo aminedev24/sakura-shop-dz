@@ -1,7 +1,7 @@
 'use client';
 
 import { useMemo, useState } from 'react';
-import { WILAYAS } from '@/lib/wilayas';
+import { WILAYAS, feeFor } from '@/lib/wilayas';
 import { DAIRA } from '@/lib/daira';
 import { useLang, useMoney } from '@/lib/i18n';
 import { FREE_SHIPPING_FROM, useShop } from '@/lib/shop-context';
@@ -23,10 +23,15 @@ export default function CartPanel({ open, onClose }: { open: boolean; onClose: (
   const [editing, setEditing] = useState<number | null>(null);
 
   const w = WILAYAS[wIdx];
-  const dairas = useMemo(() => DAIRA[w.name] ?? [], [w.name]);
-  const fee = home ? w.domicile : w.bureau;
+  // DAIRA is keyed by the select label, e.g. "16 — Alger"
+  const dairas = useMemo(() => DAIRA[w.label] ?? [], [w.label]);
+  const fee = feeFor(w, home);
+  // the carrier reaches some wilayas one way only, and four not at all
+  const noDesk = w.bureau === null;
+  const noHome = w.domicile === null;
+  const unreachable = noDesk && noHome;
   const free = subtotal >= FREE_SHIPPING_FROM;
-  const shipping = free ? 0 : fee;
+  const shipping = free ? 0 : (fee ?? 0);
   const progress = Math.min(100, Math.round((subtotal / FREE_SHIPPING_FROM) * 100));
 
   async function confirm() {
@@ -34,6 +39,8 @@ export default function CartPanel({ open, onClose }: { open: boolean; onClose: (
     if (demo) return showToast(t.tDemoT, t.tDemoS);
     if (!name.trim()) return showToast(t.tNameT, t.tNameS);
     if (tel.replace(/\D/g, '').length < 9) return showToast(t.tPhoneT, t.tPhoneS);
+    if (unreachable) return showToast(t.tNoShipT, t.dNone);
+    if (fee === null) return showToast(t.tNoShipT, home ? t.dHomeNone : t.dDeskNone);
     if (!daira) return showToast(t.tDairaT, t.tDairaS);
     if (home && !addr.trim()) return showToast(t.tAddrT, t.tAddrS);
 
@@ -155,8 +162,10 @@ export default function CartPanel({ open, onClose }: { open: boolean; onClose: (
         <div className="fl full" style={{ marginTop: 8 }}>
           <label>{t.delivery}</label>
           <div className="seg">
-            <button type="button" aria-pressed={!home} onClick={() => setHome(false)}>{t.office}</button>
-            <button type="button" aria-pressed={home} onClick={() => setHome(true)}>{t.home}</button>
+            <button type="button" aria-pressed={!home} disabled={noDesk} title={noDesk ? t.dDeskNone : undefined}
+                  onClick={() => setHome(false)}>{t.office}</button>
+            <button type="button" aria-pressed={home} disabled={noHome} title={noHome ? t.dHomeNone : undefined}
+                  onClick={() => setHome(true)}>{t.home}</button>
           </div>
         </div>
 
@@ -182,7 +191,7 @@ export default function CartPanel({ open, onClose }: { open: boolean; onClose: (
 
         <div className="recap" style={{ marginTop: 12 }}>
           <div className="rl"><span>{t.subtotal}</span><span>{money(subtotal)}</span></div>
-          <div className="rl"><span>{t.delivery}</span><span>{free ? t.free : money(fee)}</span></div>
+          <div className="rl"><span>{t.delivery}</span><span>{free ? t.free : fee === null ? '—' : money(fee)}</span></div>
           <div className="rl tot"><span>{t.total}</span><span>{money(subtotal + shipping)}</span></div>
         </div>
 

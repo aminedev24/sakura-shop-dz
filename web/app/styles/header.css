@@ -155,8 +155,11 @@
   border-radius: 999px;
   padding-inline: 20px 6px;
   height: 46px;
-  max-width: 560px;
-  margin-inline-start: 14px;
+  /* Matches .mainnav exactly — same flex basis, same margins, no cap. The nav
+     was uncapped and centred while this was capped at 560px and left-aligned,
+     so swapping one for the other redistributed the free space and pushed the
+     icon cluster sideways. */
+  margin-inline: 14px;
 }
 
 .hdr-searchbar input {

@@ -331,3 +331,16 @@
   }
 
 }
+
+/* a wilaya the carrier does not reach, or not by the chosen method */
+.co-none {
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.5;
+  color: var(--muted);
+}
+
+.seg button:disabled {
+  opacity: .45;
+  cursor: not-allowed;
+}

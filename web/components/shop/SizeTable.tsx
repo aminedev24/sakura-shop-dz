@@ -51,9 +51,7 @@ export default function SizeTable({
             {rows.map((r) => (
               <tr
                 key={r.sz}
-                className={
-                  [highlight === r.sz ? 'on' : '', !r.stocked ? 'off' : ''].filter(Boolean).join(' ') || undefined
-                }
+                className={highlight === r.sz ? 'on' : undefined}
               >
                 <td><b>{r.sz}</b></td>
                 <td>{r.fr}</td>
@@ -67,7 +65,6 @@ export default function SizeTable({
 
       {!compact && (
         <>
-          <p className="sizetable-stocked">{t.sgStocked} : S · M · L · XL · XXL</p>
           <div className="sizetable-how">
             <h4>{t.sgHow}</h4>
             <ul>
