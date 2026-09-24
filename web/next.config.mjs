@@ -9,6 +9,13 @@ const PHP_ORIGIN = process.env.PHP_ORIGIN ?? 'http://localhost:8000';
 // real host, which serves from its own domain root.
 const BASE_PATH = process.env.NEXT_PUBLIC_BASE_PATH ?? '';
 
+// Two lockfiles exist — pnpm-lock.yaml at the repo root for the original HTML
+// site's Tailwind, package-lock.json here for Next — so Next cannot infer which
+// directory is the project and warns. Naming it silences that. It only governs
+// how far up file tracing scans for a server bundle, and `output: 'export'`
+// produces none, so nothing else changes.
+const PROJECT_ROOT = import.meta.dirname;
+
 /** Next passes the phase in, which is reliable. process.env.NODE_ENV is not:
  *  it is not guaranteed to be set when this module is evaluated, so a build
  *  could fall through to the development branch and write into .next, wiping
@@ -42,6 +49,8 @@ export default function config(phase) {
     // the Pages Router _document from the default .next regardless, so the
     // export fails on /404 with "Cannot find module for page: /_document".
     // Avoid the collision by not building while a dev server is running.
+
+    outputFileTracingRoot: PROJECT_ROOT,
 
     ...(BASE_PATH ? { basePath: BASE_PATH, assetPrefix: BASE_PATH } : {}),
 

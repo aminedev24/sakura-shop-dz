@@ -1,65 +1,55 @@
-# Sakura Shop DZ
+# Sakura Shop
 
-Storefront + login system + admin panel, running on PHP + MySQL (XAMPP).
+Storefront for a women's loungewear shop in Algeria: a Next.js front end over a
+small PHP + MySQL back end, delivered as static files so it can run on ordinary
+shared hosting with no Node runtime.
 
-## Setup (first time)
+## Layout
 
-1. Start **Apache** and **MySQL** in the XAMPP control panel.
-2. Open phpMyAdmin (`http://localhost/phpmyadmin`) and import, in this order:
-   - `database/schema.sql` (creates the `sakura_shop` database and tables)
-   - `database/seed.sql` (adds the 15 existing products + one admin account)
-3. If your MySQL uses a different user/password than XAMPP's default (`root`, no password), edit `config/db.php`.
-4. Visit the site at **`http://localhost/sakura-shop-dz/`** — not by double-clicking `index.html`. The storefront needs PHP running behind it to load products, log in, and place orders.
+    web/            the storefront — Next.js app router, TypeScript
+    api/            PHP endpoints: products, orders, auth
+    admin/          PHP admin panel (products, orders) at /admin/
+    config/         database credentials and shipping rates
+    database/       schema.sql, seed.sql and helper scripts
+    uploads/        product photography, written by the admin at runtime
+    data/           sample catalogue used when the API is unreachable
+    scripts/        build-preview.py, format-css.py
+    docs/           reference material: screenshots, brand and print originals
 
-## Styling (Tailwind)
+    demo/           generated — the exported app, published by GitHub Pages
+    preview/        generated — a one-file homepage snapshot for sharing
 
-Most of `index.html` is still hand-written CSS in its `<style>` block, but new responsive fixes use Tailwind utility classes, compiled to `assets/tailwind.css` and linked from `<head>`. That file is a build artifact checked into the repo (there's no server-side build step, so it has to already exist for the page to look right) — if you add or change any Tailwind class in `index.html` or `admin/**/*.php`, rebuild it:
+    index.html      the original static site, superseded by web/ (see below)
+    about.html      "
+    conditions.html "
+    assets/         its stylesheets
+    styles/         its Tailwind source
 
-```
-npm install       # first time only
-npm run build:css # one-off build
-npm run watch:css # rebuilds on save while you work
-```
+## Running it
 
-## Static preview (GitHub Pages)
+Two processes: PHP serves the back end, Next serves the front end and proxies
+`/api`, `/uploads`, `/data` and `/admin` through to it.
 
-GitHub Pages only serves static files — it can't run `api/products.php`. When that fetch fails, the storefront automatically falls back to the bundled sample catalog at `data/products-sample.json` and shows a "Mode démo" toast. In that mode browsing, filtering, the cart, wishlist, and the delivery/wilaya/daïra calculator all work normally (nothing there touches the backend), but login/account and actually submitting an order are disabled with an explanatory message, since those genuinely need the PHP + MySQL backend. The admin panel isn't usable at all on a static host.
+    npm run php     # http://localhost:8000
+    npm run dev     # http://localhost:3000   ← open this one
 
-To refresh the sample data after editing products (e.g. via the admin panel), regenerate it from the live database:
+Never run a build while the dev server is up; they share `web/.next`.
 
-```
-php -r '
-require __DIR__ . "/config/db.php";
-require __DIR__ . "/api/_helpers.php";
-$rows = $pdo->query("SELECT * FROM products WHERE active = 1 ORDER BY id ASC")->fetchAll();
-echo json_encode(["products" => array_map("product_to_json", $rows)], JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
-' > data/products-sample.json
-```
+## Building
 
-## Admin panel
+    npm run build          # → web/out/, upload alongside api/ config/ data/ uploads/
+    npm run preview:html   # → preview/index.html, one self-contained file
+    npm --prefix web run build:pages   # → demo/, for GitHub Pages
 
-`http://localhost/sakura-shop-dz/admin/login.php`
+## Two front ends
 
-Default account from the seed data:
-- Email: `admin@sakurashop.dz`
-- Password: `ChangeMe123!`
+`web/` replaced the original static site, but `index.html` and friends are
+still here and still served at the GitHub Pages root. They duplicate the
+storefront: two stylesheets, two size guides, two sets of design tokens to keep
+in step. Decide whether to keep them as a fallback or remove them; right now
+both exist and only `web/` is maintained.
 
-There's no "change password" screen yet — to change it, create a new admin user (or update the `password_hash` column) directly in phpMyAdmin using PHP's `password_hash()`, then remove the seed account.
+## Package managers
 
-From the admin panel you can manage products (with image upload), view and update order status, and see registered customers and revenue stats.
-
-## How it fits together
-
-- `index.html` — storefront. Loads products from `api/products.php`, handles login/register/checkout via fetch calls to `api/*.php`.
-- `api/` — JSON endpoints used by the storefront (auth, products, orders).
-- `admin/` — separate, session-guarded admin area (server-rendered PHP pages, not part of the storefront's JS).
-- `config/db.php` — database credentials.
-- `config/shipping.php` — server-side copy of delivery fees per wilaya, used to recompute order totals safely (never trusts prices sent from the browser).
-- `uploads/products/` — product images (uploaded via the admin panel, or seeded from the original catalog).
-- `database/schema.sql`, `database/seed.sql` — run once to set up the database.
-
-## Notes
-
-- Checkout is cash-on-delivery only, matching the original site — no payment gateway is wired in.
-- Customer accounts are optional: checkout works as a guest, but a logged-in customer's orders are saved to their account under "Mon compte" and their name/phone are prefilled at checkout.
-- Deleting a product from the admin panel doesn't touch past orders (order line items keep a snapshot of the product name/price at the time of purchase).
+pnpm at the root, for the original site's Tailwind. npm inside `web/`, for
+Next — pnpm's layout does not satisfy Next's own module resolution here.
