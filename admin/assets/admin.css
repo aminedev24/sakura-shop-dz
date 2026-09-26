@@ -1066,3 +1066,46 @@ img.thumb, .thumb-sm, .rec-thumb {
     grid-column: 1 / -1;
   }
 }
+
+/* the single editor sits above the list */
+.oe-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.oe-head b {
+  font-size: 13.5px;
+  color: var(--ink);
+}
+
+.oe-close {
+  width: 28px;
+  height: 28px;
+  flex: none;
+  border: 0;
+  border-radius: 50%;
+  background: none;
+  color: var(--grey);
+  font-size: 20px;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.oe-close:hover {
+  background: var(--paper);
+  color: var(--accent);
+}
+
+#orderEdit {
+  margin: 0 0 14px;
+}
+
+/* the row whose order is being edited */
+.rec-ic.edit-order.on {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #fff;
+}

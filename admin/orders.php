@@ -157,6 +157,51 @@ require __DIR__ . '/includes/header.php';
 <?php if (!$orders): ?>
   <div class="panel"><p class="sub">Aucune commande.</p></div>
 <?php else: ?>
+  <?php // One editor above the list rather than a hidden copy under every
+        // order: the page does not jump as a row expands, and the DOM carries
+        // one form instead of one per order. The toggle fills it from the data
+        // block below. ?>
+  <form method="post" class="order-edit" id="orderEdit" hidden>
+    <input type="hidden" name="action" value="update_order">
+    <input type="hidden" name="id" id="oeId">
+
+    <div class="oe-head">
+      <b>Commande <span id="oeTitle"></span></b>
+      <button type="button" class="oe-close" id="oeClose" aria-label="Fermer">&times;</button>
+    </div>
+
+    <div class="oe-grid">
+      <label>Nom du client <input name="customer_name" id="oeName" required></label>
+      <label>Téléphone <input name="customer_phone" id="oePhone" required></label>
+      <label>Wilaya
+        <select name="wilaya_name" id="oeWilaya" required>
+          <?php foreach ($WILAYAS as $w): ?>
+            <option value="<?= h($w[0]) ?>"><?= h($w[0]) ?><?= $w[1] === null && $w[2] === null ? ' (non desservie)' : '' ?></option>
+          <?php endforeach; ?>
+        </select></label>
+      <label>Daïra <input name="daira_name" id="oeDaira"></label>
+      <label>Livraison
+        <select name="delivery_type" id="oeType">
+          <option value="bureau">Bureau</option>
+          <option value="domicile">Domicile</option>
+        </select></label>
+      <label>Adresse <input name="delivery_address" id="oeAddress"></label>
+    </div>
+
+    <p class="oe-note">Les frais de livraison et le total sont recalculés d'après la wilaya et le mode choisis.</p>
+    <button type="submit" class="oe-save">Enregistrer</button>
+  </form>
+
+  <script type="application/json" id="orderData"><?= json_encode(array_map(fn($o) => [
+      'id' => (int)$o['id'],
+      'name' => $o['customer_name'],
+      'phone' => $o['customer_phone'],
+      'wilaya' => $o['wilaya_name'],
+      'daira' => $o['daira_name'],
+      'type' => $o['delivery_type'],
+      'address' => $o['delivery_address'] ?? '',
+  ], $orders), JSON_UNESCAPED_UNICODE | JSON_HEX_TAG | JSON_HEX_AMP) ?></script>
+
   <form method="post" id="ordBulkForm">
     <input type="hidden" name="action" value="delete_orders">
 
@@ -191,7 +236,7 @@ require __DIR__ . '/includes/header.php';
             <button type="button" class="rec-ic toggle" data-target="<?= $rid ?>" aria-expanded="false" aria-label="Détails de la commande #<?= (int)$o['id'] ?>">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="m6 9 6 6 6-6"/></svg>
             </button>
-            <button type="button" class="rec-ic toggle" data-target="edit-<?= (int)$o['id'] ?>" aria-expanded="false" aria-label="Modifier la commande #<?= (int)$o['id'] ?>" title="Modifier">
+            <button type="button" class="rec-ic edit-order" data-id="<?= (int)$o['id'] ?>" aria-label="Modifier la commande #<?= (int)$o['id'] ?>" title="Modifier">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>
             </button>
             <button type="button" class="rec-ic danger" title="Supprimer" aria-label="Supprimer la commande #<?= (int)$o['id'] ?>"
@@ -233,43 +278,7 @@ require __DIR__ . '/includes/header.php';
         // discarded by the HTML parser, which drops the element carrying
         // hidden and leaves its fields on screen — the edit form used to open
         // by itself, filled in, for the last order rendered. ?>
-  <?php foreach ($orders as $o): ?>
-      <form method="post" class="order-edit" id="edit-<?= (int)$o['id'] ?>" hidden>
-        <input type="hidden" name="action" value="update_order">
-        <input type="hidden" name="id" value="<?= (int)$o['id'] ?>">
 
-        <div class="oe-grid">
-          <label>Nom du client
-            <input name="customer_name" required value="<?= h($o['customer_name']) ?>"></label>
-          <label>Téléphone
-            <input name="customer_phone" required value="<?= h($o['customer_phone']) ?>"></label>
-
-          <label>Wilaya
-            <select name="wilaya_name" required>
-              <?php foreach ($WILAYAS as $w): ?>
-                <option value="<?= h($w[0]) ?>" <?= $o['wilaya_name'] === $w[0] ? 'selected' : '' ?>>
-                  <?= h($w[0]) ?><?= $w[1] === null && $w[2] === null ? ' (non desservie)' : '' ?>
-                </option>
-              <?php endforeach; ?>
-            </select></label>
-          <label>Daïra
-            <input name="daira_name" value="<?= h($o['daira_name']) ?>"></label>
-
-          <label>Livraison
-            <select name="delivery_type">
-              <option value="bureau" <?= $o['delivery_type'] === 'bureau' ? 'selected' : '' ?>>Bureau</option>
-              <option value="domicile" <?= $o['delivery_type'] === 'domicile' ? 'selected' : '' ?>>Domicile</option>
-            </select></label>
-          <label>Adresse
-            <input name="delivery_address" value="<?= h($o['delivery_address'] ?? '') ?>"></label>
-        </div>
-
-        <p class="oe-note">
-          Les frais de livraison et le total sont recalculés d'après la wilaya et le mode choisis.
-        </p>
-        <button type="submit" class="oe-save">Enregistrer</button>
-      </form>
-  <?php endforeach; ?>
 
   <?php foreach ($orders as $o): ?>
     <form method="post" id="st-<?= (int)$o['id'] ?>" hidden>
@@ -371,8 +380,64 @@ document.querySelectorAll('[data-del-order]').forEach(function (btn) {
   });
 });
 
-// Only one panel at a time. Opening the details or the edit form of a second
-// order used to leave the first one open, so several stacked up on the page.
+// One editor, filled from the order that was clicked and shown above the list.
+(function () {
+  var form = document.getElementById('orderEdit');
+  if (!form) return;
+  var data = {};
+  try {
+    JSON.parse(document.getElementById('orderData').textContent || '[]')
+      .forEach(function (o) { data[o.id] = o; });
+  } catch (e) { return; }
+
+  var f = {
+    id: document.getElementById('oeId'),
+    title: document.getElementById('oeTitle'),
+    name: document.getElementById('oeName'),
+    phone: document.getElementById('oePhone'),
+    wilaya: document.getElementById('oeWilaya'),
+    daira: document.getElementById('oeDaira'),
+    type: document.getElementById('oeType'),
+    address: document.getElementById('oeAddress'),
+  };
+
+  document.querySelectorAll('.edit-order').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var o = data[btn.dataset.id];
+      if (!o) return;
+
+      // clicking the order already open closes the editor
+      if (!form.hasAttribute('hidden') && String(f.id.value) === String(o.id)) {
+        form.setAttribute('hidden', '');
+        document.querySelectorAll('.edit-order.on').forEach(function (b) { b.classList.remove('on'); });
+        return;
+      }
+
+      f.id.value = o.id;
+      f.title.textContent = '#' + o.id + ' — ' + o.name;
+      f.name.value = o.name;
+      f.phone.value = o.phone;
+      f.wilaya.value = o.wilaya;
+      f.daira.value = o.daira || '';
+      f.type.value = o.type;
+      f.address.value = o.address || '';
+
+      form.removeAttribute('hidden');
+      document.querySelectorAll('.edit-order').forEach(function (b) {
+        b.classList.toggle('on', b === btn);
+      });
+      form.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+      f.name.focus();
+    });
+  });
+
+  document.getElementById('oeClose').addEventListener('click', function () {
+    form.setAttribute('hidden', '');
+    document.querySelectorAll('.edit-order.on').forEach(function (b) { b.classList.remove('on'); });
+  });
+})();
+
+// Only one details panel at a time.
 (function () {
   var toggles = Array.prototype.slice.call(document.querySelectorAll('.toggle'));
 
