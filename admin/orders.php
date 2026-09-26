@@ -157,11 +157,23 @@ require __DIR__ . '/includes/header.php';
 <?php if (!$orders): ?>
   <div class="panel"><p class="sub">Aucune commande.</p></div>
 <?php else: ?>
-  <div class="rec-list">
+  <form method="post" id="ordBulkForm">
+    <input type="hidden" name="action" value="delete_orders">
+
+    <div class="bulkbar" id="ordBulkBar" hidden>
+      <label class="bulk-all"><input type="checkbox" id="ordBulkAll"> Tout sélectionner</label>
+      <span id="ordBulkCount">0 sélectionnée</span>
+      <button type="submit" class="bulk-del">Supprimer la sélection</button>
+    </div>
+
+  <div class="rec-list with-sub">
     <?php foreach ($orders as $o): $items = $itemsByOrder[$o['id']]; $rid = 'items-' . (int)$o['id']; ?>
       <div class="rec">
         <div class="rec-top">
-          <div class="rec-title"><?= h($o['customer_name']) ?> <span class="badge <?= h($o['status']) ?>"><?= h($STATUS_LABELS[$o['status']] ?? $o['status']) ?></span></div>
+          <div class="rec-title">
+            <label class="rec-pick" title="Sélectionner">
+              <input type="checkbox" name="ids[]" value="<?= (int)$o['id'] ?>" class="ord-cb">
+            </label><?= h($o['customer_name']) ?> <span class="badge <?= h($o['status']) ?>"><?= h($STATUS_LABELS[$o['status']] ?? $o['status']) ?></span></div>
           <div class="rec-corner">
             <div class="item-thumbs">
               <?php foreach (array_slice($items, 0, 1) as $it): if ($it['image_path']): ?>
@@ -186,15 +198,12 @@ require __DIR__ . '/includes/header.php';
                     data-del-order="<?= (int)$o['id'] ?>">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 6h18"/><path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/></svg>
             </button>
-            <form method="post" class="status-form">
-              <input type="hidden" name="action" value="update_status">
-              <input type="hidden" name="id" value="<?= (int)$o['id'] ?>">
-              <select name="status" onchange="this.form.submit()">
+            <select class="status-form" name="status" form="st-<?= (int)$o['id'] ?>"
+                    onchange="this.form.submit()">
                 <?php foreach ($STATUSES as $s): ?>
                   <option value="<?= $s ?>" <?= $o['status'] === $s ? 'selected' : '' ?>><?= h($STATUS_LABELS[$s]) ?></option>
                 <?php endforeach; ?>
-              </select>
-            </form>
+            </select>
           </div>
           <div class="rec-price">
             <?= fmt_da_admin($o['total']) ?>
@@ -253,9 +262,80 @@ require __DIR__ . '/includes/header.php';
       </form>
     <?php endforeach; ?>
   </div>
+  </form>
+
+  <?php // status forms live outside the selection form: nesting forms is
+        // invalid, so each select reaches its own through form="st-N" ?>
+  <?php foreach ($orders as $o): ?>
+    <form method="post" id="st-<?= (int)$o['id'] ?>" hidden>
+      <input type="hidden" name="action" value="update_status">
+      <input type="hidden" name="id" value="<?= (int)$o['id'] ?>">
+    </form>
+  <?php endforeach; ?>
+
   <?php pager($pg, 'commandes'); ?>
 <?php endif; ?>
 <script>
+// Bulk selection, mirroring the catalogue.
+(function () {
+  var bar = document.getElementById('ordBulkBar');
+  var all = document.getElementById('ordBulkAll');
+  var count = document.getElementById('ordBulkCount');
+  var form = document.getElementById('ordBulkForm');
+  if (!bar || !form) return;
+
+  var boxes = function () { return Array.prototype.slice.call(document.querySelectorAll('.ord-cb')); };
+
+  function sync() {
+    var picked = boxes().filter(function (b) { return b.checked; });
+    bar.hidden = picked.length === 0;
+    count.textContent = picked.length + (picked.length > 1 ? ' sélectionnées' : ' sélectionnée');
+    all.checked = boxes().length > 0 && boxes().every(function (b) { return b.checked; });
+  }
+
+  document.addEventListener('change', function (e) {
+    if (e.target.classList.contains('ord-cb')) sync();
+  });
+
+  all.addEventListener('change', function () {
+    boxes().forEach(function (b) { b.checked = all.checked; });
+    sync();
+  });
+
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    var picked = boxes().filter(function (b) { return b.checked; });
+    if (!picked.length) return;
+    var msg = picked.length > 1
+      ? 'Supprimer ces ' + picked.length + ' commandes ? Cette action est définitive.'
+      : 'Supprimer cette commande ? Cette action est définitive.';
+    if (!confirm(msg)) return;
+
+    var body = new URLSearchParams();
+    body.append('action', 'delete_orders');
+    picked.forEach(function (b) { body.append('ids[]', b.value); });
+
+    fetch('orders.php', {
+      method: 'POST',
+      headers: { 'Accept': 'application/json', 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: body,
+      credentials: 'same-origin',
+    })
+      .then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); })
+      .then(function (d) {
+        d.ids.forEach(function (id) {
+          var cb = document.querySelector('.ord-cb[value="' + id + '"]');
+          var rec = cb && cb.closest('.rec');
+          if (rec) { rec.style.transition = 'opacity .2s'; rec.style.opacity = '0';
+                     setTimeout(function () { rec.remove(); sync(); }, 200); }
+        });
+      })
+      .catch(function () { alert('La suppression a échoué'); });
+  });
+
+  sync();
+})();
+
 // Delete in place, like the catalogue: the endpoint answers JSON when asked,
 // so the row goes without reloading and losing the filter and scroll position.
 document.querySelectorAll('[data-del-order]').forEach(function (btn) {

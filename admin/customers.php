@@ -30,7 +30,7 @@ require __DIR__ . '/includes/header.php';
 <?php if (!$customers): ?>
   <div class="panel"><p class="sub">Aucun client inscrit pour le moment.</p></div>
 <?php else: ?>
-  <div class="rec-list">
+  <div class="rec-list with-sub">
     <?php foreach ($customers as $c): ?>
       <div class="rec">
         <div class="rec-top">

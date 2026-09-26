@@ -1026,8 +1026,30 @@ img.thumb, .thumb-sm, .rec-thumb {
     flex-wrap: nowrap;
   }
 
-  .rec-sub {
+  /* .rec-sub carries the order date and the customer's signup line, which are
+     worth a column of their own rather than being hidden. Lists that have one
+     say so, since the column count differs. */
+  .rec-list.with-sub .rec {
+    grid-template-columns: minmax(0, 1fr) 150px 160px 150px 210px;
+  }
+
+  .rec-list:not(.with-sub) .rec-sub {
     display: none;
+  }
+
+  .rec-sub {
+    font-size: 12px;
+    color: var(--grey-2);
+    margin-top: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  /* the details panel and the edit form are siblings of .rec, not children */
+  .order-items,
+  .order-edit {
+    margin-inline: 14px;
   }
 
   .rec-thumb,

@@ -52,7 +52,8 @@ export default function CartPanel({ open, onClose }: { open: boolean; onClose: (
         body: JSON.stringify({
           customer_name: name.trim(),
           customer_phone: tel.trim(),
-          wilaya_name: w.name,
+          // the server matches on the full label, not the bare name
+          wilaya_name: w.label,
           daira_name: daira,
           delivery_type: home ? 'domicile' : 'bureau',
           delivery_address: home ? addr.trim() : '',
