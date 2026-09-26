@@ -16,7 +16,9 @@ export type Product = {
   out: string[]; // sizes out of stock
   tag: string;   // 'off' | 'new' | 'low' | ''
   img: string;   // cover, used by the grid and copied onto orders
-  imgs: string[];// cover first, then the gallery
+  /** cover first, then the gallery. `label` names a variant when the
+   *  photographs are different versions rather than different angles. */
+  imgs: { src: string; label: string }[];
   /** units left, or null when the quantity is not tracked */
   stock: number | null;
   d: string;     // description
@@ -35,7 +37,7 @@ export type Catalog = {
 function normalise(list: unknown): Product[] {
   return ((list as Product[]) ?? []).map((p) => ({
     ...p,
-    imgs: p.imgs?.length ? p.imgs : [p.img].filter(Boolean),
+    imgs: p.imgs?.length ? p.imgs : (p.img ? [{ src: p.img, label: '' }] : []),
     stock: p.stock ?? null,
   }));
 }

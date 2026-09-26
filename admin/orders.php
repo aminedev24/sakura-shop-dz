@@ -31,7 +31,7 @@ if (in_array($filter, $STATUSES, true)) {
 $orders = $stmt->fetchAll();
 $sumTotal = array_sum(array_column($orders, 'total'));
 
-$itemsStmt = $pdo->prepare('SELECT product_name, image_path, size, qty, unit_price FROM order_items WHERE order_id = ?');
+$itemsStmt = $pdo->prepare('SELECT product_name, image_path, size, variant, qty, unit_price FROM order_items WHERE order_id = ?');
 $itemsByOrder = [];
 foreach ($orders as $o) {
     $itemsStmt->execute([$o['id']]);
@@ -106,7 +106,7 @@ require __DIR__ . '/includes/header.php';
           <div class="rec-detail-row">
             <?php if ($it['image_path']): ?><img class="thumb" src="../<?= h($it['image_path']) ?>" alt=""><?php endif; ?>
             <div class="rdr-name"><?= h($it['product_name']) ?></div>
-            <div class="rdr-meta">Taille <?= h($it['size']) ?> · ×<?= (int)$it['qty'] ?></div>
+            <div class="rdr-meta">Taille <?= h($it['size']) ?><?php if ($it['variant'] !== ''): ?> · <?= h($it['variant']) ?><?php endif; ?> · ×<?= (int)$it['qty'] ?></div>
             <div class="rdr-meta"><?= fmt_da_admin($it['unit_price']) ?></div>
           </div>
         <?php endforeach; ?>

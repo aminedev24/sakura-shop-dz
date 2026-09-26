@@ -65,7 +65,7 @@ function Details() {
   // an untracked product has no ceiling beyond a sane cap
   const max = product.stock === null ? 20 : Math.min(20, product.stock);
   const soldOut = product.stock === 0;
-  const shown = product.imgs[shot] ?? product.img;
+  const shown = product.imgs[shot] ?? { src: product.img, label: '' };
 
   return (
     <PageShell title={product.n}>
@@ -73,7 +73,7 @@ function Details() {
       <div className="pd-main">
         <div className="pd-media">
           <div className="pd-photo">
-            <img src={asset(shown)} alt={product.n} />
+            <img src={asset(shown.src)} alt={product.n} />
             {off > 0 && <span className="pcard-off">-{off}%</span>}
             <button
               type="button"
@@ -86,17 +86,23 @@ function Details() {
             </button>
           </div>
 
-          {product.imgs.length > 1 && (
+          {shown.label && (
+          <p className="pd-variant"><span>{t.pdVariant}</span> {shown.label}</p>
+        )}
+
+        {product.imgs.length > 1 && (
             <div className="pd-thumbs" role="group" aria-label={t.pdPhotos}>
-              {product.imgs.map((src, i) => (
+              {product.imgs.map((im, i) => (
                 <button
-                  key={src}
+                  key={im.src}
                   type="button"
                   className={i === shot ? 'pd-thumb on' : 'pd-thumb'}
                   aria-current={i === shot}
+                  title={im.label || undefined}
                   onClick={() => setShot(i)}
                 >
-                  <img src={asset(src)} alt="" loading="lazy" />
+                  <img src={asset(im.src)} alt="" loading="lazy" />
+                  {im.label && <span className="pd-thumb-label">{im.label}</span>}
                 </button>
               ))}
             </div>
@@ -184,8 +190,11 @@ function Details() {
               onClick={() => {
                 if (!size) { showToast(t.tSizeT, t.tSizeS); return; }
                 // the photograph on screen is the one being ordered
-                add(product.id, size, qty, shown);
-                showToast(t.tAddT, `${product.n} — ${t.size} ${size} × ${qty}`);
+                add(product.id, size, qty, shown.src, shown.label);
+                showToast(
+                  t.tAddT,
+                  `${product.n} — ${t.size} ${size}${shown.label ? ` · ${shown.label}` : ''} × ${qty}`,
+                );
               }}
             >
               {soldOut ? t.pdOut : t.addToCart}

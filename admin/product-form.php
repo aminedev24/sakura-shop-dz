@@ -59,15 +59,15 @@ function upload_gallery(string $field): array
 }
 
 /** Store extra photographs for a product, after whatever it already has. */
-function save_gallery(PDO $pdo, int $productId, array $paths): void
+function save_gallery(PDO $pdo, int $productId, array $paths, array $labels = []): void
 {
     if (!$paths) return;
     $next = (int)$pdo->query(
         'SELECT COALESCE(MAX(sort_order), 0) FROM product_images WHERE product_id = ' . $productId
     )->fetchColumn();
-    $stmt = $pdo->prepare('INSERT INTO product_images (product_id, image_path, sort_order) VALUES (?,?,?)');
-    foreach ($paths as $path) {
-        $stmt->execute([$productId, $path, ++$next]);
+    $stmt = $pdo->prepare('INSERT INTO product_images (product_id, image_path, label, sort_order) VALUES (?,?,?,?)');
+    foreach ($paths as $i => $path) {
+        $stmt->execute([$productId, $path, trim((string)($labels[$i] ?? '')), ++$next]);
     }
 }
 
@@ -110,6 +110,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $sizes = implode(',', array_intersect($_POST['sizes'] ?? [], $SIZE_OPTIONS));
         $outSizes = implode(',', array_intersect($_POST['out_sizes'] ?? [], $SIZE_OPTIONS));
         // blank means the quantity is not tracked, which is not the same as zero
+        $coverLabel = trim((string)($_POST['cover_label'] ?? ''));
         $stockRaw = trim((string)($_POST['stock'] ?? ''));
         $stock = $stockRaw === '' ? null : max(0, (int)$stockRaw);
 
@@ -125,27 +126,32 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     $messageType = 'err';
                 } else {
                     $stmt = $pdo->prepare(
-                        'INSERT INTO products (name, material, description, category, price, original_price, rating, review_count, sizes, out_of_stock_sizes, stock, tag, image_path, active)
-                         VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)'
+                        'INSERT INTO products (name, material, description, category, price, original_price, rating, review_count, sizes, out_of_stock_sizes, stock, tag, image_path, cover_label, active)
+                         VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)'
                     );
-                    $stmt->execute([$name, $material, $description, $category, $price, $original, $rating, $reviewCount, $sizes, $outSizes, $stock, $tag, $imagePath, $active]);
-                    save_gallery($pdo, (int)$pdo->lastInsertId(), upload_gallery('gallery'));
+                    $stmt->execute([$name, $material, $description, $category, $price, $original, $rating, $reviewCount, $sizes, $outSizes, $stock, $tag, $imagePath, $coverLabel, $active]);
+                    save_gallery($pdo, (int)$pdo->lastInsertId(), upload_gallery('gallery'), $_POST['gallery_labels'] ?? []);
                     header('Location: products.php?msg=created');
                     exit;
                 }
             } else {
                 if ($imagePath) {
                     $stmt = $pdo->prepare(
-                        'UPDATE products SET name=?, material=?, description=?, category=?, price=?, original_price=?, rating=?, review_count=?, sizes=?, out_of_stock_sizes=?, stock=?, tag=?, image_path=?, active=? WHERE id=?'
+                        'UPDATE products SET name=?, material=?, description=?, category=?, price=?, original_price=?, rating=?, review_count=?, sizes=?, out_of_stock_sizes=?, stock=?, tag=?, image_path=?, cover_label=?, active=? WHERE id=?'
                     );
-                    $stmt->execute([$name, $material, $description, $category, $price, $original, $rating, $reviewCount, $sizes, $outSizes, $stock, $tag, $imagePath, $active, $id]);
+                    $stmt->execute([$name, $material, $description, $category, $price, $original, $rating, $reviewCount, $sizes, $outSizes, $stock, $tag, $imagePath, $coverLabel, $active, $id]);
                 } else {
                     $stmt = $pdo->prepare(
-                        'UPDATE products SET name=?, material=?, description=?, category=?, price=?, original_price=?, rating=?, review_count=?, sizes=?, out_of_stock_sizes=?, stock=?, tag=?, active=? WHERE id=?'
+                        'UPDATE products SET name=?, material=?, description=?, category=?, price=?, original_price=?, rating=?, review_count=?, sizes=?, out_of_stock_sizes=?, stock=?, tag=?, cover_label=?, active=? WHERE id=?'
                     );
-                    $stmt->execute([$name, $material, $description, $category, $price, $original, $rating, $reviewCount, $sizes, $outSizes, $stock, $tag, $active, $id]);
+                    $stmt->execute([$name, $material, $description, $category, $price, $original, $rating, $reviewCount, $sizes, $outSizes, $stock, $tag, $coverLabel, $active, $id]);
                 }
-                save_gallery($pdo, $id, upload_gallery('gallery'));
+                save_gallery($pdo, $id, upload_gallery('gallery'), $_POST['gallery_labels'] ?? []);
+                // labels typed against images already stored
+                foreach (($_POST['label'] ?? []) as $imgId => $lab) {
+                    $pdo->prepare('UPDATE product_images SET label = ? WHERE id = ? AND product_id = ?')
+                        ->execute([trim((string)$lab), (int)$imgId, $id]);
+                }
                 header('Location: products.php?msg=updated');
                 exit;
             }
@@ -218,6 +224,8 @@ require __DIR__ . '/includes/header.php';
         <label>Image principale <?= $editing ? '(laisser vide pour garder l\'image actuelle)' : '' ?></label>
         <input type="file" name="image" accept=".jpg,.jpeg,.png,.webp" <?= $editing ? '' : 'required' ?>>
         <small style="display:block;margin-top:4px;color:#7A6570">Celle qui apparaît dans la grille et sur la commande.</small>
+        <input name="cover_label" placeholder="Nom de ce modèle, ex. « Rose » (facultatif)"
+               style="margin-top:6px" value="<?= h($editing['cover_label'] ?? '') ?>">
         <?php if ($editing && $editing['image_path']): ?>
           <img class="thumb" style="margin-top:8px" src="../<?= h($editing['image_path']) ?>" alt="">
         <?php endif; ?>
@@ -226,19 +234,27 @@ require __DIR__ . '/includes/header.php';
       <div class="full">
         <label>Autres images <span style="font-weight:400;color:#7A6570">(facultatif, plusieurs à la fois)</span></label>
         <input type="file" name="gallery[]" accept=".jpg,.jpeg,.png,.webp" multiple>
-        <small style="display:block;margin-top:4px;color:#7A6570">Affichées en vignettes sur la fiche produit.</small>
+        <small style="display:block;margin-top:4px;color:#7A6570">
+          Affichées en vignettes sur la fiche produit. Nommez-les si ce sont des variantes
+          (« Rose », « Bleu ») : le nom apparaît sur la commande et dans le message WhatsApp.
+        </small>
+        <input name="gallery_labels[]" placeholder="Nom de la 1re image ajoutée (facultatif)" style="margin-top:6px">
+        <input name="gallery_labels[]" placeholder="Nom de la 2e image ajoutée (facultatif)" style="margin-top:6px">
+        <input name="gallery_labels[]" placeholder="Nom de la 3e image ajoutée (facultatif)" style="margin-top:6px">
 
         <?php if ($editing): ?>
           <?php
-            $gs = $pdo->prepare('SELECT id, image_path FROM product_images WHERE product_id = ? ORDER BY sort_order, id');
+            $gs = $pdo->prepare('SELECT id, image_path, label FROM product_images WHERE product_id = ? ORDER BY sort_order, id');
             $gs->execute([(int)$editing['id']]);
             $gallery = $gs->fetchAll();
           ?>
           <?php if ($gallery): ?>
             <div style="display:flex;flex-wrap:wrap;gap:10px;margin-top:10px">
               <?php foreach ($gallery as $g): ?>
-                <span style="position:relative;display:inline-block">
+                <span style="position:relative;display:inline-block;text-align:center">
                   <img class="thumb" src="../<?= h($g['image_path']) ?>" alt="">
+                  <input name="label[<?= (int)$g['id'] ?>]" value="<?= h($g['label']) ?>"
+                         placeholder="nom" style="display:block;width:100%;margin-top:4px;font-size:12px;padding:4px 6px">
                   <button type="submit" name="action" value="delete_image"
                           formnovalidate
                           onclick="document.getElementById('imgId').value=<?= (int)$g['id'] ?>"

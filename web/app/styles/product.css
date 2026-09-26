@@ -550,3 +550,46 @@
 }
 
 
+
+/* the chosen variant, named */
+.pd-variant {
+  margin: 10px 0 0;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.pd-variant span {
+  font-weight: 400;
+  color: var(--muted);
+}
+
+/* a thumbnail's name, when its photographs are variants rather than angles */
+.pd-thumb {
+  position: relative;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.pd-thumb img {
+  height: 84px;
+}
+
+.pd-thumb-label {
+  display: block;
+  padding: 3px 4px 4px;
+  font-size: 10px;
+  font-weight: 600;
+  line-height: 1.2;
+  color: var(--muted);
+  background: #fff;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 68px;
+}
+
+.pd-thumb.on .pd-thumb-label {
+  color: var(--accent);
+}

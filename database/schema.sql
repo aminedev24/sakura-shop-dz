@@ -29,6 +29,7 @@ CREATE TABLE products (
   stock               INT DEFAULT NULL COMMENT 'NULL = not tracked',
   tag                 ENUM('','new','off','low') NOT NULL DEFAULT '',
   image_path          VARCHAR(255) DEFAULT NULL,
+  cover_label         VARCHAR(60) NOT NULL DEFAULT '' COMMENT 'optional variant name for the cover',
   active              TINYINT(1) NOT NULL DEFAULT 1,
   created_at          DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
   updated_at          DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
@@ -39,6 +40,7 @@ CREATE TABLE product_images (
   id          INT AUTO_INCREMENT PRIMARY KEY,
   product_id  INT NOT NULL,
   image_path  VARCHAR(255) NOT NULL,
+  label       VARCHAR(60) NOT NULL DEFAULT '' COMMENT 'optional variant name',
   sort_order  INT NOT NULL DEFAULT 0,
   created_at  DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
   FOREIGN KEY (product_id) REFERENCES products(id) ON DELETE CASCADE
@@ -68,6 +70,7 @@ CREATE TABLE order_items (
   product_name  VARCHAR(150) NOT NULL,
   image_path    VARCHAR(255) DEFAULT NULL,
   size          VARCHAR(10) NOT NULL,
+  variant       VARCHAR(60) NOT NULL DEFAULT '' COMMENT 'label of the photograph chosen',
   qty           INT NOT NULL,
   unit_price    INT NOT NULL,
   FOREIGN KEY (order_id) REFERENCES orders(id) ON DELETE CASCADE,

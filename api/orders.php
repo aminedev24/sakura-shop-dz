@@ -10,7 +10,7 @@ if ($method === 'GET') {
     $stmt->execute([$user['id']]);
     $orders = $stmt->fetchAll();
 
-    $itemsStmt = $pdo->prepare('SELECT product_id, product_name, image_path, size, qty, unit_price FROM order_items WHERE order_id = ?');
+    $itemsStmt = $pdo->prepare('SELECT product_id, product_name, image_path, size, variant, qty, unit_price FROM order_items WHERE order_id = ?');
     $out = [];
     foreach ($orders as $o) {
         $itemsStmt->execute([$o['id']]);
@@ -73,11 +73,15 @@ if ($method === 'POST') {
         // Which photograph the customer picked is part of what they ordered, so
         // it is stored on the line. Never trust the browser's path: accept it
         // only if it is the cover or one of this product's gallery images.
-        $ownImages = [$p['image_path']];
-        $gi = $pdo->prepare('SELECT image_path FROM product_images WHERE product_id = ?');
+        $ownImages = [$p['image_path'] => (string)($p['cover_label'] ?? '')];
+        $gi = $pdo->prepare('SELECT image_path, label FROM product_images WHERE product_id = ?');
         $gi->execute([$p['id']]);
-        foreach ($gi->fetchAll() as $g) $ownImages[] = $g['image_path'];
-        $lineImage = in_array($chosenImg, $ownImages, true) ? $chosenImg : $p['image_path'];
+        foreach ($gi->fetchAll() as $g) $ownImages[$g['image_path']] = $g['label'];
+
+        $lineImage = array_key_exists($chosenImg, $ownImages) ? $chosenImg : $p['image_path'];
+        // the label travels with the order so the confirmation message, the
+        // phone call and the packing slip can all name the variant in words
+        $lineVariant = $ownImages[$lineImage] ?? '';
 
         if (!in_array($size, $availableSizes, true) || in_array($size, $outSizes, true)) {
             respond(['error' => 'Taille indisponible pour "' . $p['name'] . '"'], 409);
@@ -90,6 +94,7 @@ if ($method === 'POST') {
             'product_name' => $p['name'],
             'image_path' => $lineImage,
             'size' => $size,
+            'variant' => $lineVariant,
             'qty' => $qty,
             'unit_price' => (int)$p['price'],
         ];
@@ -126,10 +131,10 @@ if ($method === 'POST') {
         $orderId = (int)$pdo->lastInsertId();
 
         $itemStmt = $pdo->prepare(
-            'INSERT INTO order_items (order_id, product_id, product_name, image_path, size, qty, unit_price) VALUES (?, ?, ?, ?, ?, ?, ?)'
+            'INSERT INTO order_items (order_id, product_id, product_name, image_path, size, variant, qty, unit_price) VALUES (?, ?, ?, ?, ?, ?, ?, ?)'
         );
         foreach ($lines as $l) {
-            $itemStmt->execute([$orderId, $l['product_id'], $l['product_name'], $l['image_path'], $l['size'], $l['qty'], $l['unit_price']]);
+            $itemStmt->execute([$orderId, $l['product_id'], $l['product_name'], $l['image_path'], $l['size'], $l['variant'], $l['qty'], $l['unit_price']]);
         }
 
         $pdo->commit();

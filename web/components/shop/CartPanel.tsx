@@ -67,7 +67,9 @@ export default function CartPanel({ open, onClose }: { open: boolean; onClose: (
         'Sakura Shop',
         '#' + order.id,
         '',
-        ...lines.map((o) => `${byId(o.id)?.n ?? '?'} — ${t.size} ${o.size} × ${o.qty}`),
+        ...lines.map((o) => `${byId(o.id)?.n ?? '?'} — ${t.size} ${o.size}`
+          + (o.variant ? ` · ${o.variant}` : '')
+          + ` × ${o.qty}`),
         '',
         t.subtotal + ' : ' + money(order.subtotal),
         `${t.delivery} (${home ? t.home : t.office} — ${w.name}, ${daira}) : ` +
@@ -108,7 +110,7 @@ export default function CartPanel({ open, onClose }: { open: boolean; onClose: (
                        style={{ width: 46, height: 46, borderRadius: 'var(--r-sm)', objectFit: 'cover', flex: 'none' }} />
                   <div style={{ flex: 1, minWidth: 0 }}>
                     <div className="bp-name">{p.n}</div>
-                    <div className="bp-ref">{o.size} × {o.qty}</div>
+                    <div className="bp-ref">{o.size}{o.variant ? ` · ${o.variant}` : ''} × {o.qty}</div>
                     <div className={editing === i ? 'bp-edit-row on' : 'bp-edit-row'}>
                       <select className="er-sz" value={o.size} onChange={(e) => update(i, e.target.value, o.qty)}>
                         {p.sz.map((s) => (
