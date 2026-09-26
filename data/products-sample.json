@@ -1,331 +1,257 @@
 {
-    "products": [
+  "products": [
+    {
+      "id": 6,
+      "n": "Pyjama boutonné Fleurs",
+      "m": "Crêpe froissé · bordeaux",
+      "c": "boutonne",
+      "p": 4600,
+      "o": 5600,
+      "r": 5,
+      "rc": 35,
+      "sz": [
+        "S",
+        "M",
+        "L",
+        "XL",
+        "XXL"
+      ],
+      "out": [],
+      "tag": "off",
+      "img": "uploads/products/p7.jpg",
+      "imgs": [
         {
-            "id": 1,
-            "n": "Ensemble Ourson",
-            "m": "Coton · manches longues",
-            "c": "coton",
-            "p": 3900,
-            "o": 4800,
-            "r": 4.5,
-            "rc": 31,
-            "sz": [
-                "S",
-                "M",
-                "L",
-                "XL"
-            ],
-            "out": [
-                "XXL"
-            ],
-            "tag": "off",
-            "img": "uploads/products/p1.jpg",
-            "d": "Coton doux et respirant pour un confort maximal. Coupe décontractée parfaite pour les soirées d'hiver."
-        },
-        {
-            "id": 2,
-            "n": "Ensemble Panda",
-            "m": "Coton doux · oversize",
-            "c": "coton",
-            "p": 3700,
-            "o": 4600,
-            "r": 4.5,
-            "rc": 24,
-            "sz": [
-                "M",
-                "L",
-                "XL",
-                "XXL"
-            ],
-            "out": [],
-            "tag": "off",
-            "img": "uploads/products/p2.jpg",
-            "d": "Coupe oversize ultra-confortable, idéale pour la détente à la maison. Design fun et chaleureux."
-        },
-        {
-            "id": 3,
-            "n": "Ensemble Lapin rose",
-            "m": "Coton · rose poudré",
-            "c": "coton",
-            "p": 4100,
-            "o": 5000,
-            "r": 5,
-            "rc": 42,
-            "sz": [
-                "S",
-                "M",
-                "L",
-                "XL"
-            ],
-            "out": [],
-            "tag": "off",
-            "img": "uploads/products/p3.jpg",
-            "d": "Tons pastel et coton ultra-doux. Un classique adoré par nos clientes pour sa douceur."
-        },
-        {
-            "id": 4,
-            "n": "Ensemble Lucky Rabbit",
-            "m": "Coton · haut long",
-            "c": "coton",
-            "p": 3800,
-            "o": 4500,
-            "r": 4,
-            "rc": 18,
-            "sz": [
-                "M",
-                "L",
-                "XL"
-            ],
-            "out": [
-                "S"
-            ],
-            "tag": "low",
-            "img": "uploads/products/p4.jpg",
-            "d": "Pyjama confortable avec haut légèrement long. Coton épais de qualité supérieure."
-        },
-        {
-            "id": 5,
-            "n": "Pyjama boutonné Nounours",
-            "m": "Crêpe froissé · col revers",
-            "c": "boutonne",
-            "p": 4600,
-            "o": 5600,
-            "r": 4.5,
-            "rc": 27,
-            "sz": [
-                "S",
-                "M",
-                "L",
-                "XL"
-            ],
-            "out": [],
-            "tag": "new",
-            "img": "uploads/products/p6.jpg",
-            "d": "Élégant pyjama en crêpe froissé avec col revers et boutonnage. Tissu premium anti-froissage."
-        },
-        {
-            "id": 6,
-            "n": "Pyjama boutonné Fleurs",
-            "m": "Crêpe froissé · bordeaux",
-            "c": "boutonne",
-            "p": 4600,
-            "o": 5600,
-            "r": 5,
-            "rc": 35,
-            "sz": [
-                "S",
-                "M",
-                "L",
-                "XL",
-                "XXL"
-            ],
-            "out": [],
-            "tag": "off",
-            "img": "uploads/products/p7.jpg",
-            "d": "Imprimé fleuri raffiné en bordeaux. Crêpe froissé doux au toucher, coupe fluide."
-        },
-        {
-            "id": 7,
-            "n": "Ensemble Feuillage",
-            "m": "Coton imprimé · vert",
-            "c": "coton",
-            "p": 4900,
-            "o": 6000,
-            "r": 4.5,
-            "rc": 22,
-            "sz": [
-                "M",
-                "L",
-                "XL"
-            ],
-            "out": [],
-            "tag": "off",
-            "img": "uploads/products/p8.jpg",
-            "d": "Imprimé feuillage tendance en coton respirant. Parfait pour se sentir bien toute la journée."
-        },
-        {
-            "id": 8,
-            "n": "Ensemble Paisley nuit",
-            "m": "Viscose · bleu marine",
-            "c": "coton",
-            "p": 5200,
-            "o": 6400,
-            "r": 4.5,
-            "rc": 19,
-            "sz": [
-                "S",
-                "M",
-                "L",
-                "XL"
-            ],
-            "out": [],
-            "tag": "off",
-            "img": "uploads/products/p9.jpg",
-            "d": "Motif paisley élégant en viscose fluide. Légèreté et confort garantis."
-        },
-        {
-            "id": 9,
-            "n": "Ensemble Nœuds",
-            "m": "Coton · rose poudré",
-            "c": "coton",
-            "p": 4700,
-            "o": 5800,
-            "r": 5,
-            "rc": 38,
-            "sz": [
-                "S",
-                "M",
-                "L",
-                "XL",
-                "XXL"
-            ],
-            "out": [],
-            "tag": "off",
-            "img": "uploads/products/p11.jpg",
-            "d": "Délicat détail nœud sur coton rose poudré. Féminin et confortable."
-        },
-        {
-            "id": 10,
-            "n": "Pyjama satin rayé pêche",
-            "m": "Satin · col revers",
-            "c": "satin",
-            "p": 4300,
-            "o": 5200,
-            "r": 4.5,
-            "rc": 29,
-            "sz": [
-                "S",
-                "M",
-                "L",
-                "XL"
-            ],
-            "out": [],
-            "tag": "off",
-            "img": "uploads/products/p13.jpg",
-            "d": "Satin soyeux avec rayures pêche et col revers. Glisse et douceur absolue."
-        },
-        {
-            "id": 11,
-            "n": "Pyjama satin Cœurs",
-            "m": "Satin · crème",
-            "c": "satin",
-            "p": 4300,
-            "o": 5200,
-            "r": 5,
-            "rc": 33,
-            "sz": [
-                "M",
-                "L",
-                "XL",
-                "XXL"
-            ],
-            "out": [
-                "S"
-            ],
-            "tag": "off",
-            "img": "uploads/products/p14.jpg",
-            "d": "Satin crème imprimé cœurs. Élégant et doux pour un sommeil réparateur."
-        },
-        {
-            "id": 12,
-            "n": "Pyjama Ratatouille",
-            "m": "Satin · bleu ciel",
-            "c": "satin",
-            "p": 4500,
-            "o": 5400,
-            "r": 4,
-            "rc": 14,
-            "sz": [
-                "S",
-                "M",
-                "L"
-            ],
-            "out": [],
-            "tag": "new",
-            "img": "uploads/products/p15.jpg",
-            "d": "Satin bleu ciel avec imprimé ludique. Nouvelle arrivée légère et agréable."
-        },
-        {
-            "id": 13,
-            "n": "Pyjama boutonné Winnie",
-            "m": "Coton · imprimé all-over",
-            "c": "boutonne",
-            "p": 4800,
-            "o": 5900,
-            "r": 5,
-            "rc": 47,
-            "sz": [
-                "M",
-                "L",
-                "XL"
-            ],
-            "out": [
-                "S"
-            ],
-            "tag": "low",
-            "img": "uploads/products/p16.jpg",
-            "d": "Imprimé all-over adorable en coton confortable. Col boutonné classique."
-        },
-        {
-            "id": 14,
-            "n": "Ensemble Stitch rayé",
-            "m": "Coton · bleu ciel",
-            "c": "coton",
-            "p": 4200,
-            "o": 5000,
-            "r": 4.5,
-            "rc": 26,
-            "sz": [
-                "S",
-                "M",
-                "L",
-                "XL"
-            ],
-            "out": [],
-            "tag": "off",
-            "img": "uploads/products/p18.jpg",
-            "d": "Rayures bleu ciel en coton doux. Un design cool et décontracté."
-        },
-        {
-            "id": 15,
-            "n": "Ensemble Fraises",
-            "m": "Coton rayé · manches longues",
-            "c": "coton",
-            "p": 4200,
-            "o": 5000,
-            "r": 4.5,
-            "rc": 30,
-            "sz": [
-                "S",
-                "M",
-                "L",
-                "XL",
-                "XXL"
-            ],
-            "out": [],
-            "tag": "off",
-            "img": "uploads/products/p19.jpg",
-            "d": "Imprimé fraises frais et joyeux. Manches longues pour la saison froide."
-        },
-        {
-            "id": 16,
-            "n": "pyjama Heat",
-            "m": "",
-            "c": "boutonne",
-            "p": 1850,
-            "o": 2200,
-            "r": 5,
-            "rc": 0,
-            "sz": [
-                "M",
-                "L",
-                "XL",
-                "XXL"
-            ],
-            "out": [],
-            "tag": "new",
-            "img": "uploads/products/p3bfe69e1043f.jpeg",
-            "d": ""
+          "src": "uploads/products/p7.jpg",
+          "label": ""
         }
-    ]
+      ],
+      "stock": null,
+      "d": "Imprimé fleuri raffiné en bordeaux. Crêpe froissé doux au toucher, coupe fluide."
+    },
+    {
+      "id": 7,
+      "n": "DKNYC",
+      "m": "COTON · CHEMISE DE NUIT FLEURIE",
+      "c": "coton",
+      "p": 1400,
+      "o": 1600,
+      "r": 4.5,
+      "rc": 22,
+      "sz": [
+        "S",
+        "M",
+        "L",
+        "XL"
+      ],
+      "out": [],
+      "tag": "low",
+      "img": "uploads/products/p881003678ba6.jpg",
+      "imgs": [
+        {
+          "src": "uploads/products/p881003678ba6.jpg",
+          "label": ""
+        },
+        {
+          "src": "uploads/products/pa67e7c40fa57.jpg",
+          "label": ""
+        },
+        {
+          "src": "uploads/products/pf6c55ec60f8a.jpg",
+          "label": ""
+        }
+      ],
+      "stock": null,
+      "d": "Chemise de nuit ample en coton doux, à col rond et fermeture boutonnée, agrémentée d'un imprimé floral élégant. Coupe évasée et légère avec petits plis à la taille pour un confort optimal, manches courtes et longueur mi-cuisse. Un basique romantique à porter pour dormir ou se détendre à la maison."
+    },
+    {
+      "id": 10,
+      "n": "Caress",
+      "m": "COTON RAYÉ · COL TAILLEUR",
+      "c": "boutonne",
+      "p": 2200,
+      "o": 1850,
+      "r": 4.5,
+      "rc": 29,
+      "sz": [
+        "S",
+        "M",
+        "L",
+        "XL"
+      ],
+      "out": [],
+      "tag": "off",
+      "img": "uploads/products/p34c3d188655c.jpg",
+      "imgs": [
+        {
+          "src": "uploads/products/p34c3d188655c.jpg",
+          "label": ""
+        },
+        {
+          "src": "uploads/products/p270b66f30f98.jpg",
+          "label": ""
+        },
+        {
+          "src": "uploads/products/p315d4109d053.jpg",
+          "label": ""
+        }
+      ],
+      "stock": null,
+      "d": "Ensemble pyjama en coton doux à fines rayures pêche et blanc, pour un look classique et raffiné. Chemise à col tailleur avec liseré contrastant, fermeture boutonnée et poche poitrine, associée à un pantalon droit fluide à taille élastiquée nouée d'un ruban satiné assorti. Toucher léger et respirant, idéal pour les nuits douces."
+    },
+    {
+      "id": 16,
+      "n": "pyjama Heat",
+      "m": "",
+      "c": "boutonne",
+      "p": 1850,
+      "o": 2200,
+      "r": 5,
+      "rc": 0,
+      "sz": [
+        "M",
+        "L",
+        "XL",
+        "XXL"
+      ],
+      "out": [],
+      "tag": "new",
+      "img": "uploads/products/p3bfe69e1043f.jpeg",
+      "imgs": [
+        {
+          "src": "uploads/products/p3bfe69e1043f.jpeg",
+          "label": ""
+        }
+      ],
+      "stock": null,
+      "d": ""
+    },
+    {
+      "id": 17,
+      "n": "JERSEY VISCOSE · COUPE BOYFRIEND",
+      "m": "Primark",
+      "c": "boutonne",
+      "p": 1950,
+      "o": 2200,
+      "r": 5,
+      "rc": 0,
+      "sz": [
+        "S",
+        "M",
+        "L",
+        "XL",
+        "XXL"
+      ],
+      "out": [],
+      "tag": "new",
+      "img": "uploads/products/pf6ce06fd3b6d.jpeg",
+      "imgs": [
+        {
+          "src": "uploads/products/pf6ce06fd3b6d.jpeg",
+          "label": ""
+        },
+        {
+          "src": "uploads/products/p62afaad7cadf.jpeg",
+          "label": ""
+        },
+        {
+          "src": "uploads/products/p3950efb48a38.jpeg",
+          "label": ""
+        },
+        {
+          "src": "uploads/products/p0ed5541af375.jpeg",
+          "label": ""
+        }
+      ],
+      "stock": null,
+      "d": "Coupe boyfriend ultra-douce en jersey viscose, idéale pour se sentir élégante même à la maison. Chemise à col tailleur et liseré contrastant, poche poitrine, associée à un pantalon droit fluide. Design intemporel et chaleureux, parfait pour un cocooning stylé."
+    },
+    {
+      "id": 18,
+      "n": "SATIN JACQUARD · COL TAILLEUR",
+      "m": "Nana's",
+      "c": "satin",
+      "p": 2200,
+      "o": 1700,
+      "r": 5,
+      "rc": 0,
+      "sz": [
+        "S",
+        "M",
+        "L",
+        "XL",
+        "XXL"
+      ],
+      "out": [],
+      "tag": "new",
+      "img": "uploads/products/p7a21ae2fd359.jpeg",
+      "imgs": [
+        {
+          "src": "uploads/products/p7a21ae2fd359.jpeg",
+          "label": ""
+        },
+        {
+          "src": "uploads/products/pd2586297b18c.jpeg",
+          "label": ""
+        },
+        {
+          "src": "uploads/products/p5249dd35dbfb.jpeg",
+          "label": ""
+        },
+        {
+          "src": "uploads/products/p3920a454199f.jpeg",
+          "label": ""
+        }
+      ],
+      "stock": 22,
+      "d": "Ensemble pyjama en satin jacquard à motifs subtils (fleurs, feuillage ou pois selon le coloris), pour une allure chic et soyeuse au coucher. Chemise à col tailleur, fermeture boutonnée devant et liseré contrastant, associée à un pantalon droit fluide à taille élastiquée. Toucher doux et brillance satinée, avec une petite touche cœur brodée sur la poche pour certains modèles."
+    },
+    {
+      "id": 19,
+      "n": "COTON · IMPRIMÉ",
+      "m": "Jaclyn New York",
+      "c": "coton",
+      "p": 1700,
+      "o": 2000,
+      "r": 5,
+      "rc": 0,
+      "sz": [
+        "S",
+        "M",
+        "L",
+        "XL",
+        "XXL"
+      ],
+      "out": [],
+      "tag": "",
+      "img": "uploads/products/p4b4356f4cc6a.jpeg",
+      "imgs": [
+        {
+          "src": "uploads/products/p4b4356f4cc6a.jpeg",
+          "label": ""
+        },
+        {
+          "src": "uploads/products/pfae5a0d35c2c.jpeg",
+          "label": ""
+        },
+        {
+          "src": "uploads/products/pbee77269f40d.jpeg",
+          "label": ""
+        },
+        {
+          "src": "uploads/products/p5984cb1805a7.jpeg",
+          "label": ""
+        },
+        {
+          "src": "uploads/products/p5ebefd0855d0.jpeg",
+          "label": ""
+        },
+        {
+          "src": "uploads/products/p059de341e3ab.jpeg",
+          "label": ""
+        }
+      ],
+      "stock": 20,
+      "d": "Ensemble pyjama en coton doux à motifs festifs, parfait pour les fêtes de fin d'année. Haut à manches longues et col rond, associé à un pantalon coordonné à taille élastiquée. Coupe confortable et décontractée, idéale pour se blottir sous le sapin."
+    }
+  ]
 }
