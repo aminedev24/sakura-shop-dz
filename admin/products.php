@@ -40,14 +40,30 @@ function delete_products(PDO $pdo, array $ids): int
     return count($ids);
 }
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && ($_POST['action'] ?? '') === 'delete') {
-    delete_products($pdo, [$_POST['id'] ?? 0]);
-    // Redirect rather than render the result of a POST, so a refresh does not
-    // offer to submit the deletion again. Create and update already do this.
-    header('Location: products.php?msg=deleted');
-    exit;
-} elseif ($_SERVER['REQUEST_METHOD'] === 'POST' && ($_POST['action'] ?? '') === 'delete_bulk') {
-    $n = delete_products($pdo, (array)($_POST['ids'] ?? []));
+/** The page is progressively enhanced: fetch asks for JSON and the rows are
+ *  removed in place, while a plain form submission still redirects. */
+function wants_json(): bool
+{
+    return str_contains($_SERVER['HTTP_ACCEPT'] ?? '', 'application/json');
+}
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST'
+    && in_array($_POST['action'] ?? '', ['delete', 'delete_bulk'], true)) {
+
+    $ids = ($_POST['action'] === 'delete_bulk')
+        ? (array)($_POST['ids'] ?? [])
+        : [$_POST['id'] ?? 0];
+
+    $n = delete_products($pdo, $ids);
+
+    if (wants_json()) {
+        header('Content-Type: application/json; charset=utf-8');
+        echo json_encode(['deleted' => $n, 'ids' => array_map('intval', $ids)]);
+        exit;
+    }
+
+    // Without JavaScript: redirect rather than render the result of a POST, so
+    // a refresh does not offer to submit the deletion again.
     header('Location: products.php?msg=deleted&n=' . $n);
     exit;
 } elseif (($_GET['msg'] ?? '') === 'deleted') {
@@ -115,7 +131,7 @@ require __DIR__ . '/includes/header.php';
             </a>
             <button type="submit" form="oneDelete" name="id" value="<?= (int)$p['id'] ?>"
                     class="rec-ic danger" title="Supprimer" aria-label="Supprimer"
-                    onclick="return confirm('Supprimer ce produit ?')">
+                    onclick="event.preventDefault(); if (confirm('Supprimer ce produit ?')) removeProducts([this.value]);">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 6h18"/><path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/></svg>
               </button>
           </div>
@@ -177,14 +193,64 @@ require __DIR__ . '/includes/header.php';
   });
 
   form.addEventListener('submit', function (e) {
-    var n = boxes().filter(function (b) { return b.checked; }).length;
-    if (!n) { e.preventDefault(); return; }
-    var msg = n > 1 ? 'Supprimer ces ' + n + ' produits ?' : 'Supprimer ce produit ?';
-    if (!confirm(msg)) e.preventDefault();
+    var picked = boxes().filter(function (b) { return b.checked; });
+    e.preventDefault();
+    if (!picked.length) return;
+    var msg = picked.length > 1
+      ? 'Supprimer ces ' + picked.length + ' produits ?'
+      : 'Supprimer ce produit ?';
+    if (!confirm(msg)) return;
+    removeProducts(picked.map(function (b) { return b.value; }));
   });
 
   document.addEventListener('bulk:resync', sync);
   sync();
+
+  // Delete in place. The server answers JSON when asked, so the rows can go
+  // without reloading and losing the search and the scroll position.
+  window.removeProducts = function (ids) {
+    var body = new URLSearchParams();
+    body.append('action', ids.length > 1 ? 'delete_bulk' : 'delete');
+    if (ids.length > 1) {
+      ids.forEach(function (id) { body.append('ids[]', id); });
+    } else {
+      body.append('id', ids[0]);
+    }
+
+    fetch('products.php', {
+      method: 'POST',
+      headers: { 'Accept': 'application/json', 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: body,
+      credentials: 'same-origin',
+    })
+      .then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); })
+      .then(function (d) {
+        d.ids.forEach(function (id) {
+          var cb = document.querySelector('.bulk-cb[value="' + id + '"]');
+          var rec = cb && cb.closest('.rec');
+          if (!rec) return;
+          rec.style.transition = 'opacity .2s';
+          rec.style.opacity = '0';
+          setTimeout(function () { rec.remove(); sync(); }, 200);
+        });
+        flash(d.deleted > 1 ? d.deleted + ' produits supprimés' : 'Produit supprimé');
+      })
+      .catch(function () { flash('La suppression a échoué', true); });
+  };
+
+  function flash(text, bad) {
+    var el = document.getElementById('flash');
+    if (!el) {
+      el = document.createElement('div');
+      el.id = 'flash';
+      document.querySelector('.card, main, body').prepend(el);
+    }
+    el.className = 'msg ' + (bad ? 'err' : 'ok');
+    el.textContent = text;
+    el.hidden = false;
+    clearTimeout(el._t);
+    el._t = setTimeout(function () { el.hidden = true; }, 3000);
+  }
 })();
 
 document.getElementById('prodSearch').addEventListener('input', function () {
