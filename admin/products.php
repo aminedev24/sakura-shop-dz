@@ -128,7 +128,9 @@ require __DIR__ . '/includes/header.php';
             <?php if ($p['image_path']): ?><img class="rec-thumb" src="../<?= h($p['image_path']) ?>" alt=""><?php endif; ?>
           </div>
         </div>
-        <div class="rec-ref">Réf <?= h(product_ref((int)$p['id'], $p['category'])) ?> · <?= h($CATEGORY_OPTIONS[$p['category']] ?? $p['category']) ?><?php if ($p['stock'] !== null): ?> · <?= (int)$p['stock'] ?> en stock<?php endif; ?></div>
+        <?php // the reference already encodes the category — COT is Coton — so the
+      // name is not repeated beside it ?>
+        <div class="rec-ref" title="<?= h($CATEGORY_OPTIONS[$p['category']] ?? $p['category']) ?>"><?= h(product_ref((int)$p['id'], $p['category'])) ?><?php if ($p['stock'] !== null): ?> · <?= (int)$p['stock'] ?> en stock<?php endif; ?></div>
         <div class="rec-meta">Tailles <?= h($p['sizes']) ?></div>
         <div class="rec-bottom">
           <div class="rec-actions">
