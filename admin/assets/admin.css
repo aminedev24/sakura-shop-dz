@@ -215,53 +215,6 @@ img.thumb, .thumb-sm, .rec-thumb {
   cursor: zoom-in;
 }
 
-.lightbox {
-  position: fixed;
-  inset: 0;
-  background: rgba(20,10,18,.82);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 200;
-  opacity: 0;
-  pointer-events: none;
-  transition: .15s;
-}
-
-.lightbox.on {
-  opacity: 1;
-  pointer-events: auto;
-}
-
-.lightbox img {
-  max-width: min(90vw,640px);
-  max-height: 88vh;
-  border-radius: var(--r-md);
-  box-shadow: var(--shadow-modal);
-}
-
-.lightbox-close {
-  position: absolute;
-  top: 18px;
-  right: 22px;
-  width: 38px;
-  height: 38px;
-  border-radius: 50%;
-  background: rgba(255,255,255,.15);
-  border: 0;
-  color: #fff;
-  font-size: 20px;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  line-height: 1;
-}
-
-.lightbox-close:hover {
-  background: rgba(255,255,255,.28);
-}
-
 .panel {
   background: var(--paper);
   border: 1px solid var(--line);
@@ -1108,4 +1061,115 @@ img.thumb, .thumb-sm, .rec-thumb {
   background: var(--accent);
   border-color: var(--accent);
   color: #fff;
+}
+
+/* Several photographs in a product row. They overlap into a stack so a gallery
+   costs little more width than a single cover. */
+.rec-corner .rec-thumb + .rec-thumb {
+  margin-inline-start: -14px;
+}
+
+.rec-corner .rec-thumb {
+  border: 2px solid var(--paper);
+  box-shadow: 0 1px 3px rgba(31, 20, 32, .12);
+}
+
+.rec-corner .more-count {
+  margin-inline-start: 4px;
+  padding: 2px 6px;
+  border-radius: 999px;
+  background: var(--surface);
+  color: var(--grey);
+  font-size: 10.5px;
+  font-weight: 700;
+}
+
+/* ---------- photograph viewer ---------- */
+.lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 24px;
+  background: rgba(31, 20, 32, .78);
+  backdrop-filter: blur(3px);
+  /* kept in the layout but inert until .on, so the fade has something to
+     animate from */
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .15s;
+}
+
+.lightbox.on {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.lb-figure {
+  margin: 0;
+  max-width: min(760px, 90vw);
+  max-height: 86vh;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: center;
+}
+
+.lb-figure img {
+  max-width: 100%;
+  max-height: 76vh;
+  border-radius: var(--r-md);
+  background: var(--paper);
+  object-fit: contain;
+}
+
+.lb-figure figcaption {
+  color: #fff;
+  font-size: 12.5px;
+  text-align: center;
+  opacity: .9;
+}
+
+.lb-nav,
+.lb-close {
+  flex: none;
+  width: 42px;
+  height: 42px;
+  border: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, .14);
+  color: #fff;
+  font-size: 24px;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.lb-nav:hover,
+.lb-close:hover {
+  background: rgba(255, 255, 255, .28);
+}
+
+.lb-close {
+  position: absolute;
+  top: 18px;
+  inset-inline-end: 18px;
+  font-size: 22px;
+}
+
+.rec-corner [data-index] {
+  cursor: zoom-in;
+}
+
+.rec-corner button.more-count {
+  border: 0;
+  cursor: zoom-in;
+  font-family: inherit;
+}
+
+@media(max-width:620px) {
+  .lightbox { padding: 12px; gap: 4px; }
+  .lb-nav, .lb-close { width: 36px; height: 36px; font-size: 20px; }
 }

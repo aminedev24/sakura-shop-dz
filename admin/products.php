@@ -83,6 +83,22 @@ $stmt->bindValue(2, $pg['offset'], PDO::PARAM_INT);
 $stmt->execute();
 $products = $stmt->fetchAll();
 
+// Gallery photographs for the products on this page, in one query rather than
+// one per row, so the list shows what a product actually carries.
+$galleries = [];
+if ($products) {
+    $ids = array_column($products, 'id');
+    $in = implode(',', array_fill(0, count($ids), '?'));
+    $gq = $pdo->prepare(
+        "SELECT product_id, image_path, label FROM product_images
+         WHERE product_id IN ($in) ORDER BY product_id, sort_order, id"
+    );
+    $gq->execute($ids);
+    foreach ($gq->fetchAll() as $g) {
+        $galleries[(int)$g['product_id']][] = $g;
+    }
+}
+
 $pageTitle = 'Produits';
 $activePage = 'products';
 require __DIR__ . '/includes/header.php';
@@ -124,8 +140,23 @@ require __DIR__ . '/includes/header.php';
             <?php if ($p['tag']): ?><span class="badge tag-<?= h($p['tag']) ?>"><?= h($TAG_OPTIONS[$p['tag']] ?? $p['tag']) ?></span><?php endif; ?>
             <?php if (!$p['active']): ?><span class="badge cancelled">masqué</span><?php endif; ?>
           </div>
-          <div class="rec-corner">
-            <?php if ($p['image_path']): ?><img class="rec-thumb" src="../<?= h($p['image_path']) ?>" alt=""><?php endif; ?>
+          <?php
+            $shots = [];
+            if ($p['image_path']) $shots[] = ['image_path' => $p['image_path'], 'label' => $p['cover_label']];
+            foreach ($galleries[(int)$p['id']] ?? [] as $g) $shots[] = $g;
+            $extra = max(0, count($shots) - 3);
+          ?>
+          <div class="rec-corner" title="<?= count($shots) ?> photo(s)"
+               data-shots="<?= h(json_encode(array_map(fn($x) => [
+                   'src' => '../' . $x['image_path'],
+                   'label' => $x['label'] ?: '',
+               ], $shots), JSON_UNESCAPED_UNICODE)) ?>"
+               data-name="<?= h($p['name']) ?>">
+            <?php foreach (array_slice($shots, 0, 3) as $i => $sh): ?>
+              <img class="rec-thumb" src="../<?= h($sh['image_path']) ?>" alt=""
+                   data-index="<?= $i ?>" title="<?= h($sh['label'] ?: 'Agrandir') ?>">
+            <?php endforeach; ?>
+            <?php if ($extra): ?><button type="button" class="more-count" data-index="3">+<?= $extra ?></button><?php endif; ?>
           </div>
         </div>
         <?php // the reference already encodes the category — COT is Coton — so the
