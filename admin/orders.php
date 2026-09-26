@@ -225,6 +225,15 @@ require __DIR__ . '/includes/header.php';
         <?php endforeach; ?>
       </div>
 
+    <?php endforeach; ?>
+  </div>
+  </form>
+
+  <?php // These live outside the selection form. A nested <form> start tag is
+        // discarded by the HTML parser, which drops the element carrying
+        // hidden and leaves its fields on screen — the edit form used to open
+        // by itself, filled in, for the last order rendered. ?>
+  <?php foreach ($orders as $o): ?>
       <form method="post" class="order-edit" id="edit-<?= (int)$o['id'] ?>" hidden>
         <input type="hidden" name="action" value="update_order">
         <input type="hidden" name="id" value="<?= (int)$o['id'] ?>">
@@ -260,18 +269,15 @@ require __DIR__ . '/includes/header.php';
         </p>
         <button type="submit" class="oe-save">Enregistrer</button>
       </form>
-    <?php endforeach; ?>
-  </div>
-  </form>
+  <?php endforeach; ?>
 
-  <?php // status forms live outside the selection form: nesting forms is
-        // invalid, so each select reaches its own through form="st-N" ?>
   <?php foreach ($orders as $o): ?>
     <form method="post" id="st-<?= (int)$o['id'] ?>" hidden>
       <input type="hidden" name="action" value="update_status">
       <input type="hidden" name="id" value="<?= (int)$o['id'] ?>">
     </form>
   <?php endforeach; ?>
+  <?php /* end status forms */ ?>
 
   <?php pager($pg, 'commandes'); ?>
 <?php endif; ?>
