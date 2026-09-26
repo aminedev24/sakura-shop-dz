@@ -7,9 +7,9 @@
     "build:css": "tailwindcss -i ./styles/tailwind.css -o ./assets/tailwind.css --minify",
     "watch:css": "tailwindcss -i ./styles/tailwind.css -o ./assets/tailwind.css --watch",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "npm --prefix web run dev",
-    "build": "npm --prefix web run build",
-    "preview": "npm --prefix web run preview",
+    "dev": "pnpm --filter sakura-shop-web dev",
+    "build": "pnpm --filter sakura-shop-web build",
+    "preview": "pnpm --filter sakura-shop-web preview",
     "php": "php -S localhost:8000 -t .",
     "preview:html": "python3 scripts/build-preview.py"
   },

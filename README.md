@@ -51,5 +51,8 @@ both exist and only `web/` is maintained.
 
 ## Package managers
 
-pnpm at the root, for the original site's Tailwind. npm inside `web/`, for
-Next — pnpm's layout does not satisfy Next's own module resolution here.
+pnpm throughout, as one workspace: the root for the original site's Tailwind,
+`web` for Next. `pnpm-workspace.yaml` sets `nodeLinker: hoisted`, because Next
+resolves some of its own internals through a flat `node_modules`; the tree is
+still hardlinked to the shared store, so `web/node_modules` costs almost
+nothing on disk.

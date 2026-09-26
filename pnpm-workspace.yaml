@@ -1,2 +1,11 @@
+packages:
+  - web
+
+# Next resolves some of its own internals through a flat node_modules, which
+# pnpm's default symlink layout does not provide. The hoisted linker gives a
+# flat tree that is still hardlinked to the store, so the disk saving over npm
+# is kept.
+nodeLinker: hoisted
+
 allowBuilds:
   '@parcel/watcher': true
