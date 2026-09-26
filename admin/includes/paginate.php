@@ -7,7 +7,7 @@
  * on a phone. One helper so the three pages behave identically.
  */
 
-const ADMIN_PER_PAGE = 20;
+const ADMIN_PER_PAGE = 10;
 
 /**
  * @return array{page:int, perPage:int, offset:int, total:int, pages:int}
