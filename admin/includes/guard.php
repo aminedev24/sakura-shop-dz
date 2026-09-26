@@ -18,3 +18,10 @@ function fmt_da_admin($n): string
 {
     return number_format((float)$n, 0, ',', ' ') . ' DA';
 }
+
+/** Human-readable product reference — COT-0007. Mirrors web/lib/ref.ts. */
+function product_ref(int $id, string $category): string
+{
+    $prefix = ['coton' => 'COT', 'satin' => 'SAT', 'boutonne' => 'BTN'][$category] ?? 'SKR';
+    return $prefix . '-' . str_pad((string)$id, 4, '0', STR_PAD_LEFT);
+}

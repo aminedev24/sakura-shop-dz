@@ -9,21 +9,31 @@ $messageType = 'ok';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && ($_POST['action'] ?? '') === 'delete') {
     $id = (int)($_POST['id'] ?? 0);
+
+    // Collect every file first. product_images cascades on delete, so reading
+    // it afterwards returns nothing and the gallery files are orphaned on disk.
+    $files = [];
     $stmt = $pdo->prepare('SELECT image_path FROM products WHERE id = ?');
     $stmt->execute([$id]);
-    $row = $stmt->fetch();
-    $pdo->prepare('DELETE FROM products WHERE id = ?')->execute([$id]);
-    // the product_images rows cascade, but their files do not
+    if ($row = $stmt->fetch()) {
+        if ($row['image_path']) $files[] = $row['image_path'];
+    }
     $gs = $pdo->prepare('SELECT image_path FROM product_images WHERE product_id = ?');
-    $gs->execute([(int)$_POST['id']]);
-    foreach ($gs->fetchAll() as $g) {
-        $f = __DIR__ . '/../' . $g['image_path'];
+    $gs->execute([$id]);
+    foreach ($gs->fetchAll() as $g) $files[] = $g['image_path'];
+
+    $pdo->prepare('DELETE FROM products WHERE id = ?')->execute([$id]);
+
+    foreach ($files as $rel) {
+        $f = __DIR__ . '/../' . $rel;
         if (is_file($f)) @unlink($f);
     }
 
-    if ($row && $row['image_path'] && is_file(__DIR__ . '/../' . $row['image_path'])) {
-        @unlink(__DIR__ . '/../' . $row['image_path']);
-    }
+    // Redirect rather than render the result of a POST, so a refresh does not
+    // offer to submit the deletion again. Create and update already do this.
+    header('Location: products.php?msg=deleted');
+    exit;
+} elseif (($_GET['msg'] ?? '') === 'deleted') {
     $message = 'Produit supprimé';
 } elseif (($_GET['msg'] ?? '') === 'created') {
     $message = 'Produit créé';
@@ -62,7 +72,7 @@ require __DIR__ . '/includes/header.php';
             <?php if ($p['image_path']): ?><img class="rec-thumb" src="../<?= h($p['image_path']) ?>" alt=""><?php endif; ?>
           </div>
         </div>
-        <div class="rec-ref">Réf #<?= (int)$p['id'] ?> · <?= h($CATEGORY_OPTIONS[$p['category']] ?? $p['category']) ?></div>
+        <div class="rec-ref">Réf <?= h(product_ref((int)$p['id'], $p['category'])) ?> · <?= h($CATEGORY_OPTIONS[$p['category']] ?? $p['category']) ?><?php if ($p['stock'] !== null): ?> · <?= (int)$p['stock'] ?> en stock<?php endif; ?></div>
         <div class="rec-meta">Tailles <?= h($p['sizes']) ?></div>
         <div class="rec-bottom">
           <div class="rec-actions">

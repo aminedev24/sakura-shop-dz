@@ -543,3 +543,47 @@
     display: none;
   }
 }
+
+/* ---------- password reveal ---------- */
+.passwrap {
+  position: relative;
+  display: block;
+}
+
+.passwrap input {
+  width: 100%;
+  /* room for the toggle, on whichever side the writing direction puts it */
+  padding-inline-end: 42px;
+}
+
+.passtoggle {
+  position: absolute;
+  inset-inline-end: 6px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 32px;
+  height: 32px;
+  display: grid;
+  place-items: center;
+  border: 0;
+  border-radius: 50%;
+  background: none;
+  color: var(--muted);
+  cursor: pointer;
+  transition: .18s;
+}
+
+.passtoggle svg {
+  width: 18px;
+  height: 18px;
+}
+
+.passtoggle:hover {
+  background: var(--accent-soft);
+  color: var(--accent);
+}
+
+.passtoggle:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}

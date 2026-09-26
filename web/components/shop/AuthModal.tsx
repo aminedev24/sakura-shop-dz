@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { User } from '@/lib/useAuth';
 import { useShop } from '@/lib/shop-context';
 import { useLang } from '@/lib/i18n';
+import PasswordField from './PasswordField';
 
 export default function AuthModal({
   open,
@@ -69,7 +70,7 @@ export default function AuthModal({
                 <div className="fl full"><label htmlFor="loEmail">{t.email}</label>
                   <input id="loEmail" type="email" placeholder="vous@exemple.com" autoComplete="email" value={f.loEmail} onChange={set('loEmail')} /></div>
                 <div className="fl full"><label htmlFor="loPass">{t.password}</label>
-                  <input id="loPass" type="password" placeholder="••••••••" autoComplete="current-password" value={f.loPass} onChange={set('loPass')} /></div>
+                  <PasswordField id="loPass" placeholder="••••••••" autoComplete="current-password" value={f.loPass} onChange={set('loPass')} /></div>
               </div>
             ) : (
               <div className="frm">
@@ -80,7 +81,7 @@ export default function AuthModal({
                 <div className="fl full"><label htmlFor="rePhone">{t.phone}</label>
                   <input id="rePhone" type="tel" placeholder="0X XX XX XX XX" autoComplete="tel" value={f.rePhone} onChange={set('rePhone')} /></div>
                 <div className="fl full"><label htmlFor="rePass">{t.password}</label>
-                  <input id="rePass" type="password" placeholder={t.passPh} autoComplete="new-password" value={f.rePass} onChange={set('rePass')} /></div>
+                  <PasswordField id="rePass" placeholder={t.passPh} autoComplete="new-password" value={f.rePass} onChange={set('rePass')} /></div>
               </div>
             )}
 

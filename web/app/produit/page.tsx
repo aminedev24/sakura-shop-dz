@@ -11,6 +11,7 @@ import { useShop } from '@/lib/shop-context';
 import { useWishlist } from '@/lib/useWishlist';
 import { useLang, useMoney } from '@/lib/i18n';
 import { asset } from '@/lib/asset';
+import { productRef } from '@/lib/ref';
 
 /** The catalogue is fetched at runtime from api/products.php, so a product
  *  added in the admin appears in the grid straight away. Static per-product
@@ -207,7 +208,7 @@ function Details() {
             <li><IPin /> <span><b>{t.f3b}</b>{t.f3s}</span></li>
           </ul>
 
-          <p className="pd-ref">{t.pdRef} #{product.id}</p>
+          <p className="pd-ref">{t.pdRef} {productRef(product)}</p>
         </div>
       </div>
 
