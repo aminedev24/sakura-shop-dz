@@ -1,5 +1,6 @@
 <?php
 require __DIR__ . '/includes/guard.php';
+require __DIR__ . '/includes/paginate.php';
 
 $CATEGORY_OPTIONS = ['coton' => 'Coton', 'satin' => 'Satin', 'boutonne' => 'Boutonnés'];
 $TAG_OPTIONS = ['' => 'Aucun', 'new' => 'Nouveau', 'off' => 'Promo', 'low' => 'Stock limité'];
@@ -75,7 +76,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'
     $message = 'Produit mis à jour';
 }
 
-$products = $pdo->query('SELECT * FROM products ORDER BY id DESC')->fetchAll();
+$pg = paginate($pdo, 'SELECT COUNT(*) FROM products');
+$stmt = $pdo->prepare('SELECT * FROM products ORDER BY id DESC LIMIT ? OFFSET ?');
+$stmt->bindValue(1, $pg['perPage'], PDO::PARAM_INT);
+$stmt->bindValue(2, $pg['offset'], PDO::PARAM_INT);
+$stmt->execute();
+$products = $stmt->fetchAll();
 
 $pageTitle = 'Produits';
 $activePage = 'products';
@@ -141,6 +147,8 @@ require __DIR__ . '/includes/header.php';
     <?php endforeach; ?>
   </div>
   </form>
+
+  <?php pager($pg, 'produits'); ?>
 
   <!-- kept outside #bulkForm: nested forms are invalid, so the per-row delete
        buttons reference this one with form="oneDelete" -->

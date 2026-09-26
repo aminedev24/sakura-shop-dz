@@ -1,7 +1,10 @@
 <?php
 require __DIR__ . '/includes/guard.php';
+require __DIR__ . '/includes/paginate.php';
 
-$customers = $pdo->query(
+$pg = paginate($pdo, "SELECT COUNT(*) FROM users WHERE role = 'customer'");
+
+$customersStmt = $pdo->prepare(
     "SELECT u.id, u.name, u.email, u.phone, u.created_at,
             COUNT(o.id) AS order_count,
             COALESCE(SUM(o.total), 0) AS total_spent
@@ -9,8 +12,13 @@ $customers = $pdo->query(
      LEFT JOIN orders o ON o.user_id = u.id
      WHERE u.role = 'customer'
      GROUP BY u.id
-     ORDER BY u.created_at DESC"
-)->fetchAll();
+     ORDER BY u.created_at DESC
+     LIMIT :lim OFFSET :off"
+);
+$customersStmt->bindValue(':lim', $pg['perPage'], PDO::PARAM_INT);
+$customersStmt->bindValue(':off', $pg['offset'], PDO::PARAM_INT);
+$customersStmt->execute();
+$customers = $customersStmt->fetchAll();
 
 $pageTitle = 'Clients';
 $activePage = 'customers';
@@ -40,5 +48,6 @@ require __DIR__ . '/includes/header.php';
       </div>
     <?php endforeach; ?>
   </div>
+  <?php pager($pg, 'clients'); ?>
 <?php endif; ?>
 <?php require __DIR__ . '/includes/footer.php'; ?>
