@@ -371,14 +371,33 @@ document.querySelectorAll('[data-del-order]').forEach(function (btn) {
   });
 });
 
-document.querySelectorAll('.toggle').forEach(function (btn) {
-  btn.addEventListener('click', function () {
-    var row = document.getElementById(btn.dataset.target);
-    var willOpen = row.hasAttribute('hidden');
-    if (willOpen) row.removeAttribute('hidden'); else row.setAttribute('hidden', '');
-    btn.setAttribute('aria-expanded', String(willOpen));
-    btn.classList.toggle('on', willOpen);
+// Only one panel at a time. Opening the details or the edit form of a second
+// order used to leave the first one open, so several stacked up on the page.
+(function () {
+  var toggles = Array.prototype.slice.call(document.querySelectorAll('.toggle'));
+
+  function close(btn) {
+    var panel = document.getElementById(btn.dataset.target);
+    if (panel) panel.setAttribute('hidden', '');
+    btn.setAttribute('aria-expanded', 'false');
+    btn.classList.remove('on');
+  }
+
+  toggles.forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var panel = document.getElementById(btn.dataset.target);
+      if (!panel) return;
+      var willOpen = panel.hasAttribute('hidden');
+
+      toggles.forEach(function (other) { if (other !== btn) close(other); });
+
+      if (willOpen) panel.removeAttribute('hidden'); else panel.setAttribute('hidden', '');
+      btn.setAttribute('aria-expanded', String(willOpen));
+      btn.classList.toggle('on', willOpen);
+
+      if (willOpen) panel.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+    });
   });
-});
+})();
 </script>
 <?php require __DIR__ . '/includes/footer.php'; ?>
