@@ -61,6 +61,7 @@ if ($method === 'POST') {
     foreach ($items as $it) {
         $productId = (int)($it['id'] ?? 0);
         $size = trim((string)($it['size'] ?? ''));
+        $chosenImg = trim((string)($it['img'] ?? ''));
         $qty = max(1, min(20, (int)($it['qty'] ?? 0)));
 
         $stmt->execute([$productId]);
@@ -69,6 +70,15 @@ if ($method === 'POST') {
 
         $availableSizes = $p['sizes'] !== '' ? explode(',', $p['sizes']) : [];
         $outSizes = $p['out_of_stock_sizes'] !== '' ? explode(',', $p['out_of_stock_sizes']) : [];
+        // Which photograph the customer picked is part of what they ordered, so
+        // it is stored on the line. Never trust the browser's path: accept it
+        // only if it is the cover or one of this product's gallery images.
+        $ownImages = [$p['image_path']];
+        $gi = $pdo->prepare('SELECT image_path FROM product_images WHERE product_id = ?');
+        $gi->execute([$p['id']]);
+        foreach ($gi->fetchAll() as $g) $ownImages[] = $g['image_path'];
+        $lineImage = in_array($chosenImg, $ownImages, true) ? $chosenImg : $p['image_path'];
+
         if (!in_array($size, $availableSizes, true) || in_array($size, $outSizes, true)) {
             respond(['error' => 'Taille indisponible pour "' . $p['name'] . '"'], 409);
         }
@@ -78,15 +88,20 @@ if ($method === 'POST') {
         $lines[] = [
             'product_id' => $productId,
             'product_name' => $p['name'],
-            'image_path' => $p['image_path'],
+            'image_path' => $lineImage,
             'size' => $size,
             'qty' => $qty,
             'unit_price' => (int)$p['price'],
         ];
     }
 
-    $feeIndex = $deliveryType === 'domicile' ? 2 : 1;
-    $fee = $subtotal >= FREE_SHIPPING_THRESHOLD ? 0 : (int)$wilaya[$feeIndex];
+    // the carrier does not serve every wilaya by every method, and a null rate
+    // must be refused rather than cast to a free delivery
+    $rate = $deliveryType === 'domicile' ? $wilaya[2] : $wilaya[1];
+    if ($rate === null) {
+        respond(['error' => 'Livraison indisponible pour cette wilaya avec ce mode'], 400);
+    }
+    $fee = $subtotal >= FREE_SHIPPING_THRESHOLD ? 0 : (int)$rate;
     $total = $subtotal + $fee;
 
     try {

@@ -56,7 +56,7 @@ export default function CartPanel({ open, onClose }: { open: boolean; onClose: (
           daira_name: daira,
           delivery_type: home ? 'domicile' : 'bureau',
           delivery_address: home ? addr.trim() : '',
-          items: lines.map((o) => ({ id: o.id, size: o.size, qty: o.qty })),
+          items: lines.map((o) => ({ id: o.id, size: o.size, img: o.img ?? '', qty: o.qty })),
         }),
       });
       const data = await r.json();
@@ -103,8 +103,8 @@ export default function CartPanel({ open, onClose }: { open: boolean; onClose: (
               const p = byId(o.id);
               if (!p) return null;
               return (
-                <li className="bp-row" key={`${o.id}-${o.size}`}>
-                  <img src={asset(p.img)} alt={p.n}
+                <li className="bp-row" key={`${o.id}-${o.size}-${o.img ?? ''}`}>
+                  <img src={asset(o.img || p.img)} alt={p.n}
                        style={{ width: 46, height: 46, borderRadius: 'var(--r-sm)', objectFit: 'cover', flex: 'none' }} />
                   <div style={{ flex: 1, minWidth: 0 }}>
                     <div className="bp-name">{p.n}</div>

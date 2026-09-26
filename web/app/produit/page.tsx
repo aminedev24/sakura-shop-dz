@@ -65,6 +65,7 @@ function Details() {
   // an untracked product has no ceiling beyond a sane cap
   const max = product.stock === null ? 20 : Math.min(20, product.stock);
   const soldOut = product.stock === 0;
+  const shown = product.imgs[shot] ?? product.img;
 
   return (
     <PageShell title={product.n}>
@@ -72,7 +73,7 @@ function Details() {
       <div className="pd-main">
         <div className="pd-media">
           <div className="pd-photo">
-            <img src={asset(product.imgs[shot] ?? product.img)} alt={product.n} />
+            <img src={asset(shown)} alt={product.n} />
             {off > 0 && <span className="pcard-off">-{off}%</span>}
             <button
               type="button"
@@ -182,7 +183,8 @@ function Details() {
               disabled={soldOut}
               onClick={() => {
                 if (!size) { showToast(t.tSizeT, t.tSizeS); return; }
-                add(product.id, size, qty);
+                // the photograph on screen is the one being ordered
+                add(product.id, size, qty, shown);
                 showToast(t.tAddT, `${product.n} — ${t.size} ${size} × ${qty}`);
               }}
             >

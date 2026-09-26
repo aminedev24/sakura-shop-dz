@@ -6,7 +6,15 @@ import { Product, useProducts } from './products';
 export { SHOP } from './shop';
 export const FREE_SHIPPING_FROM = 12000;
 
-export type Line = { id: number; size: string; qty: number };
+/** A cart line.
+ *
+ *  `img` is the photograph the customer was looking at when they added it. A
+ *  product can carry several, and which one they picked is part of what they
+ *  ordered, so it is part of the line's identity: the same model chosen from
+ *  two different photographs is two lines, not one with a doubled quantity.
+ *  Empty for bags saved before galleries existed, which then fall back to the
+ *  product's cover. */
+export type Line = { id: number; size: string; img: string; qty: number };
 export type ToastMsg = { title: string; sub: string } | null;
 
 type Shop = {
@@ -16,9 +24,9 @@ type Shop = {
   loading: boolean;
   failed: boolean;
   lines: Line[];
-  add: (id: number, size: string, qty: number) => void;
+  add: (id: number, size: string, qty: number, img?: string) => void;
   remove: (i: number) => void;
-  update: (i: number, size: string, qty: number) => void;
+  update: (i: number, size: string, qty: number, img?: string) => void;
   clear: () => void;
   count: number;
   subtotal: number;
@@ -39,9 +47,12 @@ const Ctx = createContext<Shop | null>(null);
 
 const KEY = 'sakura_bag';
 function readBag(): Line[] {
+  // bags saved before galleries existed have no img field
   try {
     const v = JSON.parse(localStorage.getItem(KEY) || '[]');
-    return Array.isArray(v) ? v.filter((o) => o && o.id && o.size && o.qty) : [];
+    return Array.isArray(v)
+      ? v.filter((o) => o && o.id && o.size && o.qty).map((o) => ({ ...o, img: o.img ?? '' }))
+      : [];
   } catch {
     return [];
   }
@@ -75,12 +86,12 @@ export function ShopProvider({ children }: { children: React.ReactNode }) {
     return next;
   }, []);
 
-  const add = useCallback((id: number, size: string, qty: number) => {
+  const add = useCallback((id: number, size: string, qty: number, img = '') => {
     setLines((prev) => {
-      const i = prev.findIndex((o) => o.id === id && o.size === size);
+      const i = prev.findIndex((o) => o.id === id && o.size === size && (o.img ?? '') === img);
       const next = i >= 0
         ? prev.map((o, k) => (k === i ? { ...o, qty: o.qty + qty } : o))
-        : [...prev, { id, size, qty }];
+        : [...prev, { id, size, img, qty }];
       return persist(next);
     });
   }, [persist]);
@@ -89,8 +100,9 @@ export function ShopProvider({ children }: { children: React.ReactNode }) {
     setLines((prev) => persist(prev.filter((_, k) => k !== i)));
   }, [persist]);
 
-  const update = useCallback((i: number, size: string, qty: number) => {
-    setLines((prev) => persist(prev.map((o, k) => (k === i ? { ...o, size, qty } : o))));
+  const update = useCallback((i: number, size: string, qty: number, img?: string) => {
+    setLines((prev) => persist(prev.map((o, k) =>
+      (k === i ? { ...o, size, qty, img: img ?? o.img ?? '' } : o))));
   }, [persist]);
 
   const clear = useCallback(() => setLines(() => persist([])), [persist]);
