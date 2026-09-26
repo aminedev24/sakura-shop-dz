@@ -398,7 +398,7 @@
 /* the details column is taller than the photograph, so the photograph follows
    rather than leaving a column of dead space beside it */
 @media(min-width:901px) {
-  .pd-photo {
+  .pd-media {
     position: sticky;
     top: 96px;
   }
@@ -491,3 +491,62 @@
   font-weight: 600;
   color: var(--ink);
 }
+
+/* ---- gallery thumbnails ---- */
+.pd-thumbs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.pd-thumb {
+  width: 68px;
+  height: 84px;
+  padding: 0;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  overflow: hidden;
+  background: var(--surface);
+  cursor: pointer;
+  transition: border-color .18s;
+}
+
+.pd-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.pd-thumb:hover {
+  border-color: #F2C9DA;
+}
+
+.pd-thumb.on {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 2px var(--accent-soft);
+}
+
+/* ---- stock line ---- */
+.pd-stock {
+  margin: 0;
+  font-size: 12.5px;
+  font-weight: 600;
+  color: #2E7D5B;
+}
+
+.pd-stock.low {
+  color: #B26B00;
+}
+
+.pd-stock.out {
+  color: var(--accent-dk);
+}
+
+.pd-add:disabled {
+  opacity: .5;
+  cursor: not-allowed;
+}
+
+

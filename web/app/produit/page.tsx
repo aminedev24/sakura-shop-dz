@@ -28,9 +28,10 @@ function Details() {
   const [size, setSize] = useState('');
   const [qty, setQty] = useState(1);
   const [guide, setGuide] = useState(false);
+  const [shot, setShot] = useState(0);
 
   // a different product means the chosen size no longer applies
-  useEffect(() => { setSize(''); setQty(1); }, [id]);
+  useEffect(() => { setSize(''); setQty(1); setShot(0); }, [id]);
 
   const related = useMemo(
     () => products.filter((p) => p.c === product?.c && p.id !== id).slice(0, 4),
@@ -61,24 +62,45 @@ function Details() {
     ? Math.round((1 - product.p / product.o) * 100)
     : 0;
   const faved = wish.ids.includes(product.id);
+  // an untracked product has no ceiling beyond a sane cap
+  const max = product.stock === null ? 20 : Math.min(20, product.stock);
+  const soldOut = product.stock === 0;
 
   return (
     <PageShell title={product.n}>
     <div className="pd">
       <div className="pd-main">
-        <div className="pd-photo">
-          <img src={asset(product.img)} alt={product.n} />
-          {off > 0 && <span className="pcard-off">-{off}%</span>}
-          <button
-            type="button"
-            className={faved ? 'pd-fav on' : 'pd-fav'}
-            aria-pressed={faved}
-            aria-label={t.favourites}
-            onClick={() => wish.toggle(product.id)}
-          >
-            <IHeart />
-          </button>
-        </div>
+        <div className="pd-media">
+          <div className="pd-photo">
+            <img src={asset(product.imgs[shot] ?? product.img)} alt={product.n} />
+            {off > 0 && <span className="pcard-off">-{off}%</span>}
+            <button
+              type="button"
+              className={faved ? 'pd-fav on' : 'pd-fav'}
+              aria-pressed={faved}
+              aria-label={t.favourites}
+              onClick={() => wish.toggle(product.id)}
+            >
+              <IHeart />
+            </button>
+          </div>
+
+          {product.imgs.length > 1 && (
+            <div className="pd-thumbs" role="group" aria-label={t.pdPhotos}>
+              {product.imgs.map((src, i) => (
+                <button
+                  key={src}
+                  type="button"
+                  className={i === shot ? 'pd-thumb on' : 'pd-thumb'}
+                  aria-current={i === shot}
+                  onClick={() => setShot(i)}
+                >
+                  <img src={asset(src)} alt="" loading="lazy" />
+                </button>
+              ))}
+            </div>
+          )}
+          </div>
 
         <div className="pd-info">
           <span className="pd-cat">{product.m}</span>
@@ -138,22 +160,33 @@ function Details() {
             )}
           </div>
 
+          {product.stock !== null && (
+            <p className={product.stock === 0 ? 'pd-stock out' : product.stock <= 5 ? 'pd-stock low' : 'pd-stock'}>
+              {product.stock === 0
+                ? t.pdOut
+                : product.stock <= 5
+                  ? t.pdLeft.replace('{x}', String(product.stock))
+                  : t.pdInStock}
+            </p>
+          )}
+
           <div className="pd-buy">
             <div className="qty" role="group" aria-label={t.pdQty}>
               <button type="button" onClick={() => setQty((q) => Math.max(1, q - 1))} aria-label="-">−</button>
               <span>{qty}</span>
-              <button type="button" onClick={() => setQty((q) => Math.min(20, q + 1))} aria-label="+">+</button>
+              <button type="button" onClick={() => setQty((q) => Math.min(max, q + 1))} aria-label="+">+</button>
             </div>
             <button
               type="button"
               className="btn2 pd-add"
+              disabled={soldOut}
               onClick={() => {
                 if (!size) { showToast(t.tSizeT, t.tSizeS); return; }
                 add(product.id, size, qty);
                 showToast(t.tAddT, `${product.n} — ${t.size} ${size} × ${qty}`);
               }}
             >
-              {t.addToCart}
+              {soldOut ? t.pdOut : t.addToCart}
             </button>
           </div>
 

@@ -13,6 +13,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && ($_POST['action'] ?? '') === 'delet
     $stmt->execute([$id]);
     $row = $stmt->fetch();
     $pdo->prepare('DELETE FROM products WHERE id = ?')->execute([$id]);
+    // the product_images rows cascade, but their files do not
+    $gs = $pdo->prepare('SELECT image_path FROM product_images WHERE product_id = ?');
+    $gs->execute([(int)$_POST['id']]);
+    foreach ($gs->fetchAll() as $g) {
+        $f = __DIR__ . '/../' . $g['image_path'];
+        if (is_file($f)) @unlink($f);
+    }
+
     if ($row && $row['image_path'] && is_file(__DIR__ . '/../' . $row['image_path'])) {
         @unlink(__DIR__ . '/../' . $row['image_path']);
     }

@@ -26,11 +26,22 @@ CREATE TABLE products (
   review_count        INT NOT NULL DEFAULT 0,
   sizes               VARCHAR(100) NOT NULL DEFAULT 'S,M,L,XL',
   out_of_stock_sizes  VARCHAR(100) NOT NULL DEFAULT '',
+  stock               INT DEFAULT NULL COMMENT 'NULL = not tracked',
   tag                 ENUM('','new','off','low') NOT NULL DEFAULT '',
   image_path          VARCHAR(255) DEFAULT NULL,
   active              TINYINT(1) NOT NULL DEFAULT 1,
   created_at          DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
   updated_at          DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+) ENGINE=InnoDB;
+
+-- Extra photographs beyond products.image_path, which stays the cover.
+CREATE TABLE product_images (
+  id          INT AUTO_INCREMENT PRIMARY KEY,
+  product_id  INT NOT NULL,
+  image_path  VARCHAR(255) NOT NULL,
+  sort_order  INT NOT NULL DEFAULT 0,
+  created_at  DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (product_id) REFERENCES products(id) ON DELETE CASCADE
 ) ENGINE=InnoDB;
 
 CREATE TABLE orders (
@@ -67,3 +78,4 @@ CREATE INDEX idx_orders_user ON orders(user_id);
 CREATE INDEX idx_orders_status ON orders(status);
 CREATE INDEX idx_order_items_order ON order_items(order_id);
 CREATE INDEX idx_products_active ON products(active);
+CREATE INDEX idx_product_images_product ON product_images(product_id, sort_order);
