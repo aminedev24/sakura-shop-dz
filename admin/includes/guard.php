@@ -25,3 +25,14 @@ function product_ref(int $id, string $category): string
     $prefix = ['coton' => 'COT', 'satin' => 'SAT', 'boutonne' => 'BTN'][$category] ?? 'SKR';
     return $prefix . '-' . str_pad((string)$id, 4, '0', STR_PAD_LEFT);
 }
+
+/** 2026-09-24 16:49:02 becomes 24 sept. 16:49 — the seconds and the year are
+ *  noise in a list, and the full stamp stays in the title attribute. */
+function fmt_when(string $ts): string
+{
+    $t = strtotime($ts);
+    if (!$t) return $ts;
+    $months = ['janv.', 'févr.', 'mars', 'avr.', 'mai', 'juin',
+               'juil.', 'août', 'sept.', 'oct.', 'nov.', 'déc.'];
+    return date('j', $t) . ' ' . $months[(int)date('n', $t) - 1] . ' ' . date('H:i', $t);
+}

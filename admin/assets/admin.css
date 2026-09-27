@@ -203,6 +203,88 @@ tbody tr:hover {
   background: var(--surface);
 }
 
+.overflow-x-auto {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Every cell already carries a data-label, so on a narrow screen a row can be
+   read as a stacked card — six columns of "Commandes récentes" do not fit on a
+   telephone, and scrolling sideways hides the customer behind the header. */
+@media(max-width:620px) {
+  .overflow-x-auto {
+    overflow-x: visible;
+  }
+
+  .panel table,
+  .panel tbody,
+  .panel tr,
+  .panel td {
+    display: block;
+    width: 100%;
+  }
+
+  .panel table {
+    border: 0;
+    background: none;
+  }
+
+  .panel thead {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+
+  .panel tbody tr {
+    border: 1px solid var(--line);
+    border-radius: var(--r-md);
+    background: var(--paper);
+    padding: 4px 0;
+    margin-bottom: 10px;
+  }
+
+  .panel tbody tr:last-child {
+    margin-bottom: 0;
+  }
+
+  .panel tbody tr:hover {
+    background: var(--paper);
+  }
+
+  .panel td {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 14px;
+    border-top: 0;
+    padding: 6px 14px;
+    text-align: right;
+  }
+
+  .panel td::before {
+    content: attr(data-label);
+    flex: none;
+    font-size: 11.5px;
+    font-weight: 600;
+    color: var(--grey-2);
+    text-align: left;
+  }
+
+  /* the order number heads the card rather than sitting in a row of its own */
+  .panel td[data-label="#"] {
+    justify-content: flex-start;
+    font-weight: 700;
+    padding-top: 10px;
+  }
+
+  .panel td[data-label="#"]::before {
+    display: none;
+  }
+}
+
 img.thumb {
   width: 42px;
   height: 52px;
@@ -617,13 +699,23 @@ img.thumb, .thumb-sm, .rec-thumb {
   font-weight: 600;
 }
 
+/* the status dropdown is itself .status-form, so a descendant selector left
+   it with the browser's own chrome beside the styled icon buttons */
+select.status-form,
 .status-form select {
   border: 1px solid var(--line);
   border-radius: var(--r-sm);
   padding: 5px 8px;
   font-size: 12px;
   font-family: inherit;
+  color: var(--ink);
   background: var(--paper);
+  cursor: pointer;
+}
+
+select.status-form:hover,
+.status-form select:hover {
+  border-color: var(--rose);
 }
 
 .msg {
@@ -979,17 +1071,6 @@ img.thumb, .thumb-sm, .rec-thumb {
     flex-wrap: nowrap;
   }
 
-  /* .rec-sub carries the order date and the customer's signup line, which are
-     worth a column of their own rather than being hidden. Lists that have one
-     say so, since the column count differs. */
-  .rec-list.with-sub .rec {
-    grid-template-columns: minmax(0, 1fr) 150px 160px 150px 210px;
-  }
-
-  .rec-list:not(.with-sub) .rec-sub {
-    display: none;
-  }
-
   .rec-sub {
     font-size: 12px;
     color: var(--grey-2);
@@ -997,6 +1078,25 @@ img.thumb, .thumb-sm, .rec-thumb {
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+  }
+
+  /* Customers: the signup line and the amount spent are the two halves of
+     .rec-bottom, so they become columns here too. */
+  .rec-customers .rec {
+    grid-template-columns:
+      minmax(80px, 1.2fr)    /* name */
+      minmax(150px, 1.4fr)   /* email */
+      110px                  /* telephone */
+      minmax(160px, 1.2fr)   /* orders and signup */
+      minmax(90px, .8fr);    /* spent */
+  }
+
+  .rec-customers .rec-bottom {
+    display: contents;
+  }
+
+  .rec-customers .rec-price {
+    text-align: right;
   }
 
   /* the details panel and the edit form are siblings of .rec, not children */
@@ -1017,6 +1117,82 @@ img.thumb, .thumb-sm, .rec-thumb {
   .rec > .order-edit,
   .rec > [id^="items-"] {
     grid-column: 1 / -1;
+  }
+}
+
+/* Orders carry two more columns than the catalogue — the date, and buttons and
+   a price that each want their own — and six columns need about 1240px before
+   any of them is readable. Below that the stacked card is the better layout,
+   so the row rules above are undone rather than squeezed. */
+@media(min-width:1000px) and (max-width:1239px) {
+  .rec-orders .rec {
+    display: block;
+    padding: 14px 18px;
+  }
+
+  .rec-orders .rec-top {
+    align-items: flex-start;
+    justify-content: space-between;
+  }
+
+  .rec-orders .rec-corner {
+    order: 0;
+  }
+
+  .rec-orders .rec-title {
+    flex-wrap: wrap;
+  }
+
+  .rec-orders .rec-title,
+  .rec-orders .rec-meta,
+  .rec-orders .rec-ref {
+    overflow: visible;
+    white-space: normal;
+  }
+
+  .rec-orders .rec-ref { margin-top: 3px; }
+  .rec-orders .rec-meta { margin-top: 12px; }
+  .rec-orders .rec-sub { margin-top: 4px; }
+  .rec-orders .rec-bottom { margin-top: 14px; }
+}
+
+/* The full order row. Every track has a fixed minimum, so the columns line up
+   down the list however wide the window is, and the flexible ones share what
+   is left over. */
+@media(min-width:1240px) {
+  .rec-orders .rec {
+    grid-template-columns:
+      minmax(140px, 1.4fr)   /* customer */
+      118px                  /* number and telephone */
+      minmax(130px, 1.2fr)   /* delivery */
+      96px                   /* date */
+      220px                  /* buttons */
+      minmax(96px, 1fr);     /* total */
+  }
+
+  /* the buttons and the total are one element in the stacked card; here each
+     belongs in a column of its own */
+  .rec-orders .rec-bottom {
+    display: contents;
+  }
+
+  .rec-orders .rec-actions {
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+  }
+
+  .rec-orders select.status-form {
+    width: 106px;
+  }
+
+  .rec-orders .rec-price {
+    text-align: right;
+    line-height: 1.25;
+  }
+
+  .rec-orders .rec-price .rec-sub {
+    text-align: right;
+    font-size: 11px;
   }
 }
 

@@ -211,7 +211,7 @@ require __DIR__ . '/includes/header.php';
       <button type="submit" class="bulk-del">Supprimer la sélection</button>
     </div>
 
-  <div class="rec-list with-sub">
+  <div class="rec-list rec-orders">
     <?php foreach ($orders as $o): $items = $itemsByOrder[$o['id']]; $rid = 'items-' . (int)$o['id']; ?>
       <div class="rec">
         <div class="rec-top">
@@ -230,7 +230,7 @@ require __DIR__ . '/includes/header.php';
         </div>
         <div class="rec-ref">#<?= (int)$o['id'] ?> · <?= h($o['customer_phone']) ?></div>
         <div class="rec-meta"><?= $o['delivery_type'] === 'domicile' ? 'Domicile' : 'Bureau' ?> · <?= h($o['wilaya_name']) ?><?= $o['daira_name'] ? ' — ' . h($o['daira_name']) : '' ?></div>
-        <div class="rec-sub"><?= h($o['created_at']) ?></div>
+        <div class="rec-sub" title="<?= h($o['created_at']) ?>"><?= h(fmt_when($o['created_at'])) ?></div>
         <div class="rec-bottom">
           <div class="rec-actions">
             <button type="button" class="rec-ic toggle" data-target="<?= $rid ?>" aria-expanded="false" aria-label="Détails de la commande #<?= (int)$o['id'] ?>">
@@ -250,9 +250,11 @@ require __DIR__ . '/includes/header.php';
                 <?php endforeach; ?>
             </select>
           </div>
-          <div class="rec-price">
+          <?php $breakdown = fmt_da_admin($o['subtotal']) . ' + '
+              . ($o['delivery_fee'] ? fmt_da_admin($o['delivery_fee']) . ' livraison' : 'livraison offerte'); ?>
+          <div class="rec-price" title="<?= h($breakdown) ?>">
             <?= fmt_da_admin($o['total']) ?>
-            <div class="rec-sub"><?= fmt_da_admin($o['subtotal']) ?> + <?= $o['delivery_fee'] ? fmt_da_admin($o['delivery_fee']) : 'livraison offerte' ?><?= $o['delivery_fee'] ? ' livraison' : '' ?></div>
+            <div class="rec-sub"><?= h($breakdown) ?></div>
           </div>
         </div>
       </div>

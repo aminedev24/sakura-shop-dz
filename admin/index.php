@@ -69,7 +69,7 @@ require __DIR__ . '/includes/header.php';
           <td data-label="Wilaya"><?= h($o['wilaya_name']) ?></td>
           <td data-label="Total"><?= fmt_da_admin($o['total']) ?></td>
           <td data-label="Statut"><span class="badge <?= h($o['status']) ?>"><?= h($STATUS_LABELS[$o['status']] ?? $o['status']) ?></span></td>
-          <td data-label="Date"><?= h($o['created_at']) ?></td>
+          <td data-label="Date" title="<?= h($o['created_at']) ?>"><?= h(fmt_when($o['created_at'])) ?></td>
         </tr>
       <?php endforeach; ?>
       </tbody>
