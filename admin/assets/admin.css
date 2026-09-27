@@ -212,7 +212,9 @@ tbody tr:hover {
    read as a stacked card — six columns of "Commandes récentes" do not fit on a
    telephone, and scrolling sideways hides the customer behind the header. */
 @media(max-width:620px) {
-  .overflow-x-auto {
+  /* tailwind.css loads after this file and carries its own .overflow-x-auto,
+     so the override has to out-specify it rather than merely follow it */
+  .panel .overflow-x-auto {
     overflow-x: visible;
   }
 
@@ -273,14 +275,24 @@ tbody tr:hover {
     text-align: left;
   }
 
-  /* the order number heads the card rather than sitting in a row of its own */
-  .panel td[data-label="#"] {
-    justify-content: flex-start;
+  /* The order number and the customer head the card on one line instead of
+     taking a labelled row each. These two labels come from admin/index.php. */
+  .panel td[data-label="#"],
+  .panel td[data-label="Client"] {
+    display: inline-block;
+    width: auto;
+    padding: 10px 3px 6px;
     font-weight: 700;
-    padding-top: 10px;
+    text-align: left;
   }
 
-  .panel td[data-label="#"]::before {
+  .panel td[data-label="#"] {
+    padding-left: 14px;
+    color: var(--grey-2);
+  }
+
+  .panel td[data-label="#"]::before,
+  .panel td[data-label="Client"]::before {
     display: none;
   }
 }

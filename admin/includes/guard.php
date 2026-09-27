@@ -2,6 +2,12 @@
 session_start();
 require __DIR__ . '/../../config/db.php';
 
+// An admin page is a live view of the shop and must never be replayed from the
+// browser's cache: a stale copy shows yesterday's orders, survives a logout,
+// and hides a change that has already been made.
+header('Cache-Control: no-store, no-cache, must-revalidate');
+header('Pragma: no-cache');
+
 if (empty($_SESSION['user']) || $_SESSION['user']['role'] !== 'admin') {
     header('Location: login.php');
     exit;
