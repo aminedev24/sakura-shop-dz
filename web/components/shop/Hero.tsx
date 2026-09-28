@@ -3,7 +3,7 @@
 import { IArrow, ITruck, ICard, IStar, IPin } from '../icons2';
 import { useLang } from '@/lib/i18n';
 import Tiles from './Tiles';
-import { asset } from '@/lib/asset';
+import { bundled } from '@/lib/asset';
 
 export default function Hero() {
   const { t } = useLang();
@@ -19,7 +19,7 @@ export default function Hero() {
     <section className="wrap hero3" aria-label={t.heroKicker}>
       <div className="hero3-card">
         <div className="hero3-photo">
-          <img src={asset("uploads/products/p17.jpg")} alt="Sakura Shop" />
+          <img src={bundled("brand/hero.jpg")} alt="Sakura Shop" />
         </div>
 
         <div className="hero3-badge">

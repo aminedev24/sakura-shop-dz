@@ -2,14 +2,14 @@
 
 import { IArrow } from '../icons2';
 import { useLang } from '@/lib/i18n';
-import { asset } from '@/lib/asset';
+import { bundled } from '@/lib/asset';
 
 export default function PromoBanner() {
   const { t } = useLang();
   return (
     <section className="editorial" aria-label={t.pbKicker}>
       <div className="editorial-image">
-        <img src={asset("uploads/products/p12.jpg")} alt="" />
+        <img src={bundled("brand/satin.jpg")} alt="" />
       </div>
 
       <div className="editorial-copy">
