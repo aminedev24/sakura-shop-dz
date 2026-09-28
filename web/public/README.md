@@ -5,7 +5,7 @@ requested as `/brand/hero.jpg`, in development and in the exported build alike.
 
     brand/      design assets, referenced with bundled() from lib/asset.ts
 
-                hero.jpg        the hero photograph
+                hero.jpg        the hero photograph, the p17 collage
                 satin.jpg       category tile, and the promo banner
                 coton.jpg       category tile
                 boutonne.jpg    category tile
